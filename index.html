@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Correa Tools — Equipos y Herramientas Automotrices</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --orange: #C85A10;
+    --orange-light: #E8762A;
+    --orange-glow: rgba(200,90,16,0.15);
+    --orange-pale: #FFF0E6;
+    --white: #FFFFFF;
+    --off-white: #F9F6F3;
+    --dark: #1A1814;
+    --dark-2: #2C2825;
+    --dark-3: #3D3830;
+    --gray: #8A857E;
+    --gray-light: #D4CFC9;
+    --border: rgba(200,90,16,0.2);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--dark);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw;
+    height: 68px;
+    background: rgba(26,24,20,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo img { height: 42px; object-fit: contain; mix-blend-mode: lighten; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    color: var(--gray-light); text-decoration: none;
+    font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase;
+    font-weight: 600; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--orange-light); }
+  .nav-cta {
+    background: var(--orange); color: #fff; border: none;
+    padding: 10px 22px; border-radius: 4px; font-size: 14px;
+    font-weight: 700; cursor: pointer; text-decoration: none;
+    font-family: 'Barlow', sans-serif; letter-spacing: 0.04em;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { background: var(--orange-light); }
+  .hamburger { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; }
+  .mobile-menu {
+    display: none; position: fixed; top: 68px; left: 0; right: 0; z-index: 99;
+    background: var(--dark-2); padding: 24px 5vw; border-bottom: 1px solid var(--border);
+    flex-direction: column; gap: 20px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    color: var(--gray-light); text-decoration: none; font-size: 16px;
+    font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  }
+
+  /* ── HERO ── */
+  #inicio {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    padding: 100px 5vw 60px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 50%, rgba(200,90,16,0.18) 0%, transparent 70%),
+      linear-gradient(160deg, #1A1814 0%, #2C2218 60%, #1A1814 100%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image:
+      linear-gradient(var(--orange) 1px, transparent 1px),
+      linear-gradient(90deg, var(--orange) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 660px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(200,90,16,0.15); border: 1px solid var(--border);
+    border-radius: 40px; padding: 6px 16px; margin-bottom: 28px;
+  }
+  .hero-badge span { font-size: 12px; color: var(--orange-light); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+  .hero-badge::before { content:''; width:8px; height:8px; border-radius:50%; background:var(--orange-light); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(1.3)} }
+
+  .hero-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(52px, 8vw, 96px);
+    font-weight: 900; line-height: 0.92;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+  }
+  .hero-title em { font-style: normal; color: var(--orange); }
+  .hero-sub {
+    font-size: clamp(16px, 2vw, 20px); color: var(--gray-light);
+    line-height: 1.6; max-width: 480px; margin-bottom: 44px; font-weight: 400;
+  }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--orange); color: #fff;
+    padding: 16px 32px; border-radius: 4px;
+    font-size: 15px; font-weight: 700; text-decoration: none;
+    font-family: 'Barlow', sans-serif; letter-spacing: 0.04em;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--orange-light); transform: translateY(-2px); }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 10px;
+    border: 1px solid var(--gray); color: var(--gray-light);
+    padding: 16px 32px; border-radius: 4px;
+    font-size: 15px; font-weight: 600; text-decoration: none;
+    font-family: 'Barlow', sans-serif;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--orange); color: var(--orange-light); }
+  .hero-stats {
+    position: absolute; bottom: 48px; left: 5vw; right: 5vw;
+    display: flex; gap: 48px; z-index: 1;
+  }
+  .stat-item {}
+  .stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 42px; font-weight: 900; color: var(--orange);
+    line-height: 1;
+  }
+  .stat-label { font-size: 13px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
+
+  /* ── NOSOTROS ── */
+  #nosotros {
+    background: var(--off-white);
+    padding: 100px 5vw;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  .section-label {
+    display: inline-block;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(36px, 4vw, 56px); font-weight: 900; line-height: 1.0;
+    color: var(--dark); margin-bottom: 20px;
+  }
+  .section-title em { font-style: normal; color: var(--orange); }
+  .nosotros-text { font-size: 17px; color: var(--dark-3); line-height: 1.75; margin-bottom: 20px; }
+  .nosotros-right { display: flex; flex-direction: column; gap: 16px; }
+  .feature-card {
+    background: var(--white); border-radius: 8px; padding: 24px;
+    border-left: 4px solid var(--orange);
+    display: flex; gap: 16px; align-items: flex-start;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .feature-icon {
+    width: 44px; height: 44px; flex-shrink: 0;
+    background: var(--orange-pale); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+  }
+  .feature-title { font-size: 15px; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+  .feature-desc { font-size: 14px; color: var(--gray); line-height: 1.5; }
+
+  /* ── PRODUCTOS ── */
+  #productos {
+    background: var(--dark-2); padding: 100px 5vw;
+  }
+  .productos-header { text-align: center; margin-bottom: 64px; }
+  .productos-header .section-title { color: var(--white); }
+  .productos-header .section-title em { color: var(--orange); }
+  .productos-header p { color: var(--gray); font-size: 17px; max-width: 520px; margin: 16px auto 0; line-height: 1.7; }
+  .productos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px; max-width: 1200px; margin: 0 auto;
+  }
+  .product-card {
+    background: var(--dark); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px; padding: 36px 28px;
+    display: flex; flex-direction: column;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .product-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--orange); opacity: 0; transition: opacity 0.25s;
+  }
+  .product-card:hover { border-color: rgba(200,90,16,0.4); transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.4); }
+  .product-card:hover::before { opacity: 1; }
+  .product-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 72px; font-weight: 900;
+    color: rgba(200,90,16,0.08); line-height: 1;
+    position: absolute; top: 16px; right: 20px;
+    letter-spacing: -0.04em;
+  }
+  .product-icon { font-size: 40px; margin-bottom: 20px; display: block; }
+  .product-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 26px; font-weight: 900; color: var(--white);
+    line-height: 1.1; margin-bottom: 12px;
+    text-transform: uppercase; letter-spacing: 0.02em;
+  }
+  .product-desc { font-size: 15px; color: var(--gray); line-height: 1.65; flex: 1; margin-bottom: 28px; }
+  .product-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .tag {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--orange-light);
+    background: rgba(200,90,16,0.12); border: 1px solid rgba(200,90,16,0.25);
+    border-radius: 40px; padding: 4px 10px;
+  }
+  .btn-whatsapp {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    background: var(--orange); color: #fff;
+    padding: 13px 20px; border-radius: 6px;
+    font-size: 14px; font-weight: 700; text-decoration: none;
+    font-family: 'Barlow', sans-serif; letter-spacing: 0.04em;
+    transition: background 0.2s; margin-top: auto;
+  }
+  .btn-whatsapp:hover { background: var(--orange-light); }
+  .btn-whatsapp svg { flex-shrink: 0; }
+
+  /* ── POR QUÉ ── */
+  #porque {
+    background: var(--orange); padding: 80px 5vw;
+    text-align: center;
+  }
+  #porque .section-title { color: var(--white); }
+  #porque .section-label { color: rgba(255,255,255,0.7); }
+  .porque-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; max-width: 1000px; margin: 48px auto 0; }
+  .porque-item { text-align: center; }
+  .porque-icon { font-size: 40px; display: block; margin-bottom: 16px; }
+  .porque-title { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .porque-desc { font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.6; }
+
+  /* ── CONTACTO ── */
+  #contacto { background: var(--off-white); padding: 100px 5vw; }
+  .contacto-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; max-width: 1100px; margin: 0 auto; }
+  .contacto-left .section-title { color: var(--dark); }
+  .contacto-info { margin-top: 36px; display: flex; flex-direction: column; gap: 24px; }
+  .info-item { display: flex; gap: 16px; align-items: flex-start; }
+  .info-icon {
+    width: 48px; height: 48px; flex-shrink: 0;
+    background: var(--orange); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; color: #fff;
+  }
+  .info-label { font-size: 12px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 4px; }
+  .info-value { font-size: 16px; color: var(--dark); font-weight: 600; line-height: 1.4; }
+  .info-value a { color: var(--dark); text-decoration: none; }
+  .info-value a:hover { color: var(--orange); }
+  .map-container {
+    border-radius: 12px; overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.14);
+    height: 380px;
+  }
+  .map-container iframe { width: 100%; height: 100%; border: 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark); padding: 48px 5vw 32px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 24px; margin-bottom: 32px;
+  }
+  .footer-logo img { height: 36px; }
+  .footer-nav { display: flex; gap: 28px; list-style: none; flex-wrap: wrap; }
+  .footer-nav a { color: var(--gray); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+  .footer-nav a:hover { color: var(--orange-light); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.06); padding-top: 24px;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  }
+  .footer-copy { font-size: 13px; color: var(--gray); }
+  .footer-copy span { color: var(--orange); }
+
+  /* ── WHATSAPP FLOATING ── */
+  .wa-float {
+    position: fixed; bottom: 28px; right: 28px; z-index: 200;
+    background: #25D366; color: #fff;
+    width: 58px; height: 58px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+    text-decoration: none;
+    animation: wabounce 2.5s ease-in-out infinite;
+    transition: transform 0.2s;
+  }
+  .wa-float:hover { transform: scale(1.1); animation: none; }
+  @keyframes wabounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+  .wa-float svg { width: 30px; height: 30px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    #nosotros { grid-template-columns: 1fr; gap: 48px; }
+    .hero-stats { gap: 28px; flex-wrap: wrap; }
+    .contacto-inner { grid-template-columns: 1fr; }
+    .map-container { height: 280px; }
+    .footer-inner { flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 480px) {
+    .hero-actions { flex-direction: column; }
+    .btn-primary, .btn-secondary { justify-content: center; }
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#inicio">
+    <span style="font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:22px; color:var(--white); letter-spacing:0.02em; display:flex; align-items:center; gap:6px;">
+      <span style="font-size:20px;">🔧</span> CORREA <span style="color:var(--orange)">TOOLS</span>
+    </span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#productos">Productos</a></li>
+    <li><a href="#porque">¿Por qué elegirnos?</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <a class="nav-cta" href="https://wa.me/+573204946978/?text=Quiero%20consultar%20por%20un%20producto%20%F0%9F%94%A7" target="_blank">WhatsApp</a>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#nosotros" onclick="toggleMenu()">Nosotros</a>
+  <a href="#productos" onclick="toggleMenu()">Productos</a>
+  <a href="#porque" onclick="toggleMenu()">¿Por qué elegirnos?</a>
+  <a href="#contacto" onclick="toggleMenu()">Contacto</a>
+  <a href="https://wa.me/+573204946978/?text=Quiero%20consultar%20por%20un%20producto%20%F0%9F%94%A7" target="_blank" style="color:var(--orange)">WhatsApp</a>
+</div>
+
+<!-- HERO -->
+<section id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <!-- Logo visible en hero -->
+  <div style="position:absolute;top:100px;right:5vw;z-index:1;opacity:0.12;pointer-events:none;">
+    <svg width="280" height="200" viewBox="0 0 280 200" fill="none">
+      <circle cx="140" cy="100" r="90" stroke="#C85A10" stroke-width="2"/>
+      <circle cx="140" cy="100" r="70" stroke="#C85A10" stroke-width="1" stroke-dasharray="6 4"/>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span>Equipos para servitecas y talleres</span>
+    </div>
+    <h1 class="hero-title">
+      EQUIPA TU<br/>
+      TALLER CON<br/>
+      <em>LO MEJOR</em>
+    </h1>
+    <p class="hero-sub">
+      Distribuimos máquinas y herramientas especializadas para mecánica automotriz y servitecas en todo Colombia. Elevadores, alineadoras, balanceadoras y más.
+    </p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#productos">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><polyline points="9 12 11 14 15 10"/></svg>
+        Ver productos
+      </a>
+      <a class="btn-secondary" href="https://wa.me/+573204946978/?text=Quiero%20consultar%20por%20un%20producto%20%F0%9F%94%A7" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        Consultar por WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">+10</div>
+      <div class="stat-label">Años en el mercado</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">+500</div>
+      <div class="stat-label">Clientes satisfechos</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">Nacional</div>
+      <div class="stat-label">Cobertura de envío</div>
+    </div>
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<section id="nosotros">
+  <div class="reveal">
+    <span class="section-label">Quiénes somos</span>
+    <h2 class="section-title">TU ALIADO EN<br/><em>EQUIPAMIENTO</em><br/>AUTOMOTRIZ</h2>
+    <p class="nosotros-text">
+      Correa Tools es una empresa bogotana especializada en la distribución de máquinas y herramientas para servitecas y talleres de mecánica automotriz. Contamos con equipos de alta calidad que potencian la productividad y profesionalismo de tu negocio.
+    </p>
+    <p class="nosotros-text">
+      Asesoramos a cada cliente de forma personalizada para encontrar el equipo ideal según sus necesidades y presupuesto, con atención directa vía WhatsApp.
+    </p>
+  </div>
+  <div class="nosotros-right reveal">
+    <div class="feature-card">
+      <div class="feature-icon">🔧</div>
+      <div>
+        <div class="feature-title">Equipos de calidad certificada</div>
+        <div class="feature-desc">Comercializamos marcas reconocidas y equipos con garantía en todos nuestros productos.</div>
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🚚</div>
+      <div>
+        <div class="feature-title">Envíos a todo Colombia</div>
+        <div class="feature-desc">Despachamos desde Bogotá a cualquier ciudad del país con seguimiento de tu pedido.</div>
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💬</div>
+      <div>
+        <div class="feature-title">Asesoría personalizada</div>
+        <div class="feature-desc">Te ayudamos a elegir el equipo correcto. Respuesta rápida por WhatsApp.</div>
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🛠️</div>
+      <div>
+        <div class="feature-title">Soporte técnico</div>
+        <div class="feature-desc">Acompañamiento post-venta para instalación y uso correcto de tus equipos.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTOS -->
+<section id="productos">
+  <div class="productos-header reveal">
+    <span class="section-label">Nuestros productos</span>
+    <h2 class="section-title">EQUIPOS Y <em>HERRAMIENTAS</em></h2>
+    <p>Soluciones profesionales para servitecas y talleres automotrices. Consulta el precio por WhatsApp y recibe asesoría personalizada.</p>
+  </div>
+  <div class="productos-grid">
+
+    <!-- Producto 1 -->
+    <div class="product-card reveal">
+      <span class="product-num">01</span>
+      <span class="product-icon">🚗</span>
+      <h3 class="product-name">Elevadores Hidráulicos</h3>
+      <p class="product-desc">Elevadores de 2 y 4 postes para vehículos livianos y camionetas. Alta capacidad de carga, estructura robusta y sistema de seguridad integrado para trabajo seguro y eficiente.</p>
+      <div class="product-tags">
+        <span class="tag">2 postes</span>
+        <span class="tag">4 postes</span>
+        <span class="tag">Hidráulico</span>
+      </div>
+      <a class="btn-whatsapp" href="https://wa.me/+573204946978/?text=Quiero%20consultar%20por%20un%20elevador%20%F0%9F%9A%9B" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        Consultar precio
+      </a>
+    </div>
+
+    <!-- Producto 2 -->
+    <div class="product-card reveal">
+      <span class="product-num">02</span>
+      <span class="product-icon">🎯</span>
+      <h3 class="product-name">Máquinas de Alineación</h3>
+      <p class="product-desc">Alineadoras 3D de última generación con software de diagnóstico en tiempo real. Compatible con la mayoría de vehículos del mercado. Precisión milimétrica garantizada.</p>
+      <div class="product-tags">
+        <span class="tag">Alineación 3D</span>
+        <span class="tag">Software incluido</span>
+        <span class="tag">Precisión</span>
+      </div>
+      <a class="btn-whatsapp" href="https://wa.me/+573204946978/?text=Quiero%20consultar%20por%20una%20m%C3%A1quina%20de%20alineaci%C3%B3n%20%F0%9F%8E%AF" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        Consultar precio
+      </a>
+    </div>
+
+    <!-- Producto 3 -->
+    <div class="product-card reveal">
+      <span class="product-num">03</span>
+      <span class="product-icon">⚙️</span>
+      <h3 class="product-name">Balanceadoras de Llantas</h3>
+      <p class="product-desc">Balanceadoras computarizadas para llantas de pasajeros y SUV. Sistema automático de detección de peso, pantalla LCD y alta velocidad de trabajo para mayor productividad.</p>
+      <div class="product-tags">
+        <span class="tag">Computarizada</span>
+        <span class="tag">Auto-calibración</span>
+        <span class="tag">SUV</span>
+      </div>
+      <a class="btn-whatsapp" href="https://wa.me/+573204946978/?text=Quiero%20consultar%20por%20una%20balanceadora%20de%20llantas%20%E2%9A%99%EF%B8%8F" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        Consultar precio
+      </a>
+    </div>
+
+    <!-- Producto 4 -->
+    <div class="product-card reveal">
+      <span class="product-num">04</span>
+      <span class="product-icon">💨</span>
+      <h3 class="product-name">Compresores de Aire</h3>
+      <p class="product-desc">Compresores industriales de pistón y tornillo para uso continuo en taller. Bajo nivel de ruido, alta eficiencia energética y depósitos desde 100 hasta 500 litros disponibles.</p>
+      <div class="product-tags">
+        <span class="tag">Pistón</span>
+        <span class="tag">Tornillo</span>
+        <span class="tag">Industrial</span>
+      </div>
+      <a class="btn-whatsapp" href="https://wa.me/+573204946978/?text=Quiero%20consultar%20por%20un%20compresor%20de%20aire%20%F0%9F%92%A8" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        Consultar precio
+      </a>
+    </div>
+
+    <!-- Producto 5 -->
+    <div class="product-card reveal">
+      <span class="product-num">05</span>
+      <span class="product-icon">🔩</span>
+      <h3 class="product-name">Herramienta Especializada</h3>
+      <p class="product-desc">Juegos de herramientas para mecánica automotriz profesional: llaves de torque, extractores, pistolas de impacto neumáticas y eléctricas, y mucho más para equipar tu taller completo.</p>
+      <div class="product-tags">
+        <span class="tag">Torque</span>
+        <span class="tag">Impacto</span>
+        <span class="tag">Extractores</span>
+      </div>
+      <a class="btn-whatsapp" href="https://wa.me/+573204946978/?text=Quiero%20consultar%20por%20herramienta%20especializada%20%F0%9F%94%A9" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        Consultar precio
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- POR QUÉ ELEGIRNOS -->
+<section id="porque">
+  <div class="reveal">
+    <span class="section-label">Nuestras ventajas</span>
+    <h2 class="section-title">¿POR QUÉ ELEGIRNOS?</h2>
+  </div>
+  <div class="porque-grid">
+    <div class="porque-item reveal">
+      <span class="porque-icon">🏆</span>
+      <div class="porque-title">Calidad garantizada</div>
+      <div class="porque-desc">Todos nuestros equipos cuentan con garantía y son de marcas reconocidas en el sector automotriz.</div>
+    </div>
+    <div class="porque-item reveal">
+      <span class="porque-icon">💬</span>
+      <div class="porque-title">Atención personalizada</div>
+      <div class="porque-desc">Te asesoramos directamente por WhatsApp para encontrar el equipo ideal para tu negocio.</div>
+    </div>
+    <div class="porque-item reveal">
+      <span class="porque-icon">🚀</span>
+      <div class="porque-title">Envío a todo el país</div>
+      <div class="porque-desc">Despachamos desde Bogotá a cualquier ciudad de Colombia con seguimiento en tiempo real.</div>
+    </div>
+    <div class="porque-item reveal">
+      <span class="porque-icon">⚡</span>
+      <div class="porque-title">Respuesta rápida</div>
+      <div class="porque-desc">Respondemos tus consultas en el menor tiempo posible para que no pierdas oportunidades.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="contacto-inner">
+    <div class="contacto-left reveal">
+      <span class="section-label">Contáctanos</span>
+      <h2 class="section-title">VISÍTANOS O<br/><em>ESCRÍBENOS</em></h2>
+      <div class="contacto-info">
+        <div class="info-item">
+          <div class="info-icon">📍</div>
+          <div>
+            <div class="info-label">Dirección</div>
+            <div class="info-value">Locales 22-23, Cra 22 #17-60<br/>Bogotá, Colombia</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">📱</div>
+          <div>
+            <div class="info-label">Celular / WhatsApp</div>
+            <div class="info-value">
+              <a href="tel:+573204946978">+57 320 494 6978</a>
+            </div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">💬</div>
+          <div>
+            <div class="info-label">WhatsApp directo</div>
+            <div class="info-value">
+              <a href="https://wa.me/+573204946978/?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20productos%20%F0%9F%94%A7" target="_blank" style="color:var(--orange);font-weight:700;">
+                Enviar mensaje →
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🕐</div>
+          <div>
+            <div class="info-label">Horario de atención</div>
+            <div class="info-value">Lun – Sáb: 8:00 am – 6:00 pm</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="map-container">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.7968!2d-74.08600!3d4.61500!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sCra+22+%2317-60%2C+Bogot%C3%A1!5e0!3m2!1ses!2sco!4v1"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="Ubicación Correa Tools"></iframe>
+      </div>
+      <div style="margin-top:20px;">
+        <a class="btn-primary" href="https://www.google.com/maps/search/Cra+22+%2317-60+Bogot%C3%A1" target="_blank" style="width:100%;justify-content:center;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Ver en Google Maps
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <span style="font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:26px; color:var(--white); letter-spacing:0.02em; display:flex; align-items:center; gap:8px;">
+        <span style="font-size:24px;">🔧</span> CORREA <span style="color:var(--orange)">TOOLS</span>
+      </span>
+    </div>
+    <ul class="footer-nav">
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#productos">Productos</a></li>
+      <li><a href="#porque">¿Por qué elegirnos?</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a class="btn-primary" href="https://wa.me/+573204946978/?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20%F0%9F%94%A7" target="_blank">
+      Escríbenos
+    </a>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 <span>Correa Tools</span>. Bogotá, Colombia. Todos los derechos reservados.</p>
+    <p class="footer-copy">Equipos y herramientas para mecánica automotriz</p>
+  </div>
+</footer>
+
+<!-- WhatsApp flotante -->
+<a class="wa-float" href="https://wa.me/+573204946978/?text=Quiero%20consultar%20por%20un%20elevador%20%F0%9F%9A%9B" target="_blank" aria-label="WhatsApp Correa Tools">
+  <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+</a>
+
+<!-- Logo en nav desde archivo adjunto (base64 inline si aplica) -->
+<script>
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  document.addEventListener('click', function(e) {
+    const menu = document.getElementById('mobileMenu');
+    if (!menu.contains(e.target) && !e.target.closest('.hamburger')) {
+      menu.classList.remove('open');
+    }
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // Nav active state on scroll
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--orange-light)' : '';
+    });
+  });
+</script>
+</body>
+</html>
