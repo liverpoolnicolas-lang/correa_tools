@@ -1,0 +1,275 @@
+import { useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
+import Navbar from '../components/Navbar.jsx'
+import WaFloat from '../components/WaFloat.jsx'
+import { useProductos } from '../hooks/useProductos.js'
+
+const BASE = import.meta.env.BASE_URL
+
+const WA_ICON = (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+  </svg>
+)
+
+function SkeletonCard() {
+  return (
+    <div className="skeleton-card">
+      <div className="skeleton skeleton-img" />
+      <div className="skeleton-body">
+        <div className="skeleton skeleton-line" style={{ width: '60%' }} />
+        <div className="skeleton skeleton-line" style={{ width: '40%', height: '10px' }} />
+        <div className="skeleton skeleton-line" style={{ width: '100%', marginTop: '16px' }} />
+        <div className="skeleton skeleton-line" style={{ width: '100%' }} />
+        <div className="skeleton skeleton-line" style={{ width: '80%' }} />
+      </div>
+    </div>
+  )
+}
+
+function ProductCard({ producto, index }) {
+  const imgSrc = `${BASE}img/${producto.imagen}`
+
+  return (
+    <Link to={`/producto/${producto.slug}`} className="product-card reveal">
+      <span className="product-num">{String(index + 1).padStart(2, '0')}</span>
+      <div className="product-img-wrap">
+        <img
+          src={imgSrc}
+          alt={producto.nombre}
+          onError={e => {
+            e.target.style.display = 'none'
+            e.target.nextSibling && (e.target.nextSibling.style.display = 'flex')
+          }}
+        />
+        <div className="product-img-placeholder" style={{ display: 'none' }}>🔧</div>
+      </div>
+      <div className="product-body">
+        <span className="product-cat">{producto.categoria}</span>
+        <h3 className="product-name">{producto.nombre}</h3>
+        <p className="product-desc">{producto.descripcion}</p>
+        <span className="product-link">
+          Ver producto
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </span>
+      </div>
+    </Link>
+  )
+}
+
+export default function Home() {
+  const { productos, loading, error } = useProductos()
+  const revealRef = useRef(null)
+
+  // Scroll reveal con IntersectionObserver
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible')
+          observer.unobserve(entry.target)
+        }
+      })
+    }, { threshold: 0.12 })
+
+    const timer = setTimeout(() => {
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el))
+    }, 100)
+
+    return () => { clearTimeout(timer); observer.disconnect() }
+  }, [productos]) // re-corre cuando productos carga
+
+  return (
+    <>
+      <Navbar />
+
+      {/* ── HERO ── */}
+      <section id="inicio">
+        <div className="hero-bg" />
+        <div className="hero-grid" />
+        <div className="hero-content">
+          <div className="hero-badge">
+            <span>Distribuidores autorizados en Colombia</span>
+          </div>
+          <h1 className="hero-title">
+            EQUIPA<br />TU <em>TALLER</em><br />PROFESIONAL
+          </h1>
+          <p className="hero-sub">
+            Equipos y herramientas automotrices de alta calidad para servitecas y talleres. Asesoría personalizada y envío a todo el país.
+          </p>
+          <div className="hero-actions">
+            <a className="btn-primary" href="#productos" onClick={e => { e.preventDefault(); document.querySelector('#productos')?.scrollIntoView({ behavior: 'smooth' }) }}>
+              Ver productos
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a
+              className="btn-secondary"
+              href="https://wa.me/+573204946978/?text=Hola%2C%20quiero%20asesor%C3%ADa%20%F0%9F%94%A7"
+              target="_blank" rel="noreferrer"
+            >
+              {WA_ICON} Consultar por WhatsApp
+            </a>
+          </div>
+        </div>
+        <div className="hero-stats">
+          <div className="stat-item">
+            <div className="stat-num">+50</div>
+            <div className="stat-label">Productos disponibles</div>
+          </div>
+          <div className="stat-item">
+            <div className="stat-num">+5</div>
+            <div className="stat-label">Años de experiencia</div>
+          </div>
+          <div className="stat-item">
+            <div className="stat-num">+200</div>
+            <div className="stat-label">Clientes satisfechos</div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── NOSOTROS ── */}
+      <section id="nosotros">
+        <div className="reveal">
+          <span className="section-label">Quiénes somos</span>
+          <h2 className="section-title">EXPERTOS EN<br /><em>HERRAMIENTAS</em><br />AUTOMOTRICES</h2>
+          <p className="nosotros-text">
+            Somos una empresa bogotana especializada en la comercialización de equipos y herramientas automotrices profesionales. Trabajamos con marcas reconocidas para garantizar calidad y durabilidad en cada producto.
+          </p>
+          <p className="nosotros-text">
+            Asesoramos a cada cliente de forma personalizada para encontrar el equipo ideal según sus necesidades y presupuesto, con atención directa vía WhatsApp.
+          </p>
+        </div>
+        <div className="nosotros-right reveal">
+          {[
+            { icon: '🔧', title: 'Equipos de calidad certificada', desc: 'Comercializamos marcas reconocidas y equipos con garantía en todos nuestros productos.' },
+            { icon: '🚚', title: 'Envíos a todo Colombia', desc: 'Despachamos desde Bogotá a cualquier ciudad del país con seguimiento de tu pedido.' },
+            { icon: '💬', title: 'Asesoría personalizada', desc: 'Te ayudamos a elegir el equipo correcto. Respuesta rápida por WhatsApp.' },
+            { icon: '🛠️', title: 'Soporte técnico', desc: 'Acompañamiento post-venta para instalación y uso correcto de tus equipos.' },
+          ].map(f => (
+            <div className="feature-card" key={f.title}>
+              <div className="feature-icon">{f.icon}</div>
+              <div>
+                <div className="feature-title">{f.title}</div>
+                <div className="feature-desc">{f.desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── PRODUCTOS ── */}
+      <section id="productos">
+        <div className="productos-header reveal">
+          <span className="section-label">Nuestros productos</span>
+          <h2 className="section-title">EQUIPOS Y <em>HERRAMIENTAS</em></h2>
+          <p>Soluciones profesionales para servitecas y talleres automotrices. Haz clic en cualquier producto para ver más detalles.</p>
+        </div>
+
+        <div className="productos-grid">
+          {loading && Array.from({ length: 4 }).map((_, i) => <SkeletonCard key={i} />)}
+          {error && (
+            <div style={{ color: 'var(--gray)', gridColumn: '1/-1', textAlign: 'center', padding: '40px' }}>
+              ⚠️ {error}
+            </div>
+          )}
+          {!loading && !error && productos.map((p, i) => (
+            <ProductCard key={p.id} producto={p} index={i} />
+          ))}
+        </div>
+      </section>
+
+      {/* ── POR QUÉ ── */}
+      <section id="porque">
+        <div className="reveal">
+          <span className="section-label">Nuestras ventajas</span>
+          <h2 className="section-title">¿POR QUÉ ELEGIRNOS?</h2>
+        </div>
+        <div className="porque-grid">
+          {[
+            { icon: '🏆', title: 'Calidad garantizada', desc: 'Todos nuestros equipos cuentan con garantía y son de marcas reconocidas en el sector automotriz.' },
+            { icon: '💬', title: 'Atención personalizada', desc: 'Te asesoramos directamente por WhatsApp para encontrar el equipo ideal para tu negocio.' },
+            { icon: '🚀', title: 'Envío a todo el país', desc: 'Despachamos desde Bogotá a cualquier ciudad de Colombia con seguimiento en tiempo real.' },
+            { icon: '⚡', title: 'Respuesta rápida', desc: 'Respondemos tus consultas en el menor tiempo posible para que no pierdas oportunidades.' },
+          ].map(item => (
+            <div className="porque-item reveal" key={item.title}>
+              <span className="porque-icon">{item.icon}</span>
+              <div className="porque-title">{item.title}</div>
+              <div className="porque-desc">{item.desc}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── CONTACTO ── */}
+      <section id="contacto">
+        <div className="contacto-inner">
+          <div className="contacto-left reveal">
+            <span className="section-label">Contáctanos</span>
+            <h2 className="section-title">VISÍTANOS O<br /><em>ESCRÍBENOS</em></h2>
+            <div className="contacto-info">
+              {[
+                { icon: '📍', label: 'Dirección', value: 'Locales 22-23, Cra 22 #17-60\nBogotá, Colombia' },
+                { icon: '📱', label: 'Celular / WhatsApp', value: '+57 320 494 6978', href: 'tel:+573204946978' },
+                { icon: '💬', label: 'WhatsApp directo', value: 'Enviar mensaje →', href: 'https://wa.me/+573204946978/?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20%F0%9F%94%A7', external: true, highlight: true },
+                { icon: '🕐', label: 'Horario de atención', value: 'Lun – Sáb: 8:00 am – 6:00 pm' },
+              ].map(item => (
+                <div className="info-item" key={item.label}>
+                  <div className="info-icon">{item.icon}</div>
+                  <div>
+                    <div className="info-label">{item.label}</div>
+                    <div className="info-value">
+                      {item.href
+                        ? <a href={item.href} target={item.external ? '_blank' : undefined} rel={item.external ? 'noreferrer' : undefined} style={item.highlight ? { color: 'var(--orange)', fontWeight: 700 } : {}}>{item.value}</a>
+                        : item.value.split('\n').map((line, i) => <span key={i}>{line}{i === 0 ? <br /> : ''}</span>)
+                      }
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="reveal">
+            <div className="map-container">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.7968!2d-74.08600!3d4.61500!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sCra+22+%2317-60%2C+Bogot%C3%A1!5e0!3m2!1ses!2sco!4v1"
+                allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"
+                title="Ubicación Correa Tools"
+              />
+            </div>
+            <div style={{ marginTop: '20px' }}>
+              <a className="btn-primary" href="https://www.google.com/maps/search/Cra+22+%2317-60+Bogot%C3%A1" target="_blank" rel="noreferrer" style={{ width: '100%', justifyContent: 'center' }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Ver en Google Maps
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FOOTER ── */}
+      <footer>
+        <div className="footer-inner">
+          <span style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 900, fontSize: '26px', color: 'var(--white)', letterSpacing: '0.02em', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            🔧 CORREA <span style={{ color: 'var(--orange)' }}>TOOLS</span>
+          </span>
+          <ul className="footer-nav">
+            {['nosotros', 'productos', 'porque', 'contacto'].map(id => (
+              <li key={id}><a href={`#${id}`} onClick={e => { e.preventDefault(); document.querySelector(`#${id}`)?.scrollIntoView({ behavior: 'smooth' }) }}>{id === 'porque' ? '¿Por qué elegirnos?' : id.charAt(0).toUpperCase() + id.slice(1)}</a></li>
+            ))}
+          </ul>
+          <a className="btn-primary" href="https://wa.me/+573204946978/?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20%F0%9F%94%A7" target="_blank" rel="noreferrer">
+            Escríbenos
+          </a>
+        </div>
+        <div className="footer-bottom">
+          <p className="footer-copy">© 2025 <span>Correa Tools</span>. Bogotá, Colombia. Todos los derechos reservados.</p>
+          <p className="footer-copy">Equipos y herramientas para mecánica automotriz</p>
+        </div>
+      </footer>
+
+      <WaFloat />
+    </>
+  )
+}
