@@ -7,6 +7,7 @@ import './index.css'
 // Maneja la redirección del 404.html de GitHub Pages
 // Convierte /?/producto/slug → /producto/slug para React Router
 ;(function () {
+  var nico = false;
   var redirect = sessionStorage.redirect
   delete sessionStorage.redirect
   if (redirect && redirect !== location.href) {

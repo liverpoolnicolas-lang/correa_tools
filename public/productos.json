@@ -39,5 +39,13 @@
     "descripcion": "Alineador de ruedas basado en cruz 3D, movimiento automático de la cruz con cámaras HD; Los indicadores LED proporcionan una alerta visual para cada paso del procedimiento de alabeo, garras de 4 puntos con captadores 3D con luz",
     "categoria": "Ravaglioli",
     "imagen": "CT005.png"
+  },
+  {
+    "id": "CT006",
+    "nombre": "Elevador de doble tijera",
+    "slug": "elevador-de-doble-tijera",
+    "descripcion": "El elevador de doble tijera Ravaglioli RAV518NL es una solución electrohidráulica de perfil bajo diseñada para la elevación eficiente y segura de vehículos de hasta 3.000 kg, ideal para talleres mecánicos, servicios de neumáticos y zonas de recepción; su sistema de sincronización hidráulica patentado garantiza un movimiento uniforme independientemente de la distribución de la carga, mientras que la ausencia de conexiones mecánicas entre plataformas mejora la accesibilidad y el espacio de trabajo, incorporando además dispositivos de seguridad automáticos, señalización acústica y componentes autolubricantes que reducen el mantenimiento, todo en un diseño compacto que permite instalación sobre suelo o empotrada, ofreciendo alta estabilidad, resistencia y rendimiento profesional.",
+    "categoria": "Ravaglioli",
+    "imagen": "CT006.png"
   }
 ]
