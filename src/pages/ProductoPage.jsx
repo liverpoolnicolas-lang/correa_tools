@@ -47,7 +47,7 @@ export default function ProductoPage() {
 
   const youtubeId = getYoutubeId(producto.video)
   const imgSrc = `${BASE}img/${producto.imagen}`
-  const waMsg = encodeURIComponent(`Hola, quiero consultar el precio del ${producto.nombre} (${producto.id}) 🔧`)
+  const waMsg = encodeURIComponent(`Hola, quiero consultar el precio del ${producto.nombre}`)
 
   return (
     <>
@@ -79,7 +79,6 @@ export default function ProductoPage() {
               Volver al catálogo
             </Link>
 
-            <div className="producto-id">{producto.id}</div>
             <h1 className="producto-title">{producto.nombre}</h1>
             <span className="producto-cat-badge">{producto.categoria}</span>
             <p className="producto-desc-full">{producto.descripcion}</p>
