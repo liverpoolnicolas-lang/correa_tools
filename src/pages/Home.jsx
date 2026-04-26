@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar.jsx'
 import WaFloat from '../components/WaFloat.jsx'
@@ -27,11 +27,23 @@ function SkeletonCard() {
   )
 }
 
-function ProductCard({ producto, index }) {
-  const imgSrc = `${BASE}img/${producto.imagen}`
+function ProductCard({ producto, index, searchTerm }) {
+  const imgSrc = BASE + 'img/' + producto.imagen
+
+  // Resalta el término de búsqueda en el nombre
+  const highlight = (text) => {
+    if (!searchTerm.trim()) return text
+    const regex = new RegExp('(' + searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi')
+    const parts = text.split(regex)
+    return parts.map((part, i) =>
+      regex.test(part)
+        ? <mark key={i} style={{ background: 'var(--orange)', color: '#fff', borderRadius: '2px', padding: '0 2px' }}>{part}</mark>
+        : part
+    )
+  }
 
   return (
-    <Link to={`/producto/${producto.slug}`} className="product-card reveal">
+    <Link to={'/producto/' + producto.slug} className="product-card">
       <span className="product-num">{String(index + 1).padStart(2, '0')}</span>
       <div className="product-img-wrap">
         <img
@@ -46,7 +58,7 @@ function ProductCard({ producto, index }) {
       </div>
       <div className="product-body">
         <span className="product-cat">{producto.categoria}</span>
-        <h3 className="product-name">{producto.nombre}</h3>
+        <h3 className="product-name">{highlight(producto.nombre)}</h3>
         <p className="product-desc">{producto.descripcion}</p>
         <span className="product-link">
           Ver producto
@@ -61,9 +73,29 @@ function ProductCard({ producto, index }) {
 
 export default function Home() {
   const { productos, loading, error } = useProductos()
-  const revealRef = useRef(null)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [categoriaActiva, setCategoriaActiva] = useState('Todos')
 
-  // Scroll reveal con IntersectionObserver
+  // Categorías únicas derivadas de los productos
+  const categorias = useMemo(() => {
+    const cats = [...new Set(productos.map(p => p.categoria))]
+    return ['Todos', ...cats]
+  }, [productos])
+
+  // Filtrado combinado: categoría + búsqueda
+  const productosFiltrados = useMemo(() => {
+    return productos.filter(p => {
+      const matchCat = categoriaActiva === 'Todos' || p.categoria === categoriaActiva
+      const q = searchTerm.toLowerCase().trim()
+      const matchSearch = !q ||
+        p.nombre.toLowerCase().includes(q) ||
+        p.descripcion.toLowerCase().includes(q) ||
+        p.categoria.toLowerCase().includes(q)
+      return matchCat && matchSearch
+    })
+  }, [productos, categoriaActiva, searchTerm])
+
+  // Scroll reveal
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -72,18 +104,18 @@ export default function Home() {
           observer.unobserve(entry.target)
         }
       })
-    }, { threshold: 0.12 })
-
+    }, { threshold: 0.1 })
     const timer = setTimeout(() => {
       document.querySelectorAll('.reveal').forEach(el => observer.observe(el))
     }, 100)
-
     return () => { clearTimeout(timer); observer.disconnect() }
-  }, [productos]) // re-corre cuando productos carga
+  }, [productosFiltrados])
+
+  const hayFiltros = searchTerm || categoriaActiva !== 'Todos'
 
   return (
     <>
-      <Navbar />
+      <Navbar onSearch={setSearchTerm} searchValue={searchTerm} />
 
       {/* ── HERO ── */}
       <section id="inicio">
@@ -104,28 +136,15 @@ export default function Home() {
               Ver productos
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
-            <a
-              className="btn-secondary"
-              href="https://wa.me/+573204946978/?text=Hola%2C%20quiero%20asesor%C3%ADa%20%F0%9F%94%A7"
-              target="_blank" rel="noreferrer"
-            >
+            <a className="btn-secondary" href="https://wa.me/+573204946978/?text=Hola%2C%20quiero%20asesor%C3%ADa%20%F0%9F%94%A7" target="_blank" rel="noreferrer">
               {WA_ICON} Consultar por WhatsApp
             </a>
           </div>
         </div>
         <div className="hero-stats">
-          <div className="stat-item">
-            <div className="stat-num">+50</div>
-            <div className="stat-label">Productos disponibles</div>
-          </div>
-          <div className="stat-item">
-            <div className="stat-num">+5</div>
-            <div className="stat-label">Años de experiencia</div>
-          </div>
-          <div className="stat-item">
-            <div className="stat-num">+200</div>
-            <div className="stat-label">Clientes satisfechos</div>
-          </div>
+          <div className="stat-item"><div className="stat-num">+50</div><div className="stat-label">Productos disponibles</div></div>
+          <div className="stat-item"><div className="stat-num">+5</div><div className="stat-label">Años de experiencia</div></div>
+          <div className="stat-item"><div className="stat-num">+200</div><div className="stat-label">Clientes satisfechos</div></div>
         </div>
       </section>
 
@@ -134,12 +153,8 @@ export default function Home() {
         <div className="reveal">
           <span className="section-label">Quiénes somos</span>
           <h2 className="section-title">EXPERTOS EN<br /><em>HERRAMIENTAS</em><br />AUTOMOTRICES</h2>
-          <p className="nosotros-text">
-            Somos una empresa bogotana especializada en la comercialización de equipos y herramientas automotrices profesionales. Trabajamos con marcas reconocidas para garantizar calidad y durabilidad en cada producto.
-          </p>
-          <p className="nosotros-text">
-            Asesoramos a cada cliente de forma personalizada para encontrar el equipo ideal según sus necesidades y presupuesto, con atención directa vía WhatsApp.
-          </p>
+          <p className="nosotros-text">Somos una empresa bogotana especializada en la comercialización de equipos y herramientas automotrices profesionales. Trabajamos con marcas reconocidas para garantizar calidad y durabilidad en cada producto.</p>
+          <p className="nosotros-text">Asesoramos a cada cliente de forma personalizada para encontrar el equipo ideal según sus necesidades y presupuesto, con atención directa vía WhatsApp.</p>
         </div>
         <div className="nosotros-right reveal">
           {[
@@ -150,10 +165,7 @@ export default function Home() {
           ].map(f => (
             <div className="feature-card" key={f.title}>
               <div className="feature-icon">{f.icon}</div>
-              <div>
-                <div className="feature-title">{f.title}</div>
-                <div className="feature-desc">{f.desc}</div>
-              </div>
+              <div><div className="feature-title">{f.title}</div><div className="feature-desc">{f.desc}</div></div>
             </div>
           ))}
         </div>
@@ -167,6 +179,64 @@ export default function Home() {
           <p>Soluciones profesionales para servitecas y talleres automotrices. Haz clic en cualquier producto para ver más detalles.</p>
         </div>
 
+        {/* ── FILTROS ── */}
+        {!loading && !error && (
+          <div className="filtros-wrap">
+            {/* Búsqueda inline (alternativa / refuerzo del nav) */}
+            <div className="filtros-search-wrap">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+              </svg>
+              <input
+                type="text"
+                className="filtros-search"
+                placeholder="Buscar en productos..."
+                value={searchTerm}
+                onChange={e => setSearchTerm(e.target.value)}
+              />
+              {searchTerm && (
+                <button className="filtros-search-clear" onClick={() => setSearchTerm('')} aria-label="Limpiar">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                  </svg>
+                </button>
+              )}
+            </div>
+
+            {/* Botones de categoría */}
+            <div className="filtros-categorias">
+              {categorias.map(cat => (
+                <button
+                  key={cat}
+                  className={'filtro-btn' + (categoriaActiva === cat ? ' active' : '')}
+                  onClick={() => setCategoriaActiva(cat)}
+                >
+                  {cat}
+                  {cat !== 'Todos' && (
+                    <span className="filtro-count">
+                      {productos.filter(p => p.categoria === cat).length}
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+
+            {/* Info resultados */}
+            {hayFiltros && (
+              <div className="filtros-resultado">
+                {productosFiltrados.length === 0
+                  ? 'Sin resultados'
+                  : productosFiltrados.length + ' producto' + (productosFiltrados.length !== 1 ? 's' : '')}
+                {hayFiltros && (
+                  <button className="filtros-limpiar" onClick={() => { setSearchTerm(''); setCategoriaActiva('Todos') }}>
+                    Limpiar filtros ×
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
         <div className="productos-grid">
           {loading && Array.from({ length: 4 }).map((_, i) => <SkeletonCard key={i} />)}
           {error && (
@@ -174,8 +244,17 @@ export default function Home() {
               ⚠️ {error}
             </div>
           )}
-          {!loading && !error && productos.map((p, i) => (
-            <ProductCard key={p.id} producto={p} index={i} />
+          {!loading && !error && productosFiltrados.length === 0 && (
+            <div className="no-resultados">
+              <span style={{ fontSize: 48 }}>🔍</span>
+              <p>No encontramos productos para <strong>"{searchTerm || categoriaActiva}"</strong></p>
+              <button className="btn-primary" onClick={() => { setSearchTerm(''); setCategoriaActiva('Todos') }}>
+                Ver todos los productos
+              </button>
+            </div>
+          )}
+          {!loading && !error && productosFiltrados.map((p, i) => (
+            <ProductCard key={p.id} producto={p} index={i} searchTerm={searchTerm} />
           ))}
         </div>
       </section>
@@ -256,12 +335,10 @@ export default function Home() {
           </span>
           <ul className="footer-nav">
             {['nosotros', 'productos', 'porque', 'contacto'].map(id => (
-              <li key={id}><a href={`#${id}`} onClick={e => { e.preventDefault(); document.querySelector(`#${id}`)?.scrollIntoView({ behavior: 'smooth' }) }}>{id === 'porque' ? '¿Por qué elegirnos?' : id.charAt(0).toUpperCase() + id.slice(1)}</a></li>
+              <li key={id}><a href={'#' + id} onClick={e => { e.preventDefault(); document.querySelector('#' + id)?.scrollIntoView({ behavior: 'smooth' }) }}>{id === 'porque' ? '¿Por qué elegirnos?' : id.charAt(0).toUpperCase() + id.slice(1)}</a></li>
             ))}
           </ul>
-          <a className="btn-primary" href="https://wa.me/+573204946978/?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20%F0%9F%94%A7" target="_blank" rel="noreferrer">
-            Escríbenos
-          </a>
+          <a className="btn-primary" href="https://wa.me/+573204946978/?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20%F0%9F%94%A7" target="_blank" rel="noreferrer">Escríbenos</a>
         </div>
         <div className="footer-bottom">
           <p className="footer-copy">© 2025 <span>Correa Tools</span>. Bogotá, Colombia. Todos los derechos reservados.</p>

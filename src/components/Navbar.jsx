@@ -1,5 +1,8 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { useProductos } from '../hooks/useProductos.js'
+
+const BASE = import.meta.env.BASE_URL
 
 const WA_ICON = (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -7,20 +10,77 @@ const WA_ICON = (
   </svg>
 )
 
-export default function Navbar() {
+export default function Navbar({ onSearch, searchValue = '' }) {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
+  const [localSearch, setLocalSearch] = useState(searchValue)
+  const { productos } = useProductos()
+  const [suggestions, setSuggestions] = useState([])
+  const inputRef = useRef(null)
+  const wrapRef = useRef(null)
   const navigate = useNavigate()
   const location = useLocation()
   const isHome = location.pathname === '/'
 
-  // Si estamos en home, scroll a sección; si no, ir a home primero
+  useEffect(() => { setLocalSearch(searchValue) }, [searchValue])
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target)) {
+        setSuggestions([])
+        if (!localSearch) setSearchOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [localSearch])
+
+  useEffect(() => {
+    if (searchOpen && inputRef.current) inputRef.current.focus()
+  }, [searchOpen])
+
+  const handleSearchChange = (val) => {
+    setLocalSearch(val)
+    if (onSearch) onSearch(val)
+    if (val.trim().length > 1) {
+      const matches = productos
+        .filter(p =>
+          p.nombre.toLowerCase().includes(val.toLowerCase()) ||
+          p.categoria.toLowerCase().includes(val.toLowerCase())
+        )
+        .slice(0, 5)
+      setSuggestions(matches)
+    } else {
+      setSuggestions([])
+    }
+  }
+
+  const handleSuggestionClick = (producto) => {
+    setSuggestions([])
+    setLocalSearch('')
+    if (onSearch) onSearch('')
+    setSearchOpen(false)
+    navigate('/producto/' + producto.slug)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    setSuggestions([])
+    if (!isHome) navigate('/')
+    else document.querySelector('#productos')?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  const clearSearch = () => {
+    setLocalSearch('')
+    if (onSearch) onSearch('')
+    setSuggestions([])
+    setSearchOpen(false)
+  }
+
   const handleNav = (hash) => {
     setMenuOpen(false)
-    if (isHome) {
-      document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth' })
-    } else {
-      navigate('/' + hash)
-    }
+    if (isHome) document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth' })
+    else navigate('/' + hash)
   }
 
   return (
@@ -37,12 +97,52 @@ export default function Navbar() {
           <li><a href="#contacto" onClick={e => { e.preventDefault(); handleNav('#contacto') }}>Contacto</a></li>
         </ul>
 
-        <a
-          className="nav-cta"
-          href="https://wa.me/+573204946978/?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20%F0%9F%94%A7"
-          target="_blank"
-          rel="noreferrer"
-        >
+        {/* Barra de búsqueda */}
+        <div className={'nav-search-wrap' + (searchOpen ? ' open' : '')} ref={wrapRef}>
+          {!searchOpen ? (
+            <button className="nav-search-toggle" onClick={() => setSearchOpen(true)} aria-label="Buscar">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+              </svg>
+            </button>
+          ) : (
+            <form className="nav-search-form" onSubmit={handleSubmit}>
+              <svg className="nav-search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+              </svg>
+              <input
+                ref={inputRef}
+                className="nav-search-input"
+                type="text"
+                placeholder="Buscar producto..."
+                value={localSearch}
+                onChange={e => handleSearchChange(e.target.value)}
+              />
+              <button type="button" className="nav-search-clear" onClick={localSearch ? clearSearch : () => setSearchOpen(false)} aria-label="Cerrar">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+              </button>
+
+              {suggestions.length > 0 && (
+                <div className="nav-search-suggestions">
+                  {suggestions.map(p => (
+                    <button key={p.id} type="button" className="nav-suggestion-item" onClick={() => handleSuggestionClick(p)}>
+                      <img src={BASE + 'img/' + p.imagen} alt={p.nombre} className="nav-suggestion-img" onError={e => { e.target.style.display = 'none' }} />
+                      <div className="nav-suggestion-info">
+                        <span className="nav-suggestion-name">{p.nombre}</span>
+                        <span className="nav-suggestion-cat">{p.categoria}</span>
+                      </div>
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </form>
+          )}
+        </div>
+
+        <a className="nav-cta" href="https://wa.me/+573204946978/?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20%F0%9F%94%A7" target="_blank" rel="noreferrer">
           {WA_ICON}&nbsp; Escríbenos
         </a>
 
@@ -51,16 +151,31 @@ export default function Navbar() {
         </button>
       </nav>
 
-      <div className={`mobile-menu${menuOpen ? ' open' : ''}`} id="mobileMenu">
+      <div className={'mobile-menu' + (menuOpen ? ' open' : '')} id="mobileMenu">
+        <form className="mobile-search-form" onSubmit={handleSubmit}>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+            <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+          </svg>
+          <input
+            type="text"
+            placeholder="Buscar producto..."
+            value={localSearch}
+            onChange={e => handleSearchChange(e.target.value)}
+            className="mobile-search-input"
+          />
+          {localSearch && (
+            <button type="button" onClick={clearSearch} className="nav-search-clear">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M18 6L6 18M6 6l12 12"/>
+              </svg>
+            </button>
+          )}
+        </form>
         <a href="#nosotros" onClick={e => { e.preventDefault(); handleNav('#nosotros') }}>Nosotros</a>
         <a href="#productos" onClick={e => { e.preventDefault(); handleNav('#productos') }}>Productos</a>
         <a href="#porque" onClick={e => { e.preventDefault(); handleNav('#porque') }}>¿Por qué elegirnos?</a>
         <a href="#contacto" onClick={e => { e.preventDefault(); handleNav('#contacto') }}>Contacto</a>
-        <a
-          href="https://wa.me/+573204946978/?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20%F0%9F%94%A7"
-          target="_blank" rel="noreferrer"
-          style={{ color: 'var(--orange-light)' }}
-        >
+        <a href="https://wa.me/+573204946978/?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20%F0%9F%94%A7" target="_blank" rel="noreferrer" style={{ color: 'var(--orange-light)' }}>
           Escríbenos por WhatsApp →
         </a>
       </div>
