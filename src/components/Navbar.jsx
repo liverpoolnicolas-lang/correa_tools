@@ -86,6 +86,11 @@ export default function Navbar({ onSearch, searchValue = '' }) {
   return (
     <>
       <nav>
+        {/* Hamburger — izquierda en mobile, oculto en desktop */}
+        <button className="hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Menú">
+          <span /><span /><span />
+        </button>
+
         <Link to="/" className="nav-logo">
           <img src={BASE + 'logo.jpeg'} alt="Correa Tools" className="nav-logo-img" />
         </Link>
@@ -144,10 +149,6 @@ export default function Navbar({ onSearch, searchValue = '' }) {
         <a className="nav-cta" href="https://wa.me/+573204946978/?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20%F0%9F%94%A7" target="_blank" rel="noreferrer">
           {WA_ICON}&nbsp; Escríbenos
         </a>
-
-        <button className="hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Menú">
-          <span /><span /><span />
-        </button>
       </nav>
 
       <div className={'mobile-menu' + (menuOpen ? ' open' : '')} id="mobileMenu">

@@ -141,11 +141,6 @@ export default function Home() {
             </a>
           </div>
         </div>
-        <div className="hero-stats">
-          <div className="stat-item"><div className="stat-num">+50</div><div className="stat-label">Productos disponibles</div></div>
-          <div className="stat-item"><div className="stat-num">+5</div><div className="stat-label">Años de experiencia</div></div>
-          <div className="stat-item"><div className="stat-num">+200</div><div className="stat-label">Clientes satisfechos</div></div>
-        </div>
       </section>
 
       {/* ── PRODUCTOS ── */}
@@ -247,7 +242,6 @@ export default function Home() {
                 { icon: '📍', label: 'Dirección', value: 'Locales 22-23, Cra 22 #17-60\nBogotá, Colombia' },
                 { icon: '📱', label: 'Celular / WhatsApp', value: '+57 320 494 6978', href: 'tel:+573204946978' },
                 { icon: '💬', label: 'WhatsApp directo', value: 'Enviar mensaje →', href: 'https://wa.me/+573204946978/?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20%F0%9F%94%A7', external: true, highlight: true },
-                { icon: '🕐', label: 'Horario de atención', value: 'Lun – Sáb: 8:00 am – 6:00 pm' },
               ].map(item => (
                 <div className="info-item" key={item.label}>
                   <div className="info-icon">{item.icon}</div>
@@ -262,6 +256,33 @@ export default function Home() {
                   </div>
                 </div>
               ))}
+              {/* Horario detallado */}
+              <div className="info-item">
+                <div className="info-icon">🕐</div>
+                <div>
+                  <div className="info-label">Horario de atención</div>
+                  <div className="info-value">
+                    <table className="horario-table">
+                      <tbody>
+                        {[
+                          ['Lunes',     '7:30 a. m. – 5:30 p. m.'],
+                          ['Martes',    '7:30 a. m. – 5:30 p. m.'],
+                          ['Miércoles', '7:30 a. m. – 5:30 p. m.'],
+                          ['Jueves',    '7:30 a. m. – 5:30 p. m.'],
+                          ['Viernes',   '7:30 a. m. – 5:30 p. m.'],
+                          ['Sábado',    '8:00 a. m. – 12:00 p. m.'],
+                          ['Domingo',   'Cerrado'],
+                        ].map(([dia, hora]) => (
+                          <tr key={dia} className={hora === 'Cerrado' ? 'horario-cerrado' : ''}>
+                            <td className="horario-dia">{dia}</td>
+                            <td className="horario-hora">{hora}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div className="reveal">
