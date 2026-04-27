@@ -118,7 +118,7 @@ export default function Home() {
       <Navbar onSearch={setSearchTerm} searchValue={searchTerm} />
 
       {/* ── HERO ── */}
-      <section id="inicio">
+      <section id="home">
         <div className="hero-bg" />
         <div className="hero-grid" />
         <div className="hero-content">
@@ -145,29 +145,6 @@ export default function Home() {
           <div className="stat-item"><div className="stat-num">+50</div><div className="stat-label">Productos disponibles</div></div>
           <div className="stat-item"><div className="stat-num">+5</div><div className="stat-label">Años de experiencia</div></div>
           <div className="stat-item"><div className="stat-num">+200</div><div className="stat-label">Clientes satisfechos</div></div>
-        </div>
-      </section>
-
-      {/* ── NOSOTROS ── */}
-      <section id="nosotros">
-        <div className="reveal">
-          <span className="section-label">Quiénes somos</span>
-          <h2 className="section-title">EXPERTOS EN<br /><em>HERRAMIENTAS</em><br />AUTOMOTRICES</h2>
-          <p className="nosotros-text">Somos una empresa bogotana especializada en la comercialización de equipos y herramientas automotrices profesionales. Trabajamos con marcas reconocidas para garantizar calidad y durabilidad en cada producto.</p>
-          <p className="nosotros-text">Asesoramos a cada cliente de forma personalizada para encontrar el equipo ideal según sus necesidades y presupuesto, con atención directa vía WhatsApp.</p>
-        </div>
-        <div className="nosotros-right reveal">
-          {[
-            { icon: '🔧', title: 'Equipos de calidad certificada', desc: 'Comercializamos marcas reconocidas y equipos con garantía en todos nuestros productos.' },
-            { icon: '🚚', title: 'Envíos a todo Colombia', desc: 'Despachamos desde Bogotá a cualquier ciudad del país con seguimiento de tu pedido.' },
-            { icon: '💬', title: 'Asesoría personalizada', desc: 'Te ayudamos a elegir el equipo correcto. Respuesta rápida por WhatsApp.' },
-            { icon: '🛠️', title: 'Soporte técnico', desc: 'Acompañamiento post-venta para instalación y uso correcto de tus equipos.' },
-          ].map(f => (
-            <div className="feature-card" key={f.title}>
-              <div className="feature-icon">{f.icon}</div>
-              <div><div className="feature-title">{f.title}</div><div className="feature-desc">{f.desc}</div></div>
-            </div>
-          ))}
         </div>
       </section>
 
@@ -259,30 +236,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── POR QUÉ ── */}
-      <section id="porque">
-        <div className="reveal">
-          <span className="section-label">Nuestras ventajas</span>
-          <h2 className="section-title">¿POR QUÉ ELEGIRNOS?</h2>
-        </div>
-        <div className="porque-grid">
-          {[
-            { icon: '🏆', title: 'Calidad garantizada', desc: 'Todos nuestros equipos cuentan con garantía y son de marcas reconocidas en el sector automotriz.' },
-            { icon: '💬', title: 'Atención personalizada', desc: 'Te asesoramos directamente por WhatsApp para encontrar el equipo ideal para tu negocio.' },
-            { icon: '🚀', title: 'Envío a todo el país', desc: 'Despachamos desde Bogotá a cualquier ciudad de Colombia con seguimiento en tiempo real.' },
-            { icon: '⚡', title: 'Respuesta rápida', desc: 'Respondemos tus consultas en el menor tiempo posible para que no pierdas oportunidades.' },
-          ].map(item => (
-            <div className="porque-item reveal" key={item.title}>
-              <span className="porque-icon">{item.icon}</span>
-              <div className="porque-title">{item.title}</div>
-              <div className="porque-desc">{item.desc}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* ── CONTACTO ── */}
-      <section id="contacto">
+      <section id="contactenos">
         <div className="contacto-inner">
           <div className="contacto-left reveal">
             <span className="section-label">Contáctanos</span>
@@ -330,13 +285,11 @@ export default function Home() {
       {/* ── FOOTER ── */}
       <footer>
         <div className="footer-inner">
-          <span style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 900, fontSize: '26px', color: 'var(--white)', letterSpacing: '0.02em', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            🔧 CORREA <span style={{ color: 'var(--orange)' }}>TOOLS</span>
-          </span>
+          <img src={`${BASE}logo.jpeg`} alt="Correa Tools" style={{ height: '48px', width: 'auto', objectFit: 'contain', mixBlendMode: 'lighten' }} />
           <ul className="footer-nav">
-            {['nosotros', 'productos', 'porque', 'contacto'].map(id => (
-              <li key={id}><a href={'#' + id} onClick={e => { e.preventDefault(); document.querySelector('#' + id)?.scrollIntoView({ behavior: 'smooth' }) }}>{id === 'porque' ? '¿Por qué elegirnos?' : id.charAt(0).toUpperCase() + id.slice(1)}</a></li>
-            ))}
+            <li><a href="#home" onClick={e => { e.preventDefault(); document.querySelector('#home')?.scrollIntoView({ behavior: 'smooth' }) }}>Principal</a></li>
+            <li><a href="#productos" onClick={e => { e.preventDefault(); document.querySelector('#productos')?.scrollIntoView({ behavior: 'smooth' }) }}>Productos</a></li>
+            <li><a href="#contactenos" onClick={e => { e.preventDefault(); document.querySelector('#contactenos')?.scrollIntoView({ behavior: 'smooth' }) }}>Contáctenos</a></li>
           </ul>
           <a className="btn-primary" href="https://wa.me/+573204946978/?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20%F0%9F%94%A7" target="_blank" rel="noreferrer">Escríbenos</a>
         </div>

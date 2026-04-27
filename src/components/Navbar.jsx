@@ -87,14 +87,13 @@ export default function Navbar({ onSearch, searchValue = '' }) {
     <>
       <nav>
         <Link to="/" className="nav-logo">
-          <span className="nav-logo-text">🔧 CORREA <span>TOOLS</span></span>
+          <img src={BASE + 'logo.jpeg'} alt="Correa Tools" className="nav-logo-img" />
         </Link>
 
         <ul className="nav-links">
-          <li><a href="#nosotros" onClick={e => { e.preventDefault(); handleNav('#nosotros') }}>Nosotros</a></li>
+          <li><a href="#home" onClick={e => { e.preventDefault(); handleNav('#home') }}>Principal</a></li>
           <li><a href="#productos" onClick={e => { e.preventDefault(); handleNav('#productos') }}>Productos</a></li>
-          <li><a href="#porque" onClick={e => { e.preventDefault(); handleNav('#porque') }}>¿Por qué elegirnos?</a></li>
-          <li><a href="#contacto" onClick={e => { e.preventDefault(); handleNav('#contacto') }}>Contacto</a></li>
+          <li><a href="#contactenos" onClick={e => { e.preventDefault(); handleNav('#contactenos') }}>Contáctenos</a></li>
         </ul>
 
         {/* Barra de búsqueda */}
@@ -171,10 +170,9 @@ export default function Navbar({ onSearch, searchValue = '' }) {
             </button>
           )}
         </form>
-        <a href="#nosotros" onClick={e => { e.preventDefault(); handleNav('#nosotros') }}>Nosotros</a>
+        <a href="#home" onClick={e => { e.preventDefault(); handleNav('#home') }}>Principal</a>
         <a href="#productos" onClick={e => { e.preventDefault(); handleNav('#productos') }}>Productos</a>
-        <a href="#porque" onClick={e => { e.preventDefault(); handleNav('#porque') }}>¿Por qué elegirnos?</a>
-        <a href="#contacto" onClick={e => { e.preventDefault(); handleNav('#contacto') }}>Contacto</a>
+        <a href="#contactenos" onClick={e => { e.preventDefault(); handleNav('#contactenos') }}>Contáctenos</a>
         <a href="https://wa.me/+573204946978/?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20%F0%9F%94%A7" target="_blank" rel="noreferrer" style={{ color: 'var(--orange-light)' }}>
           Escríbenos por WhatsApp →
         </a>
