@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import Navbar from '../components/Navbar.jsx'
 import WaFloat from '../components/WaFloat.jsx'
 import Footer from '../components/Footer.jsx'
@@ -11,7 +12,138 @@ const WA_ICON = (
   </svg>
 )
 
+/* ── HOOK: carga top.json + productos.json y los cruza ── */
+function useTopProductos() {
+  const [items, setItems] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    Promise.all([
+      fetch(BASE + 'top.json').then(r => r.json()),
+      fetch(BASE + 'productos.json').then(r => r.json()),
+    ])
+      .then(([ids, productos]) => {
+        const mapa = Object.fromEntries(productos.map(p => [p.id, p]))
+        const lista = ids
+          .map(id => mapa[id])
+          .filter(Boolean)
+          .map(p => ({
+            ...p,
+            slug: p.slug || p.nombre.toLowerCase()
+              .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+              .replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-'),
+          }))
+        setItems(lista)
+      })
+      .catch(() => setItems([]))
+      .finally(() => setLoading(false))
+  }, [])
+
+  return { items, loading }
+}
+
+/* ── CARRUSEL ── */
+function Carrusel({ items }) {
+  const [current, setCurrent] = useState(0)
+  const [paused, setPaused] = useState(false)
+  const touchStartX = useRef(null)
+  const total = items.length
+
+  const prev = useCallback(() => setCurrent(c => (c - 1 + total) % total), [total])
+  const next = useCallback(() => setCurrent(c => (c + 1) % total), [total])
+
+  // Autoplay
+  useEffect(() => {
+    if (paused || total < 2) return
+    const t = setInterval(next, 4000)
+    return () => clearInterval(t)
+  }, [paused, next, total])
+
+  // Touch / swipe
+  const onTouchStart = (e) => { touchStartX.current = e.touches[0].clientX }
+  const onTouchEnd = (e) => {
+    if (touchStartX.current === null) return
+    const diff = touchStartX.current - e.changedTouches[0].clientX
+    if (Math.abs(diff) > 40) diff > 0 ? next() : prev()
+    touchStartX.current = null
+  }
+
+  if (!items.length) return null
+
+  const item = items[current]
+
+  return (
+    <div
+      className="carrusel"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+    >
+      {/* Slides */}
+      <div className="carrusel-track">
+        {items.map((p, i) => (
+          <div
+            key={p.id}
+            className={'carrusel-slide' + (i === current ? ' active' : '')}
+            aria-hidden={i !== current}
+          >
+            <img
+              src={BASE + 'img/' + p.imagen}
+              alt={p.nombre}
+              className="carrusel-img"
+              onError={e => { e.target.src = ''; e.target.style.display = 'none' }}
+            />
+            <div className="carrusel-overlay" />
+            <Link to={'/producto/' + p.slug} className="carrusel-info">
+              <span className="carrusel-cat">{p.categoria}</span>
+              <span className="carrusel-nombre">{p.nombre}</span>
+              <span className="carrusel-cta">
+                Ver producto
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </span>
+            </Link>
+          </div>
+        ))}
+      </div>
+
+      {/* Flechas */}
+      {total > 1 && (
+        <>
+          <button className="carrusel-arrow carrusel-arrow-prev" onClick={prev} aria-label="Anterior">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+          </button>
+          <button className="carrusel-arrow carrusel-arrow-next" onClick={next} aria-label="Siguiente">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </button>
+        </>
+      )}
+
+      {/* Dots */}
+      <div className="carrusel-dots">
+        {items.map((_, i) => (
+          <button
+            key={i}
+            className={'carrusel-dot' + (i === current ? ' active' : '')}
+            onClick={() => setCurrent(i)}
+            aria-label={'Slide ' + (i + 1)}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+/* ── HOME ── */
 export default function Home() {
+  const { items, loading } = useTopProductos()
+
   return (
     <>
       <Navbar />
@@ -20,6 +152,9 @@ export default function Home() {
       <section id="home">
         <div className="hero-bg" />
         <div className="hero-grid" />
+
+        {/* En desktop: carrusel a la derecha del contenido */}
+        {/* En mobile: carrusel aparece ANTES del hero-content (via CSS order) */}
         <div className="hero-content">
           <div className="hero-badge">
             <span>Distribuidores autorizados en Colombia</span>
@@ -37,10 +172,20 @@ export default function Home() {
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
             </Link>
-            <a className="btn-secondary" href="https://wa.me/+573204946978/?text=Hola%2C%20quiero%20asesor%C3%ADa%20%F0%9F%94%A7" target="_blank" rel="noreferrer">
+            <a className="btn-secondary"
+              href="https://wa.me/+573204946978/?text=Hola%2C%20quiero%20asesor%C3%ADa%20%F0%9F%94%A7"
+              target="_blank" rel="noreferrer">
               {WA_ICON} Consultar por WhatsApp
             </a>
           </div>
+        </div>
+
+        {/* Carrusel — en desktop lado derecho, en mobile order-1 (antes del contenido) */}
+        <div className="hero-carrusel-wrap">
+          {loading
+            ? <div className="carrusel-skeleton" />
+            : <Carrusel items={items} />
+          }
         </div>
       </section>
 

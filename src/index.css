@@ -681,3 +681,178 @@ footer {
   .subpage-content { padding: 40px 5vw 60px; }
   .subpage-hero { padding: 40px 5vw 36px; }
 }
+
+/* ─────────────────────────────────────────
+   HERO — LAYOUT CON CARRUSEL
+───────────────────────────────────────── */
+#home {
+  /* Sobreescribe el anterior: ahora es grid en desktop */
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 0;
+  min-height: 100vh;
+  padding: 112px 0 0 0 !important;
+}
+
+.hero-content {
+  padding: 0 5vw 80px;
+  position: relative; z-index: 1;
+  order: 1; /* texto siempre a la izquierda en desktop */
+}
+
+.hero-carrusel-wrap {
+  position: relative; z-index: 1;
+  height: calc(100vh - 72px);
+  order: 2; /* carrusel a la derecha en desktop */
+  overflow: hidden;
+}
+
+/* Skeleton mientras carga */
+.carrusel-skeleton {
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, var(--dark-2) 25%, var(--dark-3) 50%, var(--dark-2) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+/* ─────────────────────────────────────────
+   CARRUSEL
+───────────────────────────────────────── */
+.carrusel {
+  position: relative;
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: transparent;
+}
+
+.carrusel-track {
+  position: relative; width: 100%; height: 100%;
+}
+
+.carrusel-slide {
+  position: absolute; inset: 0;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+  pointer-events: none;
+}
+.carrusel-slide.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.carrusel-img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  display: block;
+  background: transparent;
+}
+
+/* Overlay degradado desde abajo */
+.carrusel-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(26,24,20,0.92) 0%,
+    rgba(26,24,20,0.4)  40%,
+    rgba(26,24,20,0.1)  70%,
+    transparent         100%
+  );
+}
+
+/* Info sobre la imagen */
+.carrusel-info {
+  position: absolute; bottom: 60px; left: 0; right: 0;
+  padding: 0 32px;
+  display: flex; flex-direction: column; gap: 6px;
+  text-decoration: none;
+  z-index: 2;
+}
+.carrusel-cat {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--orange-light);
+}
+.carrusel-nombre {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(22px, 2.5vw, 32px); font-weight: 900;
+  color: var(--white); text-transform: uppercase;
+  line-height: 1.0;
+}
+.carrusel-cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 700; color: var(--orange-light);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  margin-top: 4px; transition: gap 0.2s;
+}
+.carrusel-info:hover .carrusel-cta { gap: 10px; }
+
+/* Flechas */
+.carrusel-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  z-index: 3; background: rgba(26,24,20,0.6);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--white); width: 40px; height: 40px;
+  border-radius: 50%; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, border-color 0.2s;
+  backdrop-filter: blur(4px);
+}
+.carrusel-arrow:hover { background: var(--orange); border-color: var(--orange); }
+.carrusel-arrow-prev { left: 12px; }
+.carrusel-arrow-next { right: 12px; }
+
+/* Dots */
+.carrusel-dots {
+  position: absolute; bottom: 20px; left: 0; right: 0;
+  display: flex; justify-content: center; gap: 8px; z-index: 3;
+}
+.carrusel-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.3); border: none; cursor: pointer;
+  padding: 0; transition: background 0.2s, transform 0.2s;
+}
+.carrusel-dot.active {
+  background: var(--orange);
+  transform: scale(1.25);
+}
+
+/* ─────────────────────────────────────────
+   RESPONSIVE HERO + CARRUSEL
+───────────────────────────────────────── */
+@media (max-width: 900px) {
+  #home {
+    grid-template-columns: 1fr !important;
+    padding: 72px 0 0 0 !important;
+    min-height: auto !important;
+  }
+
+  /* Mobile: carrusel PRIMERO (order -1), contenido después */
+  .hero-carrusel-wrap {
+    order: -1;
+    height: 56vw;   /* proporción agradable en mobile */
+    min-height: 260px;
+    max-height: 420px;
+    width: 100%;
+  }
+
+  .hero-content {
+    order: 1;
+    padding: 36px 5vw 56px;
+  }
+
+  .hero-bg, .hero-grid {
+    /* En mobile los fondos cubren solo la zona de contenido */
+    top: auto; position: relative; display: none;
+  }
+
+  .carrusel-info { bottom: 44px; padding: 0 20px; }
+  .carrusel-nombre { font-size: 20px; }
+}
+
+@media (max-width: 500px) {
+  .hero-carrusel-wrap {
+    height: 64vw;
+    min-height: 220px;
+  }
+  .carrusel-arrow { width: 32px; height: 32px; }
+}
