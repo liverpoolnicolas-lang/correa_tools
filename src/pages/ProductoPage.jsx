@@ -61,7 +61,7 @@ export default function ProductoPage() {
             <img
               src={imgSrc}
               alt={producto.nombre}
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              className="producto-img-principal"
               onError={e => {
                 e.target.style.display = 'none'
                 e.target.nextSibling && (e.target.nextSibling.style.display = 'flex')
