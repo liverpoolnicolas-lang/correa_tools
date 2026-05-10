@@ -3,7 +3,8 @@
     "id": "CT001",
     "nombre": "Compresimetro",
     "slug": "compresimetro",
-    "descripcion": "Un compresímetro automotriz es un instrumento de medición, tipo manómetro, diseñado para evaluar la presión interna de los cilindros de un motor. Permite diagnosticar el desgaste interno, fugas en las válvulas, anillos del pistón o empaques de culata (juntas), midiendo si la compresión es la adecuada según el fabricante",
+    "descripcion": "Instrumento de medición tipo manómetro para evaluar la presión interna de los cilindros de un motor. Diagnostica desgaste interno, fugas en válvulas, anillos del pistón o empaques de culata.",
+    "puntos": [],
     "categoria": "KND",
     "video": "https://www.youtube.com/watch?v=Pqy9sHplJ5E",
     "imagen": "CT001.jpeg"
@@ -12,7 +13,8 @@
     "id": "CT002",
     "nombre": "Probador de combustible",
     "slug": "probador-de-combustible",
-    "descripcion": "Un probador de combustible (o probador de presión de combustible) es una herramienta automotriz utilizada para medir la presión y el caudal de la gasolina o diésel en el sistema de inyección. Diagnostica fallas en la bomba, reguladores, inyectores o filtros obstruidos, asegurando el rendimiento óptimo del motor mediante la lectura de PSI/bares.",
+    "descripcion": "Herramienta automotriz para medir la presión y caudal de gasolina o diésel en el sistema de inyección. Diagnostica fallas en bomba, reguladores, inyectores o filtros obstruidos mediante lectura de PSI/bares.",
+    "puntos": [],
     "categoria": "KND",
     "imagen": "CT002.jpeg"
   },
@@ -20,7 +22,8 @@
     "id": "CT003",
     "nombre": "Probador de fugas",
     "slug": "probador-de-fugas",
-    "descripcion": "Un probador o detector de fugas es un instrumento diseñado para identificar la pérdida de aire, gases o líquidos en sistemas cerrados, tuberías, recipientes o motores. Funciona principalmente midiendo caídas de presión o detectando sonidos/sensores, siendo esencial para el mantenimiento preventivo y de seguridad.",
+    "descripcion": "Instrumento para identificar pérdida de aire, gases o líquidos en sistemas cerrados, tuberías, recipientes o motores. Esencial para mantenimiento preventivo y de seguridad.",
+    "puntos": [],
     "categoria": "KND",
     "imagen": "CT003.jpeg"
   },
@@ -28,7 +31,8 @@
     "id": "CT004",
     "nombre": "Probador de radiadores",
     "slug": "probador-de-radiadores",
-    "descripcion": "Un probador de radiadores (o de presión del sistema de refrigeración) es una herramienta mecánica utilizada para detectar fugas de refrigerante en el motor, mangueras, radiador y bomba de agua sin necesidad de desmontar componentes. Funciona mediante una bomba manual que presuriza el sistema, permitiendo identificar grietas o fallas a través de un manómetro.",
+    "descripcion": "Herramienta mecánica para detectar fugas de refrigerante en motor, mangueras, radiador y bomba de agua sin desmontar componentes. Presuriza el sistema mediante bomba manual con manómetro.",
+    "puntos": [],
     "categoria": "KND",
     "imagen": "CT004.jpeg"
   },
@@ -36,16 +40,207 @@
     "id": "CT005",
     "nombre": "TOWER",
     "slug": "tower",
-    "descripcion": "Alineador de ruedas basado en cruz 3D, movimiento automático de la cruz con cámaras HD; Los indicadores LED proporcionan una alerta visual para cada paso del procedimiento de alabeo, garras de 4 puntos con captadores 3D con luz",
+    "descripcion": "Alineador de ruedas basado en cruz 3D con cámaras HD y movimiento automático de la cruz. Indicadores LED visuales para cada paso del procedimiento. Garras de 4 puntos con captadores 3D con luz.",
+    "puntos": [],
     "categoria": "Ravaglioli",
     "imagen": "CT005.png"
   },
   {
-    "id": "CT006",
-    "nombre": "Elevador de doble tijera",
-    "slug": "elevador-de-doble-tijera",
-    "descripcion": "El elevador de doble tijera Ravaglioli RAV518NL es una solución electrohidráulica de perfil bajo diseñada para la elevación eficiente y segura de vehículos de hasta 3.000 kg, ideal para talleres mecánicos, servicios de neumáticos y zonas de recepción; su sistema de sincronización hidráulica patentado garantiza un movimiento uniforme independientemente de la distribución de la carga, mientras que la ausencia de conexiones mecánicas entre plataformas mejora la accesibilidad y el espacio de trabajo, incorporando además dispositivos de seguridad automáticos, señalización acústica y componentes autolubricantes que reducen el mantenimiento, todo en un diseño compacto que permite instalación sobre suelo o empotrada, ofreciendo alta estabilidad, resistencia y rendimiento profesional.",
+    "id": "CT007",
+    "nombre": "Alineador de ruedas CCD",
+    "slug": "alineador-de-ruedas-ccd",
+    "descripcion": "Todo lo que necesita en dos maletines de alta protección con certificación militar. Transmisión Bluetooth entre cabezales CCD y tableta resistente IP65.",
+    "puntos": [
+      "Dos grandes asas a cada lado con asas laterales plegables en cada carcasa",
+      "Maletas en copolímero de polipropileno con refuerzos anti-golpes",
+      "Garras de 3 puntos STDA92 ideales para cualquier rueda de camión — eliminan el procedimiento de compensación de alabeo",
+      "Cierre con ocho mosquetones con dos lengüetas — estanqueidad IP67",
+      "Cuatro ruedas auto-lubricantes de giro libre para fácil manejo",
+      "Transmisión por infrarrojos entre cabezales de medición, eficaz en condiciones de poca luz",
+      "Cabezales rebajados, diseñados especialmente para camiones y autobuses",
+      "Transmisión Bluetooth entre cabezales CCD y tableta",
+      "Cable de alimentación externo para recargar cabezales y tableta dentro del maletín",
+      "Programa de gestión en entorno Microsoft Windows — página de resumen con diagnóstico por eje",
+      "Base de datos multimarca con fichas técnicas completas y configuraciones personalizadas",
+      "Medición de vehículos de varios ejes de forma sencilla y rápida",
+      "Tableta: IP65, resistente a caídas hasta 1,2 m, 8 GB, pantalla 1200×1920, Wi-Fi 6E, BT5.3, peso < 800 g",
+      "Maleta: impermeable, resistente a químicos y polvo, temperaturas -33 °C / +90 °C, 100% Made in Italy, estándar militar"
+    ],
     "categoria": "Ravaglioli",
-    "imagen": "CT006.png"
+    "imagen": "CT007.jpeg"
+  },
+  {
+    "id": "CT008",
+    "nombre": "Alineador de ruedas 3D",
+    "slug": "alineador-de-ruedas-3d",
+    "descripcion": "Serie AllOnWall — The High-tech Solution for Wheel Alignment. Diseño completamente inalámbrico con Bluetooth, sin consola ni cables. Todo montado en cómodo panel de pared.",
+    "puntos": [
+      "Diseño compacto: alineaciones sin consola, torre de datos ni PC",
+      "Completamente inalámbrico: comunicación Bluetooth entre sensores y tableta de 10\"",
+      "Precisión absoluta: cabezales 3D mejorados con resolución HQ y cámaras HD",
+      "Pantalla LCD con cinco teclas de navegación para control a distancia",
+      "Resolución 5MP para medición y compensación del nivel de la plataforma",
+      "Repetidores LED de ayuda al registro",
+      "Peso de 3 kg por cabezal — protección de goma integrada anti-golpes",
+      "Sistema de fijación rápida al elevador con protección contra obstáculos",
+      "Batería de 8 horas con sistema de liberación rápida y estaciones de carga con imanes",
+      "Garras de 3 puntos con autocentrado sin alabeo — sin contacto metal contra metal",
+      "Dianas Real 3D extremadamente ligeras, sin electrónica, sin mantenimiento",
+      "Compatible con sistema TEq-Link: asistencia remota, envío de resultados a clientes",
+      "Tableta 10\": IP52, resistente a caídas 76 cm, 64 GB, pantalla 800×1280, peso < 700 g",
+      "Logotipo Ravaglioli con retroiluminación LED de luz blanca cálida"
+    ],
+    "categoria": "Ravaglioli",
+    "imagen": "CT008.jpeg"
+  },
+  {
+    "id": "CT009",
+    "nombre": "Alineador de ruedas CCD (Sensores)",
+    "slug": "alineador-de-ruedas-ccd-sensores",
+    "descripcion": "Alineadores con sensores CCD, transmisión Bluetooth y baterías de carga rápida. Armario con ruedas para máxima movilidad entre puestos sin cables.",
+    "puntos": [
+      "Eco Cabinet: armario con material respetuoso con el medio ambiente",
+      "Detectores CCD extraligeros — 2,6 kg (30% menos que el modelo anterior)",
+      "Software con gráficos actualizados, interfaz intuitiva y animaciones de ayuda",
+      "Detectores con teclado para control remoto",
+      "Consola sobre ruedas con PC, impresora y monitor",
+      "Alimentación por baterías recargables de larga duración",
+      "Transmisión por infrarrojos entre detectores, eficaz con poca luz",
+      "Compartimento para garras y accesorios — amplificadores LED sinópticos",
+      "Procedimiento de giros electrónico para incidencia, inclinación y avance con alta precisión",
+      "Programa Spoiler automático para coches deportivos de perfil bajo",
+      "Programa Movie con gráficos animados 3D para guiar al operario",
+      "Diagnóstico rápido de desalineamiento del chasis",
+      "Base de datos con más de 90.000 fichas técnicas — 20.000 operaciones de clientes",
+      "Compatible con TEq-Link, sistemas ADAS y Shoot & Go"
+    ],
+    "categoria": "Ravaglioli",
+    "imagen": "CT009.jpeg"
+  },
+  {
+    "id": "CT010",
+    "nombre": "Elevador de tijera Alineación",
+    "slug": "elevador-de-tijera-alineacion",
+    "descripcion": "Serie RAV600N — One Lift for Double Solutions. Plataformas de grandes dimensiones diseñadas para máxima estabilidad incluso con vehículos de gran tamaño.",
+    "puntos": [
+      "Gran versatilidad: montaje empotrado o sobre el suelo",
+      "Nueva geometría que simplifica el proceso de realización del foso",
+      "Topes de rueda anchos para mayor seguridad de trabajo",
+      "Doble elevación con registros para superficie de trabajo completamente plana",
+      "Plataformas agujereadas para cabezales de alineadores 3D Ravaglioli",
+      "Sincronización hidráulica patentada — independiente de la distribución de la carga",
+      "Pernos de articulación con casquillos auto-lubricados sin mantenimiento",
+      "Dispositivo de apoyo mecánico automático con desbloqueo neumático",
+      "Bases con dispositivos de nivelación para fácil instalación",
+      "Mayor altura de elevación — suministrado en versión empotrada",
+      "Empotrado abierto para platos giratorios en toda la superficie — ideal para vía estrecha",
+      "Guía galvanizada para deslizamiento óptimo del gato"
+    ],
+    "categoria": "Ravaglioli",
+    "imagen": "CT010.jpeg"
+  },
+  {
+    "id": "CT011",
+    "nombre": "Elevador de tijera para camión",
+    "slug": "elevador-de-tijera-camion",
+    "descripcion": "Elevadores para vehículos industriales. Sin conexiones mecánicas entre plataformas para máxima operatividad en el área de trabajo.",
+    "puntos": [
+      "Sin conexiones mecánicas entre plataformas — máxima operatividad",
+      "Sincronización electrónica de movimientos independiente del reparto de carga",
+      "Dispositivo de apoyo mecánico automático con desbloqueo neumático",
+      "Pernos de articulación con casquillos autolubricantes sin mantenimiento",
+      "Superficie de plataformas con material antideslizante",
+      "Mínimo espacio ocupado con el elevador levantado",
+      "Suelo completamente libre con el elevador en posición todo bajo"
+    ],
+    "categoria": "Ravaglioli",
+    "imagen": "CT011.jpeg"
+  },
+  {
+    "id": "CT012",
+    "nombre": "Elevador de 4 columnas",
+    "slug": "elevador-de-4-columnas",
+    "descripcion": "Cilindro hidráulico completamente protegido dentro de la plataforma fija. Cables galvanizados de alta resistencia. Dispositivos de seguridad CE. Plataformas lisas.",
+    "puntos": [
+      "Cilindro hidráulico montado dentro de la plataforma fija — completamente protegido",
+      "Cables de elevación galvanizados de alta resistencia y preestirados",
+      "Poleas de gran diámetro con casquillos autolubricantes sin mantenimiento",
+      "Apoyo mecánico cada 100 mm con conexión automática y desbloqueo neumático",
+      "Dispositivos paracaídas de intervención inmediata ante rotura de cable",
+      "Señalización acústica anti-aplastes con activación automática al final de la bajada",
+      "Dispositivos de seguridad mecánicos, eléctricos e hidráulicos conformes a norma CE",
+      "Circuito de mando en baja tensión (24 V)",
+      "Versión con plataformas lisas"
+    ],
+    "categoria": "Ravaglioli",
+    "imagen": "CT012.jpeg"
+  },
+  {
+    "id": "CT013",
+    "nombre": "Desmontadora de neumáticos",
+    "slug": "desmontadora-de-neumaticos",
+    "descripcion": "Robusta estructura portante para correcta condición de trabajo en cualquier situación. Mandril autocentrador de gran rigidez y amplio campo de fijación.",
+    "puntos": [
+      "Robusta estructura portante para cualquier situación de trabajo",
+      "Cilindro cincado de simple efecto",
+      "Mandril autocentrador de gran rigidez y considerable campo de fijación",
+      "Pedales fácilmente desmontables para mantenimiento óptimo",
+      "Útil con protección integrada para llantas de aluminio"
+    ],
+    "categoria": "Ravaglioli",
+    "imagen": "CT013.jpeg"
+  },
+  {
+    "id": "CT014",
+    "nombre": "Desmontadora de neumáticos Automática",
+    "slug": "desmontadora-de-neumaticos-automatica",
+    "descripcion": "Leva para talón con mandos de bloqueo y alejamiento automático de la llanta. Nueva garra estándar con adherencia optimizada y puntas reemplazables.",
+    "puntos": [
+      "Leva para talón de accionamiento preciso",
+      "Mandos de bloqueo del útil con alejamiento automático de la llanta",
+      "Guía reglable para adaptación a distintos formatos",
+      "Nueva garra estándar con adherencia optimizada y puntas reemplazables",
+      "Útil con protección integrada para llantas de aluminio",
+      "Gran paleta articulada y perfilada para sustentación sin daños en llanta o neumático",
+      "Pistón destalonador de doble efecto en aleación ligera"
+    ],
+    "categoria": "Ravaglioli",
+    "imagen": "CT014.jpeg"
+  },
+  {
+    "id": "CT015",
+    "nombre": "Desmontadora de neumáticos Sin Palanca",
+    "slug": "desmontadora-de-neumaticos-sin-palanca",
+    "descripcion": "Útil sin desmontable patentado que sujeta el talón elevándolo progresivamente sin palancas. Exclusiva geometría SLIVO para máxima eficiencia.",
+    "puntos": [
+      "Útil patentado: se introduce entre neumático/llanta y eleva el talón sin palancas-separadores",
+      "Exclusiva geometría SLIVO facilita el agarre del talón inferior sin brazo de ayuda PLUS",
+      "Dispositivo para inflar neumáticos sin cámara — accionado por pedal con 2 posiciones",
+      "Chasis ancho y reforzado — reductor entre dos planchas de acero para evitar flexión",
+      "Destalonador con abertura ajustable para máxima rapidez",
+      "Cilindro cincado de doble efecto",
+      "Mandril autocentrador con doble sentido de rotación",
+      "Elevado par de torsión y elevada fuerza de fijación (dos pistones)"
+    ],
+    "categoria": "Ravaglioli",
+    "imagen": "CT015.jpeg"
+  },
+  {
+    "id": "CT016",
+    "nombre": "Desmontadora de neumáticos Camión",
+    "slug": "desmontadora-de-neumaticos-camion",
+    "descripcion": "Desmontadora electrohidráulica para camiones, máquinas agrícolas y movimientos de tierra. Agarre hasta 43\" (60\" con prolongaciones).",
+    "puntos": [
+      "Desmontadora electrohidráulica para camiones, maquinaria agrícola y de movimiento de tierra",
+      "Agarre hasta 43\" — hasta 60\" con prolongaciones",
+      "Doble velocidad en rotación del plato e hidráulicos",
+      "Motor con apagado automático tras 5 segundos de inactividad",
+      "Gran fuerza de destalonamiento para neumáticos pegados (obras, puertos, minas)",
+      "Electro-freno para bloqueo inmediato de rotación sin dañar el neumático",
+      "Compatible con ruedas de camión 19\" y 22,5\"",
+      "Bloqueo interno a partir de 90 mm"
+    ],
+    "categoria": "Ravaglioli",
+    "imagen": "CT016.jpeg"
   }
 ]
