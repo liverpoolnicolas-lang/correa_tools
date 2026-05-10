@@ -1,6 +1,5 @@
 [
  {
-  "id": "CT001",
   "nombre": "Compresimetro",
   "descripcion": "Un compresímetro automotriz es un instrumento de medición, tipo manómetro, diseñado para evaluar la presión interna de los cilindros de un motor. Permite diagnosticar el desgaste interno, fugas en las válvulas, anillos del pistón o empaques de culata (juntas), midiendo si la compresión es la adecuada según el fabricante",
   "categoria": "KND",
@@ -8,28 +7,24 @@
   "imagen": "CT001.jpeg"
  },
  {
-  "id": "CT002",
   "nombre": "Probador de combustible ",
   "descripcion": "Un probador de combustible (o probador de presión de combustible) es una herramienta automotriz utilizada para medir la presión y el caudal de la gasolina o diésel en el sistema de inyección. Diagnostica fallas en la bomba, reguladores, inyectores o filtros obstruidos, asegurando el rendimiento óptimo del motor mediante la lectura de PSI\/bares.",
   "categoria": "KND",
   "imagen": "CT002.jpeg"
  },
  {
-  "id": "CT003",
   "nombre": "Probador de fugas ",
   "descripcion": "Un probador o detector de fugas es un instrumento diseñado para identificar la pérdida de aire, gases o líquidos en sistemas cerrados, tuberías, recipientes o motores. Funciona principalmente midiendo caídas de presión o detectando sonidos\/sensores, siendo esencial para el mantenimiento preventivo y de seguridad.",
   "categoria": "KND",
   "imagen": "CT003.jpeg"
  },
  {
-  "id": "CT004",
   "nombre": "Probador de radiadores ",
   "descripcion": "Un probador de radiadores (o de presión del sistema de refrigeración) es una herramienta mecánica utilizada para detectar fugas de refrigerante en el motor, mangueras, radiador y bomba de agua sin necesidad de desmontar componentes. Funciona mediante una bomba manual que presuriza el sistema, permitiendo identificar grietas o fallas a través de un manómetro.",
   "categoria": "KND",
   "imagen": "CT004.jpeg"
  },
  {
-  "id": "CT005",
   "nombre": "TOWER",
   "descripcion": "Alineador de ruedas basado en cruz 3D, movimiento automático de la cruz con cámaras HD; Los indicadores LED proporcionan una alerta visual para cada paso del procedimiento de alabeo, garras de 4 puntos con captadores 3D con luz",
   "categoria": "Ravaglioli ",

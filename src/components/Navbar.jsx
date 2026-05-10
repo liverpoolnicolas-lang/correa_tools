@@ -92,7 +92,7 @@ export default function Navbar({ onSearch, searchValue = '' }) {
         </button>
 
         <Link to="/" className="nav-logo">
-          <img src={BASE + 'logo.jpeg'} alt="Correa Tools" className="nav-logo-img" />
+          <img src={BASE + 'logo.png'} alt="Correa Tools" className="nav-logo-img" />
         </Link>
 
         <ul className="nav-links">

@@ -306,7 +306,7 @@ export default function Home() {
       {/* ── FOOTER ── */}
       <footer>
         <div className="footer-inner">
-          <img src={`${BASE}logo.jpeg`} alt="Correa Tools" style={{ height: '48px', width: 'auto', objectFit: 'contain', mixBlendMode: 'lighten' }} />
+          <img src={`${BASE}logo.png`} alt="Correa Tools" style={{ height: '48px', width: '48px', objectFit: 'contain', borderRadius: '50%' }} />
           <ul className="footer-nav">
             <li><a href="#home" onClick={e => { e.preventDefault(); document.querySelector('#home')?.scrollIntoView({ behavior: 'smooth' }) }}>Principal</a></li>
             <li><a href="#productos" onClick={e => { e.preventDefault(); document.querySelector('#productos')?.scrollIntoView({ behavior: 'smooth' }) }}>Productos</a></li>

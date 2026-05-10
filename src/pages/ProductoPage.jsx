@@ -83,6 +83,14 @@ export default function ProductoPage() {
             <span className="producto-cat-badge">{producto.categoria}</span>
             <p className="producto-desc-full">{producto.descripcion}</p>
 
+            {producto.puntos && producto.puntos.length > 0 && (
+              <ul className="producto-puntos">
+                {producto.puntos.map((punto, i) => (
+                  <li key={i}>{punto}</li>
+                ))}
+              </ul>
+            )}
+
             <a
               className="btn-whatsapp"
               href={`https://wa.me/+573204946978/?text=${waMsg}`}
@@ -115,13 +123,13 @@ export default function ProductoPage() {
         {/* ── FOOTER MINI ── */}
         <footer>
           <div className="footer-inner">
-            <span style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 900, fontSize: '24px', color: 'var(--white)', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              🔧 CORREA <span style={{ color: 'var(--orange)' }}>TOOLS</span>
-            </span>
+            <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
+              <img src={`${BASE}logo.png`} alt="Correa Tools" style={{ height: '48px', width: '48px', objectFit: 'contain', borderRadius: '50%' }} />
+            </Link>
             <ul className="footer-nav">
-              <li><Link to="/#nosotros" style={{ color: 'var(--gray)', textDecoration: 'none' }}>Nosotros</Link></li>
+              <li><Link to="/" style={{ color: 'var(--gray)', textDecoration: 'none' }}>Principal</Link></li>
               <li><Link to="/#productos" style={{ color: 'var(--gray)', textDecoration: 'none' }}>Productos</Link></li>
-              <li><Link to="/#contacto" style={{ color: 'var(--gray)', textDecoration: 'none' }}>Contacto</Link></li>
+              <li><Link to="/#contactenos" style={{ color: 'var(--gray)', textDecoration: 'none' }}>Contáctenos</Link></li>
             </ul>
             <a className="btn-primary" href={`https://wa.me/+573204946978/?text=${waMsg}`} target="_blank" rel="noreferrer">
               Escríbenos
