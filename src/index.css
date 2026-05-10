@@ -606,3 +606,78 @@ footer {
     height: calc(100vh - 72px);
   }
 }
+
+/* ── NAV LINK ACTIVO ── */
+.nav-links a.nav-link-active,
+.nav-links .nav-link-active {
+  color: var(--orange-light) !important;
+  position: relative;
+}
+.nav-links a.nav-link-active::after,
+.nav-links .nav-link-active::after {
+  content: '';
+  position: absolute; bottom: -4px; left: 0; right: 0;
+  height: 2px; background: var(--orange); border-radius: 2px;
+}
+
+/* ── SUBPÁGINAS (Productos / Contáctenos) ── */
+.subpage-wrap {
+  min-height: 100vh;
+  padding-top: 72px;
+  background: var(--dark);
+  display: flex; flex-direction: column;
+}
+
+/* Mini hero de subpágina */
+.subpage-hero {
+  position: relative; overflow: hidden;
+  padding: 72px 5vw 60px;
+  display: flex; align-items: center;
+  min-height: 260px;
+}
+.subpage-hero-content {
+  position: relative; z-index: 1;
+}
+.subpage-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(40px, 6vw, 76px);
+  font-weight: 900; line-height: 0.95;
+  color: var(--white); text-transform: uppercase;
+  margin: 12px 0 16px;
+}
+.subpage-title em { font-style: normal; color: var(--orange); }
+.subpage-sub {
+  font-size: 17px; color: var(--gray-light);
+  max-width: 500px; line-height: 1.6;
+}
+
+/* Contenido de subpágina */
+.subpage-content {
+  background: var(--dark-2);
+  padding: 60px 5vw 80px;
+  flex: 1;
+}
+
+/* Contacto dentro de subpágina */
+.subpage-content .contacto-inner {
+  max-width: 1100px; margin: 0 auto;
+}
+.subpage-content .contacto-left .section-title { color: var(--white); }
+.subpage-content .info-label { color: var(--gray); }
+.subpage-content .info-value { color: var(--gray-light); }
+.subpage-content .info-value a { color: var(--gray-light); }
+.subpage-content .info-value a:hover { color: var(--orange-light); }
+.subpage-content .horario-dia { color: var(--gray-light); }
+.subpage-content .horario-hora { color: var(--gray); }
+.subpage-content .horario-cerrado .horario-dia,
+.subpage-content .horario-cerrado .horario-hora { color: #5a5550; }
+.subpage-content .horario-table tr { border-bottom-color: rgba(255,255,255,0.06); }
+
+@media (max-width: 900px) {
+  .subpage-content .contacto-inner { grid-template-columns: 1fr; }
+  .subpage-hero { padding: 56px 5vw 48px; min-height: auto; }
+}
+@media (max-width: 700px) {
+  .subpage-content { padding: 40px 5vw 60px; }
+  .subpage-hero { padding: 40px 5vw 36px; }
+}

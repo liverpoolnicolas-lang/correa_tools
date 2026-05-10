@@ -20,7 +20,9 @@ export default function Navbar({ onSearch, searchValue = '' }) {
   const wrapRef = useRef(null)
   const navigate = useNavigate()
   const location = useLocation()
-  const isHome = location.pathname === '/'
+
+  // Qué ruta está activa para resaltar el link
+  const isActive = (path) => location.pathname === path
 
   useEffect(() => { setLocalSearch(searchValue) }, [searchValue])
 
@@ -66,8 +68,7 @@ export default function Navbar({ onSearch, searchValue = '' }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     setSuggestions([])
-    if (!isHome) navigate('/')
-    else document.querySelector('#productos')?.scrollIntoView({ behavior: 'smooth' })
+    navigate('/productos')
   }
 
   const clearSearch = () => {
@@ -77,28 +78,30 @@ export default function Navbar({ onSearch, searchValue = '' }) {
     setSearchOpen(false)
   }
 
-  const handleNav = (hash) => {
-    setMenuOpen(false)
-    if (isHome) document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth' })
-    else navigate('/' + hash)
-  }
-
   return (
     <>
       <nav>
-        {/* Hamburger — izquierda en mobile, oculto en desktop */}
+        {/* Hamburger — izquierda en mobile */}
         <button className="hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Menú">
           <span /><span /><span />
         </button>
 
+        {/* Logo — siempre lleva a Principal (/) */}
         <Link to="/" className="nav-logo">
           <img src={BASE + 'logo.png'} alt="Correa Tools" className="nav-logo-img" />
         </Link>
 
+        {/* Links de navegación */}
         <ul className="nav-links">
-          <li><a href="#home" onClick={e => { e.preventDefault(); handleNav('#home') }}>Principal</a></li>
-          <li><a href="#productos" onClick={e => { e.preventDefault(); handleNav('#productos') }}>Productos</a></li>
-          <li><a href="#contactenos" onClick={e => { e.preventDefault(); handleNav('#contactenos') }}>Contáctenos</a></li>
+          <li>
+            <Link to="/" className={isActive('/') ? 'nav-link-active' : ''}>Principal</Link>
+          </li>
+          <li>
+            <Link to="/productos" className={isActive('/productos') ? 'nav-link-active' : ''}>Productos</Link>
+          </li>
+          <li>
+            <Link to="/contactenos" className={isActive('/contactenos') ? 'nav-link-active' : ''}>Contáctenos</Link>
+          </li>
         </ul>
 
         {/* Barra de búsqueda */}
@@ -122,7 +125,8 @@ export default function Navbar({ onSearch, searchValue = '' }) {
                 value={localSearch}
                 onChange={e => handleSearchChange(e.target.value)}
               />
-              <button type="button" className="nav-search-clear" onClick={localSearch ? clearSearch : () => setSearchOpen(false)} aria-label="Cerrar">
+              <button type="button" className="nav-search-clear"
+                onClick={localSearch ? clearSearch : () => setSearchOpen(false)} aria-label="Cerrar">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <path d="M18 6L6 18M6 6l12 12"/>
                 </svg>
@@ -131,13 +135,18 @@ export default function Navbar({ onSearch, searchValue = '' }) {
               {suggestions.length > 0 && (
                 <div className="nav-search-suggestions">
                   {suggestions.map(p => (
-                    <button key={p.id} type="button" className="nav-suggestion-item" onClick={() => handleSuggestionClick(p)}>
-                      <img src={BASE + 'img/' + p.imagen} alt={p.nombre} className="nav-suggestion-img" onError={e => { e.target.style.display = 'none' }} />
+                    <button key={p.id} type="button" className="nav-suggestion-item"
+                      onClick={() => handleSuggestionClick(p)}>
+                      <img src={BASE + 'img/' + p.imagen} alt={p.nombre}
+                        className="nav-suggestion-img"
+                        onError={e => { e.target.style.display = 'none' }} />
                       <div className="nav-suggestion-info">
                         <span className="nav-suggestion-name">{p.nombre}</span>
                         <span className="nav-suggestion-cat">{p.categoria}</span>
                       </div>
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                      </svg>
                     </button>
                   ))}
                 </div>
@@ -146,19 +155,21 @@ export default function Navbar({ onSearch, searchValue = '' }) {
           )}
         </div>
 
-        <a className="nav-cta" href="https://wa.me/+573204946978/?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20%F0%9F%94%A7" target="_blank" rel="noreferrer">
+        <a className="nav-cta"
+          href="https://wa.me/+573204946978/?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20%F0%9F%94%A7"
+          target="_blank" rel="noreferrer">
           {WA_ICON}&nbsp; Escríbenos
         </a>
       </nav>
 
+      {/* Menú mobile */}
       <div className={'mobile-menu' + (menuOpen ? ' open' : '')} id="mobileMenu">
         <form className="mobile-search-form" onSubmit={handleSubmit}>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
             <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
           </svg>
           <input
-            type="text"
-            placeholder="Buscar producto..."
+            type="text" placeholder="Buscar producto..."
             value={localSearch}
             onChange={e => handleSearchChange(e.target.value)}
             className="mobile-search-input"
@@ -171,10 +182,12 @@ export default function Navbar({ onSearch, searchValue = '' }) {
             </button>
           )}
         </form>
-        <a href="#home" onClick={e => { e.preventDefault(); handleNav('#home') }}>Principal</a>
-        <a href="#productos" onClick={e => { e.preventDefault(); handleNav('#productos') }}>Productos</a>
-        <a href="#contactenos" onClick={e => { e.preventDefault(); handleNav('#contactenos') }}>Contáctenos</a>
-        <a href="https://wa.me/+573204946978/?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20%F0%9F%94%A7" target="_blank" rel="noreferrer" style={{ color: 'var(--orange-light)' }}>
+        <Link to="/" onClick={() => setMenuOpen(false)}>Principal</Link>
+        <Link to="/productos" onClick={() => setMenuOpen(false)}>Productos</Link>
+        <Link to="/contactenos" onClick={() => setMenuOpen(false)}>Contáctenos</Link>
+        <a href="https://wa.me/+573204946978/?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20%F0%9F%94%A7"
+          target="_blank" rel="noreferrer" style={{ color: 'var(--orange-light)' }}
+          onClick={() => setMenuOpen(false)}>
           Escríbenos por WhatsApp →
         </a>
       </div>
