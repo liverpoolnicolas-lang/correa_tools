@@ -1,7 +1,8 @@
 [
-  "CT001",
-  "CT008",
+  { "tipo": "banner", "imagen": "banner.png" },
   "CT006",
+  "CT008",
+  "CT010",
   "CT014",
   "CT015"
 ]
