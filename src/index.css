@@ -464,7 +464,7 @@ footer {
    PÁGINA PRODUCTO
 ───────────────────────────────────────── */
 .producto-page { min-height: 100vh; background: var(--dark); padding-top: 72px; }
-.producto-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 0; min-height: 520px; }
+.producto-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
 .producto-img-side {
   background: var(--dark-2);
   display: flex;
@@ -603,10 +603,9 @@ footer {
   background: var(--orange);
 }
 
-/* Info side scrolleable cuando hay muchos puntos */
+/* Info side scrolleable solo en desktop cuando hay muchos puntos */
 .producto-info-side {
-  overflow-y: auto;
-  max-height: calc(100vh - 72px);
+  overflow-y: visible;
 }
 
 /* Hero producto: imagen sticky en desktop */
@@ -623,17 +622,31 @@ footer {
   .producto-img-principal {
     max-height: calc(100vh - 72px - 96px);
   }
+  .producto-info-side {
+    overflow-y: auto;
+    max-height: calc(100vh - 72px);
+  }
 }
 
-/* Mobile */
+/* Mobile — sin restricciones de altura, todo visible */
 @media (max-width: 900px) {
+  .producto-hero {
+    grid-template-columns: 1fr;
+    min-height: unset;
+  }
   .producto-img-side {
-    min-height: 260px;
-    padding: 24px;
+    min-height: 240px;
+    max-height: 70vw;
+    padding: 20px;
   }
   .producto-img-principal {
-    max-height: 55vw;
-    min-height: 200px;
+    max-height: 60vw;
+    min-height: unset;
+  }
+  .producto-info-side {
+    overflow-y: visible;
+    max-height: unset;
+    padding: 32px 5vw 48px;
   }
 }
 
