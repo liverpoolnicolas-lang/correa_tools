@@ -24,15 +24,22 @@ function useTopProductos() {
     ])
       .then(([ids, productos]) => {
         const mapa = Object.fromEntries(productos.map(p => [p.id, p]))
-        const lista = ids
-          .map(id => mapa[id])
-          .filter(Boolean)
-          .map(p => ({
+        const lista = ids.map(entry => {
+          // Entrada especial tipo banner
+          if (typeof entry === 'object' && entry.tipo === 'banner') {
+            return { tipo: 'banner', imagen: entry.imagen }
+          }
+          // Entrada normal por ID
+          const p = mapa[entry]
+          if (!p) return null
+          return {
             ...p,
+            tipo: 'producto',
             slug: p.slug || p.nombre.toLowerCase()
               .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
               .replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-'),
-          }))
+          }
+        }).filter(Boolean)
         setItems(lista)
       })
       .catch(() => setItems([]))
@@ -84,27 +91,32 @@ function Carrusel({ items }) {
       <div className="carrusel-track">
         {items.map((p, i) => (
           <div
-            key={p.id}
+            key={p.tipo === 'banner' ? 'banner' : p.id}
             className={'carrusel-slide' + (i === current ? ' active' : '')}
             aria-hidden={i !== current}
           >
             <img
-              src={BASE + 'img/' + p.imagen}
-              alt={p.nombre}
+              src={p.tipo === 'banner' ? BASE + p.imagen : BASE + 'img/' + p.imagen}
+              alt={p.tipo === 'banner' ? 'Correa Tools' : p.nombre}
               className="carrusel-img"
               onError={e => { e.target.src = ''; e.target.style.display = 'none' }}
             />
-            <div className="carrusel-overlay" />
-            <Link to={'/producto/' + p.slug} className="carrusel-info">
-              <span className="carrusel-cat">{p.categoria}</span>
-              <span className="carrusel-nombre">{p.nombre}</span>
-              <span className="carrusel-cta">
-                Ver producto
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-              </span>
-            </Link>
+            {/* Solo muestra overlay e info si es un producto */}
+            {p.tipo === 'producto' && (
+              <>
+                <div className="carrusel-overlay" />
+                <Link to={'/producto/' + p.slug} className="carrusel-info">
+                  <span className="carrusel-cat">{p.categoria}</span>
+                  <span className="carrusel-nombre">{p.nombre}</span>
+                  <span className="carrusel-cta">
+                    Ver producto
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  </span>
+                </Link>
+              </>
+            )}
           </div>
         ))}
       </div>
