@@ -45,8 +45,8 @@
     "categoria": "Ravaglioli",
     "imagen": "CT005.png"
   },
-  {
-    "id": "CT006",
+  {  
+  "id": "CT006",
     "nombre": "Elevador de doble tijera",
     "slug": "elevador-de-doble-tijera",
     "descripcion": "El elevador de doble tijera Ravaglioli RAV518NL es una solución electrohidráulica de perfil bajo diseñada para la elevación eficiente y segura de vehículos de hasta 3.000 kg, ideal para talleres mecánicos, servicios de neumáticos y zonas de recepción; su sistema de sincronización hidráulica patentado garantiza un movimiento uniforme independientemente de la distribución de la carga, mientras que la ausencia de conexiones mecánicas entre plataformas mejora la accesibilidad y el espacio de trabajo, incorporando además dispositivos de seguridad automáticos, señalización acústica y componentes autolubricantes que reducen el mantenimiento, todo en un diseño compacto que permite instalación sobre suelo o empotrada, ofreciendo alta estabilidad, resistencia y rendimiento profesional.",
@@ -250,5 +250,106 @@
     ],
     "categoria": "Ravaglioli",
     "imagen": "CT016.jpeg"
+  },
+  {
+    "id": "CT017",
+    "nombre": "Compresímetro Digital",
+    "slug": "compresimetro-digital",
+    "descripcion": "Indicador digital con pantalla retroiluminada. Muestra datos en 4 unidades: PSI, KPA, Bar y KG/CM². Compatible con autos, camiones, motos, embarcaciones y vehículos todoterreno.",
+    "puntos": [
+      "Pantalla retroiluminada con 4 unidades: PSI, KPA, Bar y KG/CM²",
+      "Control sencillo mediante botones",
+      "Compatible con automóviles, camiones, barcos, cuatrimotos, UTV, vehículos recreativos, motocicletas, motos de nieve y vehículos todoterreno"
+    ],
+    "categoria": "KND",
+    "imagen": "CT017.jpeg"
+  },
+  {
+    "id": "CT018",
+    "nombre": "Compresímetro Diésel 17 Piezas",
+    "slug": "compresimetro-diesel-17-piezas",
+    "descripcion": "Kit completo de 17 piezas para medir compresión en motores diésel. Rango 0–70 bar / 0–1000 PSI. Incluye 9 bujías incandescentes y 4 adaptadores de inyector.",
+    "puntos": [
+      "Rango de 0 – 70 bar / 0 – 1000 PSI con válvula de liberación",
+      "Tubo de 35,5 cm (14 pulgadas) para medición fácil y precisa",
+      "9 bujías incandescentes diferentes + 4 adaptadores de inyector incluidos",
+      "Restablecedor integrado — todos los adaptadores con atajo",
+      "Identifica válvulas desgastadas y anillos de pistón en autos, camiones y tractores diésel"
+    ],
+    "categoria": "KND",
+    "imagen": "CT018.jpeg"
+  },
+  {
+    "id": "CT019",
+    "nombre": "Kit Renault 1.4 y 1.6",
+    "slug": "kit-renault-1-4-y-1-6",
+    "descripcion": "Kit para sincronización correcta del motor en Renault K4J, K4M, F4P y F4R al cambiar la correa de distribución. Compatible con Clio, Laguna y Megane 1.4 / 1.6 16v.",
+    "puntos": [
+      "Sincronización de motores Renault K4J, K4M, F4P y F4R",
+      "Compatible con Clio, Laguna y Megane 1.4 / 1.6 16v",
+      "Mantiene dos poleas del árbol de levas en su lugar durante el cambio de correa",
+      "Se atornilla al centro de las levas usando los pernos existentes"
+    ],
+    "categoria": "KND",
+    "imagen": "CT019.jpeg"
+  },
+  {
+    "id": "CT020",
+    "nombre": "Kit Ford y Mazda",
+    "slug": "kit-ford-y-mazda",
+    "descripcion": "Bloquea árboles de levas y posiciona el motor en TDC para servicio y sincronización. Compatible con motores Ford Twin Cam 16V y la mayoría de motores Ford y Mazda.",
+    "puntos": [
+      "Bloquea árboles de levas y alinea el motor en TDC con precisión",
+      "Compatible con Ford 1.25L, 1.4L, 1.6L, 1.7L, 1.8L, 2.0L Twin Cam 16V, 2.3L, 2.5L",
+      "Compatible con 1.6L TI-VCT y 1.5L/1.6L VVT EcoBoost",
+      "Compatible con la mayoría de motores Mazda"
+    ],
+    "categoria": "KND",
+    "imagen": "CT020.jpeg"
+  },
+  {
+    "id": "CT021",
+    "nombre": "Kit Chevrolet, Tracker, Sonic y Cruze",
+    "slug": "kit-chevrolet-tracker-sonic-cruze",
+    "descripcion": "Kit de sincronización indispensable para cambio de correa de distribución en Chevrolet. Incluye llave para bomba de agua de 41 mm. Diseño compacto para acceso sin interferencias.",
+    "puntos": [
+      "Mantiene la sincronización correcta del árbol de levas al cambiar la correa",
+      "Incluye llave para bomba de agua de 41 mm — ajusta y sostiene la bomba fácilmente",
+      "Diseño compacto — accede al piñón sin interferencias con el chasis",
+      "Llave de bomba de agua compatible con motores 1.6L Chevrolet Aveo 2004 en adelante",
+      "Requiere extensión corta de cuadro 3/8 pulgada para la llave de bomba"
+    ],
+    "categoria": "KND",
+    "imagen": "CT021.jpeg"
+  },
+  {
+    "id": "CT022",
+    "nombre": "Kit Chevrolet Onix Turbo",
+    "slug": "kit-chevrolet-onix-turbo",
+    "descripcion": "Kit de sincronización para Chevrolet Onix y Tracker 1.0 y 1.2. Bloquea cigüeñal y alinea árboles de levas para cambio de banda o cadena de distribución.",
+    "puntos": [
+      "Compatible con Chevrolet Onix y Tracker motores 1.0 y 1.2",
+      "Bloquea el cigüeñal durante el cambio de banda o cadena",
+      "Alinea árboles de levas con precisión",
+      "Incluye herramientas de alineación"
+    ],
+    "categoria": "KND",
+    "imagen": "CT022.jpeg"
+  },
+  {
+    "id": "CT023",
+    "nombre": "Kit Ford EcoBoost 2.0",
+    "slug": "kit-ford-ecoboost-2-0",
+    "descripcion": "Kit de sincronización diseñado para motores Ford EcoBoost de inyección de gasolina. Alinea ejes de levas, configura sensor de manivela y ajusta el cigüeñal en TDC.",
+    "puntos": [
+      "Bloquea y verifica el árbol de levas en motores Ford EcoBoost de inyección",
+      "Alinea ejes de levas, sensor de manivela, equilibrador y cigüeñal en TDC",
+      "Compatible con Focus (2011.2-), Galaxy (2006.5-), Mondeo (2007.5-), S-MAX (2006.5-)",
+      "Compatible con Ford Fusion, Escape, Edge 2.0L EcoBoost (2017-2019)",
+      "Compatible con Ford Explorer y Mustang 2.3L EcoBoost (2015-2019)",
+      "Compatible con Ford Focus RS 2.3L EcoBoost (2016-2018)"
+    ],
+    "categoria": "KND",
+    "imagen": "CT023.jpeg"
   }
 ]
