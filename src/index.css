@@ -481,14 +481,14 @@ nav {
 /* ─────────────────────────────────────────
    FOOTER
 ───────────────────────────────────────── */
-footer { background: var(--text); padding: 48px 5vw 32px; border-top: 3px solid var(--orange); }
+footer { background: var(--orange); padding: 48px 5vw 32px; border-top: none; }
 .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; margin-bottom: 32px; }
 .footer-nav { display: flex; gap: 28px; list-style: none; flex-wrap: wrap; }
-.footer-nav a { color: #A09890; text-decoration: none; font-size: 14px; transition: color 0.2s; }
-.footer-nav a:hover { color: var(--orange-light); }
-.footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-.footer-copy { font-size: 13px; color: #6B6560; }
-.footer-copy span { color: var(--orange-light); }
+.footer-nav a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+.footer-nav a:hover { color: #fff; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.25); padding-top: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.footer-copy { font-size: 13px; color: rgba(255,255,255,0.7); }
+.footer-copy span { color: #fff; font-weight: 700; }
 
 /* WA Float */
 .wa-float {
