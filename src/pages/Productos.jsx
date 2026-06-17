@@ -7,47 +7,37 @@ import { useProductos } from '../hooks/useProductos.js'
 
 const BASE = import.meta.env.BASE_URL
 
-function SkeletonCard() {
-  return (
-    <div className="skeleton-card">
-      <div className="skeleton skeleton-img" />
-      <div className="skeleton-body">
-        <div className="skeleton skeleton-line" style={{ width: '60%' }} />
-        <div className="skeleton skeleton-line" style={{ width: '40%', height: '10px' }} />
-        <div className="skeleton skeleton-line" style={{ width: '100%', marginTop: '16px' }} />
-        <div className="skeleton skeleton-line" style={{ width: '100%' }} />
-        <div className="skeleton skeleton-line" style={{ width: '80%' }} />
-      </div>
-    </div>
-  )
+// ── MARCAS (agrega aquí las nuevas cuando quieras) ──
+const MARCAS = [
+  { id: 'Ravaglioli', desc: 'Equipos de alineación, elevadores y desmontadoras' },
+  { id: 'KND',        desc: 'Herramientas de diagnóstico y kits de distribución' },
+  { id: 'TK',         desc: 'Próximamente' },
+  { id: 'Snap-on',    desc: 'Próximamente' },
+]
+
+// ── ICONOS POR SUBCATEGORÍA ──
+const ICONS = {
+  'Alineadores de ruedas':       '🎯',
+  'Elevadores':                  '⬆️',
+  'Desmontadoras de neumáticos': '🔄',
+  'Herramientas de diagnóstico': '🔬',
+  'Kits de distribución':        '⚙️',
 }
 
-function ProductCard({ producto, index, searchTerm }) {
-  const imgSrc = BASE + 'img/' + producto.imagen
-
-  const highlight = (text) => {
-    if (!searchTerm.trim()) return text
-    const regex = new RegExp('(' + searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi')
-    const parts = text.split(regex)
-    return parts.map((part, i) =>
-      regex.test(part)
-        ? <mark key={i} style={{ background: 'var(--orange)', color: '#fff', borderRadius: '2px', padding: '0 2px' }}>{part}</mark>
-        : part
-    )
-  }
-
+// ── TARJETA DE PRODUCTO ──
+function ProductCard({ producto, index }) {
   return (
     <Link to={'/producto/' + producto.slug} className="product-card">
       <span className="product-num">{String(index + 1).padStart(2, '0')}</span>
       <div className="product-img-wrap">
-        <img src={imgSrc} alt={producto.nombre}
+        <img src={BASE + 'img/' + producto.imagen} alt={producto.nombre}
           onError={e => { e.target.style.display = 'none'; e.target.nextSibling && (e.target.nextSibling.style.display = 'flex') }}
         />
         <div className="product-img-placeholder" style={{ display: 'none' }}>🔧</div>
       </div>
       <div className="product-body">
-        <span className="product-cat">{producto.categoria}</span>
-        <h3 className="product-name">{highlight(producto.nombre)}</h3>
+        <span className="product-cat">{producto.subcategoria}</span>
+        <h3 className="product-name">{producto.nombre}</h3>
         <p className="product-desc">{producto.descripcion}</p>
         <span className="product-link">
           Ver producto
@@ -60,117 +50,187 @@ function ProductCard({ producto, index, searchTerm }) {
   )
 }
 
+// ── SKELETON ──
+function SkeletonCard() {
+  return (
+    <div className="skeleton-card">
+      <div className="skeleton skeleton-img" />
+      <div className="skeleton-body">
+        <div className="skeleton skeleton-line" style={{ width: '60%' }} />
+        <div className="skeleton skeleton-line" style={{ width: '100%', marginTop: 12 }} />
+        <div className="skeleton skeleton-line" style={{ width: '80%' }} />
+      </div>
+    </div>
+  )
+}
+
+// ── PÁGINA PRINCIPAL ──
 export default function Productos() {
-  const { productos, loading, error } = useProductos()
-  const [searchTerm, setSearchTerm] = useState('')
-  const [categoriaActiva, setCategoriaActiva] = useState('Todos')
+  const { productos, loading } = useProductos()
+
+  // nivel: 'marcas' | 'subcats' | 'productos'
+  const [marcaActiva,  setMarcaActiva]  = useState(null)
+  const [subcatActiva, setSubcatActiva] = useState(null)
+  const [busqueda,     setBusqueda]     = useState('')
 
   useEffect(() => { window.scrollTo(0, 0) }, [])
+  useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }) }, [marcaActiva, subcatActiva])
 
-  const categorias = useMemo(() => {
-    const cats = [...new Set(productos.map(p => p.categoria))]
-    return ['Todos', ...cats]
-  }, [productos])
+  // Subcategorías disponibles para la marca activa
+  const subcats = useMemo(() => {
+    if (!marcaActiva) return []
+    return [...new Set(
+      productos
+        .filter(p => p.categoria === marcaActiva)
+        .map(p => p.subcategoria || 'General')
+    )]
+  }, [productos, marcaActiva])
 
+  // Productos del nivel 3
   const productosFiltrados = useMemo(() => {
-    return productos.filter(p => {
-      const matchCat = categoriaActiva === 'Todos' || p.categoria === categoriaActiva
-      const q = searchTerm.toLowerCase().trim()
-      const matchSearch = !q ||
-        p.nombre.toLowerCase().includes(q) ||
-        p.descripcion.toLowerCase().includes(q) ||
-        p.categoria.toLowerCase().includes(q)
-      return matchCat && matchSearch
-    })
-  }, [productos, categoriaActiva, searchTerm])
+    if (!marcaActiva || !subcatActiva) return []
+    return productos.filter(p =>
+      p.categoria === marcaActiva &&
+      (p.subcategoria || 'General') === subcatActiva &&
+      (!busqueda.trim() ||
+        p.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
+        p.descripcion.toLowerCase().includes(busqueda.toLowerCase()))
+    )
+  }, [productos, marcaActiva, subcatActiva, busqueda])
 
-  const hayFiltros = searchTerm || categoriaActiva !== 'Todos'
+  const nivel = !marcaActiva ? 'marcas' : !subcatActiva ? 'subcats' : 'productos'
+  const conteo = (id) => productos.filter(p => p.categoria === id).length
+
+  // ── IR ATRÁS ──
+  const goBack = () => {
+    if (subcatActiva) { setSubcatActiva(null); setBusqueda('') }
+    else if (marcaActiva) { setMarcaActiva(null) }
+  }
 
   return (
     <>
-      <Navbar onSearch={setSearchTerm} searchValue={searchTerm} />
+      <Navbar />
 
       <div className="subpage-wrap">
-        {/* Header de sección */}
-        <div className="subpage-hero">
-          <div className="hero-bg" />
-          <div className="hero-grid" />
-          <div className="subpage-hero-content">
-            <span className="section-label">Catálogo completo</span>
-            <h1 className="subpage-title">EQUIPOS Y <em>HERRAMIENTAS</em></h1>
-            <p className="subpage-sub">Soluciones profesionales para servitecas y talleres automotrices.</p>
+
+        {/* ── CABECERA ── */}
+        <div className="cat-header">
+          {/* Breadcrumb */}
+          <div className="cat-breadcrumb">
+            <button
+              className={'cat-bc' + (!marcaActiva ? ' cat-bc-active' : '')}
+              onClick={() => { setMarcaActiva(null); setSubcatActiva(null); setBusqueda('') }}
+            >
+              Marcas
+            </button>
+            {marcaActiva && <>
+              <span className="cat-bc-sep">›</span>
+              <button
+                className={'cat-bc' + (!subcatActiva ? ' cat-bc-active' : '')}
+                onClick={() => { setSubcatActiva(null); setBusqueda('') }}
+              >
+                {marcaActiva}
+              </button>
+            </>}
+            {subcatActiva && <>
+              <span className="cat-bc-sep">›</span>
+              <span className="cat-bc cat-bc-active">{subcatActiva}</span>
+            </>}
+          </div>
+
+          {/* Título dinámico */}
+          <div className="cat-header-title">
+            {nivel === 'marcas' && <><h1>Selecciona una <em>marca</em></h1><p>Elige la marca para ver sus categorías y productos.</p></>}
+            {nivel === 'subcats' && <><h1>Categorías de <em>{marcaActiva}</em></h1><p>Elige una categoría para ver los productos.</p></>}
+            {nivel === 'productos' && <h1><em>{subcatActiva}</em> — {marcaActiva}</h1>}
           </div>
         </div>
 
-        {/* Filtros */}
-        <div className="subpage-content">
-          {!loading && !error && (
-            <div className="filtros-wrap">
-              <div className="filtros-search-wrap">
+        {/* ── CONTENIDO ── */}
+        <div className="cat-body">
+
+          {/* NIVEL 1 — MARCAS */}
+          {nivel === 'marcas' && (
+            <div className="marcas-grid">
+              {MARCAS.map(m => {
+                const n = conteo(m.id)
+                const activa = n > 0
+                return (
+                  <button
+                    key={m.id}
+                    className={'marca-card' + (!activa ? ' marca-vacia' : '')}
+                    onClick={() => activa && setMarcaActiva(m.id)}
+                  >
+                    <div className="marca-inicial">{m.id[0]}</div>
+                    <div className="marca-info">
+                      <span className="marca-nombre">{m.id}</span>
+                      <span className="marca-desc">{activa ? m.desc : 'Próximamente'}</span>
+                    </div>
+                    {activa
+                      ? <span className="marca-badge">{n} producto{n !== 1 ? 's' : ''}</span>
+                      : <span className="marca-pronto">Próximamente</span>
+                    }
+                    {activa && <svg className="marca-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>}
+                  </button>
+                )
+              })}
+            </div>
+          )}
+
+          {/* NIVEL 2 — SUBCATEGORÍAS */}
+          {nivel === 'subcats' && (
+            <div className="subcats-grid">
+              {subcats.length === 0
+                ? <p style={{ color: 'var(--text-3)', padding: '40px 0' }}>No hay productos en esta marca aún.</p>
+                : subcats.map(sub => {
+                  const n = productos.filter(p => p.categoria === marcaActiva && (p.subcategoria || 'General') === sub).length
+                  return (
+                    <button key={sub} className="subcat-card" onClick={() => setSubcatActiva(sub)}>
+                      <span className="subcat-icon">{ICONS[sub] || '🔧'}</span>
+                      <span className="subcat-nombre">{sub}</span>
+                      <span className="subcat-count">{n} producto{n !== 1 ? 's' : ''}</span>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ position:'absolute', top:16, right:16, color:'var(--orange)', opacity:0, transition:'opacity .2s' }} className="subcat-arrow"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
+                  )
+                })
+              }
+            </div>
+          )}
+
+          {/* NIVEL 3 — PRODUCTOS */}
+          {nivel === 'productos' && (
+            <>
+              {/* Buscador */}
+              <div className="filtros-search-wrap" style={{ maxWidth: 360, marginBottom: 32 }}>
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
                   <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
                 </svg>
-                <input
-                  type="text" className="filtros-search"
-                  placeholder="Buscar en productos..."
-                  value={searchTerm}
-                  onChange={e => setSearchTerm(e.target.value)}
+                <input type="text" className="filtros-search"
+                  placeholder="Buscar en esta categoría..."
+                  value={busqueda}
+                  onChange={e => setBusqueda(e.target.value)}
                 />
-                {searchTerm && (
-                  <button className="filtros-search-clear" onClick={() => setSearchTerm('')} aria-label="Limpiar">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <path d="M18 6L6 18M6 6l12 12"/>
-                    </svg>
+                {busqueda && (
+                  <button className="filtros-search-clear" onClick={() => setBusqueda('')}>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
                   </button>
                 )}
               </div>
 
-              <div className="filtros-categorias">
-                {categorias.map(cat => (
-                  <button key={cat}
-                    className={'filtro-btn' + (categoriaActiva === cat ? ' active' : '')}
-                    onClick={() => setCategoriaActiva(cat)}
-                  >
-                    {cat}
-                    {cat !== 'Todos' && (
-                      <span className="filtro-count">{productos.filter(p => p.categoria === cat).length}</span>
-                    )}
-                  </button>
-                ))}
+              <div className="productos-grid">
+                {loading && Array.from({length:4}).map((_,i) => <SkeletonCard key={i}/>)}
+                {!loading && productosFiltrados.length === 0 && (
+                  <div className="no-resultados" style={{ gridColumn:'1/-1' }}>
+                    <span style={{fontSize:48}}>🔍</span>
+                    <p>Sin resultados para <strong>"{busqueda}"</strong></p>
+                    <button className="btn-primary" onClick={() => setBusqueda('')}>Limpiar búsqueda</button>
+                  </div>
+                )}
+                {!loading && productosFiltrados.map((p,i) => <ProductCard key={p.id} producto={p} index={i}/>)}
               </div>
-
-              {hayFiltros && (
-                <div className="filtros-resultado">
-                  {productosFiltrados.length === 0 ? 'Sin resultados'
-                    : productosFiltrados.length + ' producto' + (productosFiltrados.length !== 1 ? 's' : '')}
-                  <button className="filtros-limpiar" onClick={() => { setSearchTerm(''); setCategoriaActiva('Todos') }}>
-                    Limpiar filtros ×
-                  </button>
-                </div>
-              )}
-            </div>
+            </>
           )}
 
-          <div className="productos-grid">
-            {loading && Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
-            {error && (
-              <div style={{ color: 'var(--gray)', gridColumn: '1/-1', textAlign: 'center', padding: '40px' }}>
-                ⚠️ {error}
-              </div>
-            )}
-            {!loading && !error && productosFiltrados.length === 0 && (
-              <div className="no-resultados">
-                <span style={{ fontSize: 48 }}>🔍</span>
-                <p>No encontramos productos para <strong>"{searchTerm || categoriaActiva}"</strong></p>
-                <button className="btn-primary" onClick={() => { setSearchTerm(''); setCategoriaActiva('Todos') }}>
-                  Ver todos los productos
-                </button>
-              </div>
-            )}
-            {!loading && !error && productosFiltrados.map((p, i) => (
-              <ProductCard key={p.id} producto={p} index={i} searchTerm={searchTerm} />
-            ))}
-          </div>
         </div>
       </div>
 

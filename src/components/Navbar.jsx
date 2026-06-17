@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-import { useProductos } from '../hooks/useProductos.js'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -10,22 +9,33 @@ const WA_ICON = (
   </svg>
 )
 
-export default function Navbar({ onSearch, searchValue = '' }) {
+// Cache global — carga productos.json solo una vez, no dentro de un hook
+let _cache = null
+async function fetchProductos() {
+  if (_cache) return _cache
+  try {
+    const r = await fetch(BASE + 'productos.json')
+    _cache = await r.json()
+  } catch { _cache = [] }
+  return _cache
+}
+
+export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
-  const [localSearch, setLocalSearch] = useState(searchValue)
-  const { productos } = useProductos()
+  const [localSearch, setLocalSearch] = useState('')
   const [suggestions, setSuggestions] = useState([])
   const inputRef = useRef(null)
   const wrapRef = useRef(null)
   const navigate = useNavigate()
   const location = useLocation()
 
-  // Qué ruta está activa para resaltar el link
   const isActive = (path) => location.pathname === path
 
-  useEffect(() => { setLocalSearch(searchValue) }, [searchValue])
+  // Cierra menú mobile al cambiar de ruta
+  useEffect(() => { setMenuOpen(false) }, [location.pathname])
 
+  // Cierra sugerencias al click fuera
   useEffect(() => {
     const handler = (e) => {
       if (wrapRef.current && !wrapRef.current.contains(e.target)) {
@@ -41,10 +51,10 @@ export default function Navbar({ onSearch, searchValue = '' }) {
     if (searchOpen && inputRef.current) inputRef.current.focus()
   }, [searchOpen])
 
-  const handleSearchChange = (val) => {
+  const handleSearchChange = async (val) => {
     setLocalSearch(val)
-    if (onSearch) onSearch(val)
     if (val.trim().length > 1) {
+      const productos = await fetchProductos()
       const matches = productos
         .filter(p =>
           p.nombre.toLowerCase().includes(val.toLowerCase()) ||
@@ -60,7 +70,6 @@ export default function Navbar({ onSearch, searchValue = '' }) {
   const handleSuggestionClick = (producto) => {
     setSuggestions([])
     setLocalSearch('')
-    if (onSearch) onSearch('')
     setSearchOpen(false)
     navigate('/producto/' + producto.slug)
   }
@@ -73,7 +82,6 @@ export default function Navbar({ onSearch, searchValue = '' }) {
 
   const clearSearch = () => {
     setLocalSearch('')
-    if (onSearch) onSearch('')
     setSuggestions([])
     setSearchOpen(false)
   }
@@ -86,25 +94,17 @@ export default function Navbar({ onSearch, searchValue = '' }) {
           <span /><span /><span />
         </button>
 
-        {/* Logo — siempre lleva a Principal (/) */}
         <Link to="/" className="nav-logo">
           <img src={BASE + 'logo.png'} alt="Correa Tools" className="nav-logo-img" />
         </Link>
 
-        {/* Links de navegación */}
         <ul className="nav-links">
-          <li>
-            <Link to="/" className={isActive('/') ? 'nav-link-active' : ''}>Principal</Link>
-          </li>
-          <li>
-            <Link to="/productos" className={isActive('/productos') ? 'nav-link-active' : ''}>Productos</Link>
-          </li>
-          <li>
-            <Link to="/contactenos" className={isActive('/contactenos') ? 'nav-link-active' : ''}>Contáctenos</Link>
-          </li>
+          <li><Link to="/" className={isActive('/') ? 'nav-link-active' : ''}>Principal</Link></li>
+          <li><Link to="/productos" className={isActive('/productos') ? 'nav-link-active' : ''}>Productos</Link></li>
+          <li><Link to="/contactenos" className={isActive('/contactenos') ? 'nav-link-active' : ''}>Contáctenos</Link></li>
         </ul>
 
-        {/* Barra de búsqueda */}
+        {/* Buscador */}
         <div className={'nav-search-wrap' + (searchOpen ? ' open' : '')} ref={wrapRef}>
           {!searchOpen ? (
             <button className="nav-search-toggle" onClick={() => setSearchOpen(true)} aria-label="Buscar">
@@ -131,7 +131,6 @@ export default function Navbar({ onSearch, searchValue = '' }) {
                   <path d="M18 6L6 18M6 6l12 12"/>
                 </svg>
               </button>
-
               {suggestions.length > 0 && (
                 <div className="nav-search-suggestions">
                   {suggestions.map(p => (
@@ -162,14 +161,12 @@ export default function Navbar({ onSearch, searchValue = '' }) {
         </a>
       </nav>
 
-      {/* Menú mobile */}
       <div className={'mobile-menu' + (menuOpen ? ' open' : '')} id="mobileMenu">
         <form className="mobile-search-form" onSubmit={handleSubmit}>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
             <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
           </svg>
-          <input
-            type="text" placeholder="Buscar producto..."
+          <input type="text" placeholder="Buscar producto..."
             value={localSearch}
             onChange={e => handleSearchChange(e.target.value)}
             className="mobile-search-input"
@@ -186,7 +183,7 @@ export default function Navbar({ onSearch, searchValue = '' }) {
         <Link to="/productos" onClick={() => setMenuOpen(false)}>Productos</Link>
         <Link to="/contactenos" onClick={() => setMenuOpen(false)}>Contáctenos</Link>
         <a href="https://wa.me/+573204946978/?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20%F0%9F%94%A7"
-          target="_blank" rel="noreferrer" style={{ color: 'var(--orange-light)' }}
+          target="_blank" rel="noreferrer" style={{ color: 'var(--orange)' }}
           onClick={() => setMenuOpen(false)}>
           Escríbenos por WhatsApp →
         </a>

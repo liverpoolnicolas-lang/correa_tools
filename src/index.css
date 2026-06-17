@@ -670,3 +670,129 @@ footer { background: var(--orange); padding: 48px 5vw 32px; border-top: none; }
   .footer-inner { flex-direction: column; align-items: flex-start; }
   .horario-table { font-size: 13px; }
 }
+
+/* ─────────────────────────────────────────
+   PÁGINA PRODUCTOS — 3 NIVELES
+───────────────────────────────────────── */
+
+/* Cabecera con breadcrumb + título */
+.cat-header {
+  background: var(--bg-2);
+  border-bottom: 1px solid var(--border-c);
+  padding: 24px 5vw 28px;
+}
+
+/* Breadcrumb */
+.cat-breadcrumb {
+  display: flex; align-items: center; gap: 6px;
+  flex-wrap: wrap; margin-bottom: 16px;
+}
+.cat-bc {
+  background: none; border: none; cursor: pointer;
+  font-family: 'Barlow', sans-serif; font-size: 13px; font-weight: 700;
+  color: var(--text-3); padding: 4px 10px; border-radius: 6px;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  transition: color 0.2s, background 0.2s;
+}
+.cat-bc:hover { color: var(--orange); background: var(--orange-pale); }
+.cat-bc-active { color: var(--orange) !important; cursor: default; }
+.cat-bc-sep { color: var(--border-c); font-size: 18px; }
+
+/* Título dinámico */
+.cat-header-title h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(28px, 5vw, 52px); font-weight: 900;
+  color: var(--text); text-transform: uppercase; line-height: 1;
+}
+.cat-header-title h1 em { font-style: normal; color: var(--orange); }
+.cat-header-title p { font-size: 15px; color: var(--text-3); margin-top: 8px; }
+
+/* Cuerpo del contenido */
+.cat-body {
+  padding: 40px 5vw 80px;
+  max-width: 1200px; margin: 0 auto;
+}
+
+/* ── NIVEL 1: MARCAS ── */
+.marcas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+.marca-card {
+  background: #fff; border: 2px solid var(--border-c);
+  border-radius: 14px; padding: 28px 24px;
+  display: flex; flex-direction: column; gap: 12px;
+  cursor: pointer; text-align: left; position: relative;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 12px var(--shadow);
+}
+.marca-card:hover:not(.marca-vacia) {
+  border-color: var(--orange);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(200,90,16,0.15);
+}
+.marca-vacia { opacity: 0.45; cursor: default; background: var(--bg-2); }
+.marca-inicial {
+  width: 56px; height: 56px; border-radius: 12px;
+  background: var(--orange-pale); border: 1px solid var(--orange-border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 28px; font-weight: 900; color: var(--orange);
+}
+.marca-info { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.marca-nombre {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 24px; font-weight: 900; color: var(--text); text-transform: uppercase;
+}
+.marca-desc { font-size: 13px; color: var(--text-3); line-height: 1.4; }
+.marca-badge {
+  display: inline-block; background: var(--orange-pale);
+  color: var(--orange); font-size: 12px; font-weight: 700;
+  padding: 4px 12px; border-radius: 40px; border: 1px solid var(--orange-border);
+  align-self: flex-start;
+}
+.marca-pronto {
+  display: inline-block; background: var(--bg-3);
+  color: var(--text-3); font-size: 12px; font-weight: 600;
+  padding: 4px 12px; border-radius: 40px; align-self: flex-start;
+}
+.marca-arrow {
+  position: absolute; top: 24px; right: 24px;
+  color: var(--orange); opacity: 0; transition: opacity 0.2s, transform 0.2s;
+}
+.marca-card:hover:not(.marca-vacia) .marca-arrow { opacity: 1; transform: translateX(4px); }
+
+/* ── NIVEL 2: SUBCATEGORÍAS ── */
+.subcats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+.subcat-card {
+  background: #fff; border: 2px solid var(--border-c);
+  border-radius: 12px; padding: 28px 20px 24px;
+  display: flex; flex-direction: column; gap: 8px;
+  cursor: pointer; text-align: left; position: relative;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px var(--shadow);
+}
+.subcat-card:hover { border-color: var(--orange); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(200,90,16,0.15); }
+.subcat-card:hover .subcat-arrow { opacity: 1 !important; transform: translateX(3px); }
+.subcat-icon { font-size: 36px; line-height: 1; }
+.subcat-nombre {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 20px; font-weight: 900; color: var(--text); text-transform: uppercase;
+}
+.subcat-count { font-size: 13px; color: var(--text-3); font-weight: 600; }
+
+/* Responsive */
+@media (max-width: 700px) {
+  .cat-header { padding: 20px 5vw 24px; }
+  .cat-body { padding: 28px 5vw 60px; }
+  .marcas-grid { grid-template-columns: 1fr; }
+  .subcats-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 420px) {
+  .subcats-grid { grid-template-columns: 1fr; }
+}
