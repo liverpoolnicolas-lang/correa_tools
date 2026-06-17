@@ -7,8 +7,7 @@
     "puntos": [],
     "categoria": "KND",
     "video": "https://www.youtube.com/watch?v=Pqy9sHplJ5E",
-    "imagen": "CT001.jpeg",
-    "subcategoria": "Herramientas de diagnóstico"
+    "imagen": "CT001.jpeg"
   },
   {
     "id": "CT002",
@@ -17,8 +16,7 @@
     "descripcion": "Herramienta automotriz para medir la presión y caudal de gasolina o diésel en el sistema de inyección. Diagnostica fallas en bomba, reguladores, inyectores o filtros obstruidos mediante lectura de PSI/bares.",
     "puntos": [],
     "categoria": "KND",
-    "imagen": "CT002.jpeg",
-    "subcategoria": "Herramientas de diagnóstico"
+    "imagen": "CT002.jpeg"
   },
   {
     "id": "CT003",
@@ -27,8 +25,7 @@
     "descripcion": "Instrumento para identificar pérdida de aire, gases o líquidos en sistemas cerrados, tuberías, recipientes o motores. Esencial para mantenimiento preventivo y de seguridad.",
     "puntos": [],
     "categoria": "KND",
-    "imagen": "CT003.jpeg",
-    "subcategoria": "Herramientas de diagnóstico"
+    "imagen": "CT003.jpeg"
   },
   {
     "id": "CT004",
@@ -37,8 +34,7 @@
     "descripcion": "Herramienta mecánica para detectar fugas de refrigerante en motor, mangueras, radiador y bomba de agua sin desmontar componentes. Presuriza el sistema mediante bomba manual con manómetro.",
     "puntos": [],
     "categoria": "KND",
-    "imagen": "CT004.jpeg",
-    "subcategoria": "Herramientas de diagnóstico"
+    "imagen": "CT004.jpeg"
   },
   {
     "id": "CT005",
@@ -47,8 +43,15 @@
     "descripcion": "Alineador de ruedas basado en cruz 3D con cámaras HD y movimiento automático de la cruz. Indicadores LED visuales para cada paso del procedimiento. Garras de 4 puntos con captadores 3D con luz.",
     "puntos": [],
     "categoria": "Ravaglioli",
-    "imagen": "CT005.png",
-    "subcategoria": "Alineadores de ruedas"
+    "imagen": "CT005.png"
+  },
+  {  
+  "id": "CT006",
+    "nombre": "Elevador de doble tijera",
+    "slug": "elevador-de-doble-tijera",
+    "descripcion": "El elevador de doble tijera Ravaglioli RAV518NL es una solución electrohidráulica de perfil bajo diseñada para la elevación eficiente y segura de vehículos de hasta 3.000 kg, ideal para talleres mecánicos, servicios de neumáticos y zonas de recepción; su sistema de sincronización hidráulica patentado garantiza un movimiento uniforme independientemente de la distribución de la carga, mientras que la ausencia de conexiones mecánicas entre plataformas mejora la accesibilidad y el espacio de trabajo, incorporando además dispositivos de seguridad automáticos, señalización acústica y componentes autolubricantes que reducen el mantenimiento, todo en un diseño compacto que permite instalación sobre suelo o empotrada, ofreciendo alta estabilidad, resistencia y rendimiento profesional.",
+    "categoria": "Ravaglioli",
+    "imagen": "CT006.png"
   },
   {
     "id": "CT007",
@@ -72,8 +75,7 @@
       "Maleta: impermeable, resistente a químicos y polvo, temperaturas -33 °C / +90 °C, 100% Made in Italy, estándar militar"
     ],
     "categoria": "Ravaglioli",
-    "imagen": "CT007.jpeg",
-    "subcategoria": "Alineadores de ruedas"
+    "imagen": "CT007.jpeg"
   },
   {
     "id": "CT008",
@@ -97,8 +99,7 @@
       "Logotipo Ravaglioli con retroiluminación LED de luz blanca cálida"
     ],
     "categoria": "Ravaglioli",
-    "imagen": "CT008.jpeg",
-    "subcategoria": "Alineadores de ruedas"
+    "imagen": "CT008.jpeg"
   },
   {
     "id": "CT009",
@@ -122,8 +123,7 @@
       "Compatible con TEq-Link, sistemas ADAS y Shoot & Go"
     ],
     "categoria": "Ravaglioli",
-    "imagen": "CT009.jpeg",
-    "subcategoria": "Alineadores de ruedas"
+    "imagen": "CT009.jpeg"
   },
   {
     "id": "CT010",
@@ -145,8 +145,7 @@
       "Guía galvanizada para deslizamiento óptimo del gato"
     ],
     "categoria": "Ravaglioli",
-    "imagen": "CT010.jpeg",
-    "subcategoria": "Elevadores"
+    "imagen": "CT010.jpeg"
   },
   {
     "id": "CT011",
@@ -163,8 +162,7 @@
       "Suelo completamente libre con el elevador en posición todo bajo"
     ],
     "categoria": "Ravaglioli",
-    "imagen": "CT011.jpeg",
-    "subcategoria": "Elevadores"
+    "imagen": "CT011.jpeg"
   },
   {
     "id": "CT012",
@@ -183,8 +181,7 @@
       "Versión con plataformas lisas"
     ],
     "categoria": "Ravaglioli",
-    "imagen": "CT012.jpeg",
-    "subcategoria": "Elevadores"
+    "imagen": "CT012.jpeg"
   },
   {
     "id": "CT013",
@@ -199,8 +196,7 @@
       "Útil con protección integrada para llantas de aluminio"
     ],
     "categoria": "Ravaglioli",
-    "imagen": "CT013.jpeg",
-    "subcategoria": "Desmontadoras de neumáticos"
+    "imagen": "CT013.jpeg"
   },
   {
     "id": "CT014",
@@ -217,8 +213,7 @@
       "Pistón destalonador de doble efecto en aleación ligera"
     ],
     "categoria": "Ravaglioli",
-    "imagen": "CT014.jpeg",
-    "subcategoria": "Desmontadoras de neumáticos"
+    "imagen": "CT014.jpeg"
   },
   {
     "id": "CT015",
@@ -236,8 +231,7 @@
       "Elevado par de torsión y elevada fuerza de fijación (dos pistones)"
     ],
     "categoria": "Ravaglioli",
-    "imagen": "CT015.jpeg",
-    "subcategoria": "Desmontadoras de neumáticos"
+    "imagen": "CT015.jpeg"
   },
   {
     "id": "CT016",
@@ -255,8 +249,7 @@
       "Bloqueo interno a partir de 90 mm"
     ],
     "categoria": "Ravaglioli",
-    "imagen": "CT016.jpeg",
-    "subcategoria": "Desmontadoras de neumáticos"
+    "imagen": "CT016.jpeg"
   },
   {
     "id": "CT017",
@@ -269,8 +262,7 @@
       "Compatible con automóviles, camiones, barcos, cuatrimotos, UTV, vehículos recreativos, motocicletas, motos de nieve y vehículos todoterreno"
     ],
     "categoria": "KND",
-    "imagen": "CT017.jpeg",
-    "subcategoria": "Herramientas de diagnóstico"
+    "imagen": "CT017.jpeg"
   },
   {
     "id": "CT018",
@@ -285,8 +277,7 @@
       "Identifica válvulas desgastadas y anillos de pistón en autos, camiones y tractores diésel"
     ],
     "categoria": "KND",
-    "imagen": "CT018.jpeg",
-    "subcategoria": "Herramientas de diagnóstico"
+    "imagen": "CT018.jpeg"
   },
   {
     "id": "CT019",
@@ -300,8 +291,7 @@
       "Se atornilla al centro de las levas usando los pernos existentes"
     ],
     "categoria": "KND",
-    "imagen": "CT019.jpeg",
-    "subcategoria": "Kits de distribución"
+    "imagen": "CT019.jpeg"
   },
   {
     "id": "CT020",
@@ -315,8 +305,7 @@
       "Compatible con la mayoría de motores Mazda"
     ],
     "categoria": "KND",
-    "imagen": "CT020.jpeg",
-    "subcategoria": "Kits de distribución"
+    "imagen": "CT020.jpeg"
   },
   {
     "id": "CT021",
@@ -331,8 +320,7 @@
       "Requiere extensión corta de cuadro 3/8 pulgada para la llave de bomba"
     ],
     "categoria": "KND",
-    "imagen": "CT021.jpeg",
-    "subcategoria": "Kits de distribución"
+    "imagen": "CT021.jpeg"
   },
   {
     "id": "CT022",
@@ -346,8 +334,7 @@
       "Incluye herramientas de alineación"
     ],
     "categoria": "KND",
-    "imagen": "CT022.jpeg",
-    "subcategoria": "Kits de distribución"
+    "imagen": "CT022.jpeg"
   },
   {
     "id": "CT023",
@@ -363,7 +350,6 @@
       "Compatible con Ford Focus RS 2.3L EcoBoost (2016-2018)"
     ],
     "categoria": "KND",
-    "imagen": "CT023.jpeg",
-    "subcategoria": "Kits de distribución"
+    "imagen": "CT023.jpeg"
   }
 ]
