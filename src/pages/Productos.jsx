@@ -9,10 +9,10 @@ const BASE = import.meta.env.BASE_URL
 
 // ── MARCAS (agrega aquí las nuevas cuando quieras) ──
 const MARCAS = [
-  { id: 'Ravaglioli', desc: 'Equipos de alineación, elevadores y desmontadoras' },
-  { id: 'KND',        desc: 'Herramientas de diagnóstico y kits de distribución' },
-  { id: 'TK',         desc: 'Próximamente' },
-  { id: 'Snap-on',    desc: 'Próximamente' },
+  { id: 'Ravaglioli', desc: 'Equipos de alineación, elevadores y desmontadoras', logo: 'ravaglioli.png' },
+  { id: 'KND',        desc: 'Herramientas de diagnóstico y kits de distribución', logo: 'knd.png' },
+  { id: 'TK',         desc: 'Próximamente', logo: 'tk.png' },
+  { id: 'Snap-on',    desc: 'Próximamente', logo: 'snapon.png' },
 ]
 
 // ── ICONOS POR SUBCATEGORÍA ──
@@ -161,7 +161,14 @@ export default function Productos() {
                     className={'marca-card' + (!activa ? ' marca-vacia' : '')}
                     onClick={() => activa && setMarcaActiva(m.id)}
                   >
-                    <div className="marca-inicial">{m.id[0]}</div>
+                    <div className="marca-logo-wrap">
+                      <img
+                        src={BASE + 'marcas/' + m.logo}
+                        alt={m.id}
+                        className="marca-logo-img"
+                        onError={e => { e.target.style.display = 'none' }}
+                      />
+                    </div>
                     <div className="marca-info">
                       <span className="marca-nombre">{m.id}</span>
                       <span className="marca-desc">{activa ? m.desc : 'Próximamente'}</span>
@@ -187,9 +194,11 @@ export default function Productos() {
                   return (
                     <button key={sub} className="subcat-card" onClick={() => setSubcatActiva(sub)}>
                       <span className="subcat-icon">{ICONS[sub] || '🔧'}</span>
-                      <span className="subcat-nombre">{sub}</span>
-                      <span className="subcat-count">{n} producto{n !== 1 ? 's' : ''}</span>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ position:'absolute', top:16, right:16, color:'var(--orange)', opacity:0, transition:'opacity .2s' }} className="subcat-arrow"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                      <div className="subcat-text">
+                        <span className="subcat-nombre">{sub}</span>
+                        <span className="subcat-count">{n} producto{n !== 1 ? 's' : ''}</span>
+                      </div>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ position:'absolute', top:'50%', right:16, transform:'translateY(-50%)', color:'var(--orange)', opacity:0, transition:'opacity .2s' }} className="subcat-arrow"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </button>
                   )
                 })
