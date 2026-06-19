@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom' // Se agregó useNavigate
 import Navbar from '../components/Navbar.jsx'
 import WaFloat from '../components/WaFloat.jsx'
 import NotFound from './NotFound.jsx'
@@ -35,6 +35,7 @@ function SkeletonProducto() {
 
 export default function ProductoPage() {
   const { slug } = useParams()
+  const navigate = useNavigate() // Inicializamos el hook
   const { productos, loading } = useProductos()
 
   useEffect(() => { window.scrollTo(0, 0) }, [slug])
@@ -72,12 +73,16 @@ export default function ProductoPage() {
 
           {/* Info */}
           <div className="producto-info-side">
-            <Link to="/" className="producto-back">
+            <button 
+              onClick={() => navigate(-1)} 
+              className="producto-back"
+              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center', gap: '8px' }}
+            >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path d="M19 12H5M12 19l-7-7 7-7"/>
               </svg>
-              Volver al catálogo
-            </Link>
+              Volver atrás
+            </button>
 
             <h1 className="producto-title">{producto.nombre}</h1>
             <span className="producto-cat-badge">{producto.categoria}</span>
@@ -123,13 +128,13 @@ export default function ProductoPage() {
         {/* ── FOOTER MINI ── */}
         <footer>
           <div className="footer-inner">
-            <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
+            <a href="#" onClick={(e) => { e.preventDefault(); navigate('/'); }} style={{ display: 'flex', alignItems: 'center' }}>
               <img src={`${BASE}logo.png`} alt="Correa Tools" style={{ height: '48px', width: '48px', objectFit: 'contain', borderRadius: '50%' }} />
-            </Link>
+            </a>
             <ul className="footer-nav">
-              <li><Link to="/" style={{ color: 'var(--gray)', textDecoration: 'none' }}>Principal</Link></li>
-              <li><Link to="/#productos" style={{ color: 'var(--gray)', textDecoration: 'none' }}>Productos</Link></li>
-              <li><Link to="/#contactenos" style={{ color: 'var(--gray)', textDecoration: 'none' }}>Contáctenos</Link></li>
+              <li><button onClick={() => navigate('/')} style={{ background: 'none', border: 'none', color: 'var(--gray)', cursor: 'pointer' }}>Principal</button></li>
+              <li><button onClick={() => navigate('/#productos')} style={{ background: 'none', border: 'none', color: 'var(--gray)', cursor: 'pointer' }}>Productos</button></li>
+              <li><button onClick={() => navigate('/#contactenos')} style={{ background: 'none', border: 'none', color: 'var(--gray)', cursor: 'pointer' }}>Contáctenos</button></li>
             </ul>
             <a className="btn-primary" href={`https://wa.me/+573204946978/?text=${waMsg}`} target="_blank" rel="noreferrer">
               Escríbenos
