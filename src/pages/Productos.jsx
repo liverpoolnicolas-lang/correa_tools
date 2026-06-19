@@ -11,7 +11,7 @@ const BASE = import.meta.env.BASE_URL
 const MARCAS = [
   { id: 'Ravaglioli', desc: 'Equipos de alineación, elevadores y desmontadoras', logo: 'ravaglioli.png' },
   { id: 'KND',        desc: 'Herramientas de diagnóstico y kits de distribución', logo: 'knd.png' },
-  { id: 'TK',         desc: 'Próximamente', logo: 'tk.png' },
+  { id: 'TK',         desc: 'Todo lo que tu taller necesita: desmontadoras, compresores y equipos de alto desempeño', logo: 'tk.png' },
   { id: 'Snap-on',    desc: 'Próximamente', logo: 'snapon.png' },
 ]
 
@@ -22,6 +22,8 @@ const ICONS = {
   'Desmontadoras de neumáticos': '🔄',
   'Herramientas de diagnóstico': '🔬',
   'Kits de distribución':        '⚙️',
+  'Desmontadoras':               '🔧',
+  'Compresores y Extractores':   '⛏', 
 }
 
 // ── TARJETA DE PRODUCTO ──

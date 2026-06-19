@@ -374,5 +374,84 @@
     "categoria": "KND",
     "imagen": "CT023.jpeg",
     "subcategoria": "Kits de distribución"
+  },
+  {
+  "id": "CT024",
+  "nombre": "Desmontadora 3 Pedales",
+  "slug": "Desmontadora-3-Pedales",
+  "puntos":[
+    "Desmontadora semiautomática TK536",
+    "3 pedales",
+    "Voltaje: 220 V",
+    "Capacidad para rines hasta 24",
+   "Calibrador de aire incorporado",
+    "Frecuencia: 60 Hz",
+    "Potencia: 1.5 kW",
+    "Garantía: 12 meses"
+  ],
+  "categoria": "TK",
+  "imagen":"CT024.jpeg",
+  "subcategoria": "Desmontadoras"
+  },
+  {
+    "id":"CT025",
+    "nombre":"Compresor 5 HP",
+    "slug":"Compresor-5-HP",
+    "puntos":[
+"Compresor de 5 HP",
+"Tanque de 140 galones",
+"Motor Marathon",
+"Cabezote italiano",
+"Presostato de 250 PSI",
+"Válvula de alivio Lefoo de 1/2 pulgada",
+"Cheque Helber",
+"Polea de motor en hierro",
+"Llaves de seguridad de alta calidad",
+"Guarda poleas",
+"Pintura electrostática",
+"Garantía: 12 meses"
+    ],
+    "categoria":"TK",
+    "imagen":"CT026.jpeg",
+    "subcategoria":"Compresores y Extractores"
+  },
+  {
+    "id":"CT026",
+    "nombre":"Desmontadora TK897 de 4 pedales",
+    "slug":"Desmontadora-TK897-de-4-pedales",
+    "puntos":[
+"Desmontadora TK897",
+"4 pedales",
+"Voltaje: 110 V",
+"Tanque de reserva",
+"Despegador de alta presión",
+"Capacidad para rines hasta 26 pulgadas",
+"Sistema semiautomático",
+"Botellas neumáticas de alta presión",
+"Pedales metálicos",
+"Garantía: 12 meses"
+    ],
+    "categoria":"TK",
+    "imagen":"CT025.jpeg",
+    "subcategoria":"Desmontadoras"
+  },
+  {
+    "id":"CT027",
+    "nombre":"Extractor de Aceite",
+    "slug":"Extractor-de-Aceite",
+    "puntos":[
+"Presión de fuente de aire: 7.9 bar",
+"Presión de drenaje de aceite: 0.6 - 0.8 bar",
+"Consumo de gas: 150 L/min",
+"Grado de vacío: 0 - 1 bar",
+"Volumen de la taza de conteo: 10 L",
+"Volumen de la bandeja: 10 L",
+"Temperatura de trabajo del aceite: 40° a 60°",
+"Tubo de aguja de bombeo de aceite: 6F",
+"Garantía: 12 meses por defecto de fabricación"
+    ],
+    "categoria":"TK",
+    "imagen":"CT027.jpeg",
+    "subcategoria":"Compresores y Extractores"
   }
 ]
