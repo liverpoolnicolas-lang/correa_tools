@@ -804,3 +804,51 @@ footer { background: var(--orange); padding: 48px 5vw 32px; border-top: none; }
 @media (max-width: 420px) {
   .subcats-grid { grid-template-columns: 1fr; }
 }
+
+/* ─────────────────────────────────────────
+   TARJETA "VER MÁS PRODUCTOS" (catálogo KND)
+───────────────────────────────────────── */
+.catalogo-card {
+  background: linear-gradient(160deg, var(--orange-pale) 0%, #fff 60%);
+  border: 2px dashed var(--orange-border);
+  border-radius: 12px;
+  padding: 28px 24px;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
+  grid-column: span 1;
+}
+.catalogo-card-icon { font-size: 36px; line-height: 1; margin-bottom: 4px; }
+.catalogo-card-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 20px; font-weight: 900; color: var(--text);
+  text-transform: uppercase; line-height: 1.1;
+}
+.catalogo-card-desc {
+  font-size: 13px; color: var(--text-3); line-height: 1.5; margin-bottom: 4px;
+}
+.catalogo-card-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--orange); color: #fff; text-decoration: none;
+  font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+  padding: 10px 18px; border-radius: 6px;
+  transition: background 0.2s, transform 0.15s;
+  width: 100%; justify-content: center;
+}
+.catalogo-card-link:hover { background: var(--orange-light); transform: translateY(-2px); }
+.catalogo-card-wa-row {
+  display: flex; gap: 8px; width: 100%; margin-top: 4px; flex-wrap: wrap;
+}
+.catalogo-card-wa-btn {
+  flex: 1; min-width: 130px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  background: #25D366; color: #fff; text-decoration: none;
+  font-size: 12px; font-weight: 700;
+  padding: 9px 10px; border-radius: 6px;
+  transition: background 0.2s, transform 0.15s;
+  white-space: nowrap;
+}
+.catalogo-card-wa-btn:hover { background: #1ebd5a; transform: translateY(-2px); }
+
+@media (max-width: 480px) {
+  .catalogo-card-wa-row { flex-direction: column; }
+  .catalogo-card-wa-btn { width: 100%; }
+}

@@ -11,8 +11,8 @@ const BASE = import.meta.env.BASE_URL
 const MARCAS = [
   { id: 'Ravaglioli', desc: 'Equipos de alineación, elevadores y desmontadoras', logo: 'ravaglioli.png' },
   { id: 'KND',        desc: 'Herramientas de diagnóstico y kits de distribución', logo: 'knd.png' },
-  { id: 'TK',         desc: 'Todo lo que tu taller necesita: desmontadoras, compresores y equipos de alto desempeño', logo: 'tk.png' },
-  { id: 'Snap-on',    desc: 'Próximamente', logo: 'snapon.png' },
+  { id: 'TK',         desc: 'Todo lo que tu taller necesita desmontadoras, compresores y equipos de alto desempeño', logo: 'tk.png' },
+  { id: 'Snap-on',    desc: 'Ver catálogo completo en PDF', logo: 'snapon.png', pdfDirecto: BASE + 'catalogo-snapon.pdf' },
 ]
 
 // ── ICONOS POR SUBCATEGORÍA ──
@@ -22,9 +22,13 @@ const ICONS = {
   'Desmontadoras de neumáticos': '🔄',
   'Herramientas de diagnóstico': '🔬',
   'Kits de distribución':        '⚙️',
-  'Desmontadoras':               '🔧',
-  'Compresores y Extractores':   '⛏', 
 }
+
+// Subcategorías de KND que muestran la tarjeta "Ver más productos" (catálogo PDF)
+const SUBCATS_CON_CATALOGO = ['Herramientas de diagnóstico', 'Kits de distribución']
+const CATALOGO_PDF_URL = BASE + 'catalogo-knd.pdf'
+const WA_NUM_1 = '573197163830'
+const WA_NUM_2 = '573028578631'
 
 // ── TARJETA DE PRODUCTO ──
 function ProductCard({ producto, index }) {
@@ -61,6 +65,55 @@ function SkeletonCard() {
         <div className="skeleton skeleton-line" style={{ width: '60%' }} />
         <div className="skeleton skeleton-line" style={{ width: '100%', marginTop: 12 }} />
         <div className="skeleton skeleton-line" style={{ width: '80%' }} />
+      </div>
+    </div>
+  )
+}
+
+// ── TARJETA "VER MÁS PRODUCTOS" (catálogo PDF de KND) ──
+function CatalogoCard() {
+  const msg = encodeURIComponent('Hola, vi el catálogo de KND y quiero consultar precios de algunos productos 🔧')
+  return (
+    <div className="catalogo-card">
+      <div className="catalogo-card-icon">📄</div>
+      <h3 className="catalogo-card-title">¿No encuentras lo que buscas?</h3>
+      <p className="catalogo-card-desc">
+        Mira nuestro catálogo completo de KND con muchos más productos disponibles.
+      </p>
+      <a
+        href={CATALOGO_PDF_URL}
+        target="_blank"
+        rel="noreferrer"
+        className="catalogo-card-link"
+      >
+        Mira más productos aquí
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+      <div className="catalogo-card-wa-row">
+        <a
+          className="catalogo-card-wa-btn"
+          href={`https://wa.me/${WA_NUM_1}/?text=${msg}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374A9.86 9.86 0 0 1 2.166 11.9c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/>
+          </svg>
+          319 716 3830
+        </a>
+        <a
+          className="catalogo-card-wa-btn"
+          href={`https://wa.me/${WA_NUM_2}/?text=${msg}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374A9.86 9.86 0 0 1 2.166 11.9c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/>
+          </svg>
+          302 857 8631
+        </a>
       </div>
     </div>
   )
@@ -156,12 +209,19 @@ export default function Productos() {
             <div className="marcas-grid">
               {MARCAS.map(m => {
                 const n = conteo(m.id)
-                const activa = n > 0
+                const tienePdf = !!m.pdfDirecto
+                const activa = n > 0 || tienePdf
                 return (
                   <button
                     key={m.id}
                     className={'marca-card' + (!activa ? ' marca-vacia' : '')}
-                    onClick={() => activa && setMarcaActiva(m.id)}
+                    onClick={() => {
+                      if (tienePdf) {
+                        window.open(m.pdfDirecto, '_blank', 'noopener,noreferrer')
+                      } else if (n > 0) {
+                        setMarcaActiva(m.id)
+                      }
+                    }}
                   >
                     <div className="marca-logo-wrap">
                       <img
@@ -175,9 +235,11 @@ export default function Productos() {
                       <span className="marca-nombre">{m.id}</span>
                       <span className="marca-desc">{activa ? m.desc : 'Próximamente'}</span>
                     </div>
-                    {activa
-                      ? <span className="marca-badge">{n} producto{n !== 1 ? 's' : ''}</span>
-                      : <span className="marca-pronto">Próximamente</span>
+                    {tienePdf
+                      ? <span className="marca-badge">📄 Ver catálogo</span>
+                      : n > 0
+                        ? <span className="marca-badge">{n} producto{n !== 1 ? 's' : ''}</span>
+                        : <span className="marca-pronto">Próximamente</span>
                     }
                     {activa && <svg className="marca-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>}
                   </button>
@@ -238,6 +300,9 @@ export default function Productos() {
                   </div>
                 )}
                 {!loading && productosFiltrados.map((p,i) => <ProductCard key={p.id} producto={p} index={i}/>)}
+                {!loading && marcaActiva === 'KND' && SUBCATS_CON_CATALOGO.includes(subcatActiva) && (
+                  <CatalogoCard />
+                )}
               </div>
             </>
           )}
