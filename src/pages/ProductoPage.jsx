@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom' // Se agregó useNavigate
+import { useParams, Link } from 'react-router-dom'
 import Navbar from '../components/Navbar.jsx'
 import WaFloat from '../components/WaFloat.jsx'
 import NotFound from './NotFound.jsx'
@@ -12,6 +12,18 @@ function getYoutubeId(url) {
   if (!url) return null
   const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([^&\n?#]+)/)
   return match ? match[1] : null
+}
+
+// Número de WhatsApp según la marca/categoría del producto
+const WA_POR_MARCA = {
+  'Ravaglioli': '573204946978',
+  'TK':         '573103335225',
+  'KND':        '573028578631',
+}
+const WA_DEFAULT = '573204946978'
+
+function getWaNumero(categoria) {
+  return WA_POR_MARCA[categoria] || WA_DEFAULT
 }
 
 function SkeletonProducto() {
@@ -35,12 +47,10 @@ function SkeletonProducto() {
 
 export default function ProductoPage() {
   const { slug } = useParams()
-  const navigate = useNavigate() // Inicializamos el hook
   const { productos, loading } = useProductos()
 
   useEffect(() => { window.scrollTo(0, 0) }, [slug])
 
-  if (loading) return <><Navbar /><SkeletonProducto /></>
 
   const producto = productos.find(p => p.slug === slug)
 
@@ -49,6 +59,7 @@ export default function ProductoPage() {
   const youtubeId = getYoutubeId(producto.video)
   const imgSrc = `${BASE}img/${producto.imagen}`
   const waMsg = encodeURIComponent(`Hola, quiero consultar el precio del ${producto.nombre}`)
+  const waNumero = getWaNumero(producto.categoria)
 
   return (
     <>
@@ -73,16 +84,12 @@ export default function ProductoPage() {
 
           {/* Info */}
           <div className="producto-info-side">
-            <button 
-              onClick={() => navigate(-1)} 
-              className="producto-back"
-              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center', gap: '8px' }}
-            >
+            <Link to="/" className="producto-back">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path d="M19 12H5M12 19l-7-7 7-7"/>
               </svg>
-              Volver atrás
-            </button>
+              Volver al catálogo
+            </Link>
 
             <h1 className="producto-title">{producto.nombre}</h1>
             <span className="producto-cat-badge">{producto.categoria}</span>
@@ -98,7 +105,7 @@ export default function ProductoPage() {
 
             <a
               className="btn-whatsapp"
-              href={`https://wa.me/+573204946978/?text=${waMsg}`}
+              href={`https://wa.me/${waNumero}/?text=${waMsg}`}
               target="_blank"
               rel="noreferrer"
             >
@@ -128,15 +135,15 @@ export default function ProductoPage() {
         {/* ── FOOTER MINI ── */}
         <footer>
           <div className="footer-inner">
-            <a href="#" onClick={(e) => { e.preventDefault(); navigate('/'); }} style={{ display: 'flex', alignItems: 'center' }}>
+            <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
               <img src={`${BASE}logo.png`} alt="Correa Tools" style={{ height: '48px', width: '48px', objectFit: 'contain', borderRadius: '50%' }} />
-            </a>
+            </Link>
             <ul className="footer-nav">
-              <li><button onClick={() => navigate('/')} style={{ background: 'none', border: 'none', color: 'var(--gray)', cursor: 'pointer' }}>Principal</button></li>
-              <li><button onClick={() => navigate('/#productos')} style={{ background: 'none', border: 'none', color: 'var(--gray)', cursor: 'pointer' }}>Productos</button></li>
-              <li><button onClick={() => navigate('/#contactenos')} style={{ background: 'none', border: 'none', color: 'var(--gray)', cursor: 'pointer' }}>Contáctenos</button></li>
+              <li><Link to="/" style={{ color: 'var(--gray)', textDecoration: 'none' }}>Principal</Link></li>
+              <li><Link to="/#productos" style={{ color: 'var(--gray)', textDecoration: 'none' }}>Productos</Link></li>
+              <li><Link to="/#contactenos" style={{ color: 'var(--gray)', textDecoration: 'none' }}>Contáctenos</Link></li>
             </ul>
-            <a className="btn-primary" href={`https://wa.me/+573204946978/?text=${waMsg}`} target="_blank" rel="noreferrer">
+            <a className="btn-primary" href={`https://wa.me/${waNumero}/?text=${waMsg}`} target="_blank" rel="noreferrer">
               Escríbenos
             </a>
           </div>
@@ -145,7 +152,6 @@ export default function ProductoPage() {
           </div>
         </footer>
       </div>
-
       <WaFloat mensaje={waMsg} />
     </>
   )

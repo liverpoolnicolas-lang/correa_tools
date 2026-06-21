@@ -22,6 +22,8 @@ const ICONS = {
   'Desmontadoras de neumáticos': '🔄',
   'Herramientas de diagnóstico': '🔬',
   'Kits de distribución':        '⚙️',
+  'Desmontadoras':               '🔧',
+  'Compresores y Extractores':   '🔨',
 }
 
 // Subcategorías de KND que muestran la tarjeta "Ver más productos" (catálogo PDF)
