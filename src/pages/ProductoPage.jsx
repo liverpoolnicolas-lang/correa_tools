@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import Navbar from '../components/Navbar.jsx'
 import WaFloat from '../components/WaFloat.jsx'
 import NotFound from './NotFound.jsx'
@@ -47,10 +47,12 @@ function SkeletonProducto() {
 
 export default function ProductoPage() {
   const { slug } = useParams()
+  const navigate = useNavigate()
   const { productos, loading } = useProductos()
 
   useEffect(() => { window.scrollTo(0, 0) }, [slug])
 
+  if (loading) return <><Navbar /><SkeletonProducto /></>
 
   const producto = productos.find(p => p.slug === slug)
 
@@ -84,12 +86,16 @@ export default function ProductoPage() {
 
           {/* Info */}
           <div className="producto-info-side">
-            <Link to="/" className="producto-back">
+            <button 
+              onClick={() => navigate(-1)} 
+              className="producto-back"
+              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center', gap: '8px' }}
+            >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path d="M19 12H5M12 19l-7-7 7-7"/>
               </svg>
-              Volver al catálogo
-            </Link>
+              Volver al Catálogo
+            </button>
 
             <h1 className="producto-title">{producto.nombre}</h1>
             <span className="producto-cat-badge">{producto.categoria}</span>
@@ -117,7 +123,7 @@ export default function ProductoPage() {
           </div>
         </div>
 
-        {/* ── VIDEO (solo si tiene video) ── */}
+        {/* ── VIDEO ── */}
         {youtubeId && (
           <div className="video-section">
             <h2>VER <em>EN ACCIÓN</em></h2>
@@ -155,4 +161,4 @@ export default function ProductoPage() {
       <WaFloat mensaje={waMsg} />
     </>
   )
-}
+ }
