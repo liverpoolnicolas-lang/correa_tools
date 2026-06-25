@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://correatools.com.co/sitemap.xml
