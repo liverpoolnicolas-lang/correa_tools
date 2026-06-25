@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar.jsx'
 import WaFloat from '../components/WaFloat.jsx'
 import NotFound from './NotFound.jsx'
 import { useProductos } from '../hooks/useProductos.js'
+import { Helmet } from 'react-helmet-async';
 
 const BASE = import.meta.env.BASE_URL
 
@@ -65,6 +66,26 @@ export default function ProductoPage() {
 
   return (
     <>
+      <Helmet>
+        {/* SEO Básico */}
+        <title>{producto.nombre} | Correa Tools</title>
+        <meta name="description" content={producto.descripcion} />
+        <link rel="canonical" href={window.location.href} />
+
+        {/* Open Graph (Facebook, WhatsApp) */}
+        <meta property="og:title" content={`${producto.nombre} - Correa Tools`} />
+        <meta property="og:description" content={producto.descripcion} />
+        <meta property="og:image" content={imgSrc} />
+        <meta property="og:url" content={window.location.href} />
+        <meta property="og:type" content="product" />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={producto.nombre} />
+        <meta name="twitter:description" content={producto.descripcion} />
+        <meta name="twitter:image" content={imgSrc} />
+      </Helmet>
+      
       <Navbar />
       <div className="producto-page">
 

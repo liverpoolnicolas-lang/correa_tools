@@ -1,9 +1,27 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import Sitemap from 'vite-plugin-sitemap'
+import fs from 'fs'
 
-// IMPORTANTE: cambia 'correa_tools' por el nombre exacto de tu repositorio en GitHub
-// Por ejemplo, si tu repo es github.com/juan/correa_tools, el base es '/correa_tools/'
+// 1. Leemos el archivo JSON
+const productosData = JSON.parse(fs.readFileSync('./public/productos.json', 'utf-8'))
+
+// 2. Extraemos los slugs dinámicamente
+const rutasProductos = productosData.map(p => `/producto/${p.slug}`)
+
 export default defineConfig({
-  plugins: [react()],
-  base: '/correa_tools/',
+  plugins: [
+    react(),
+    Sitemap({
+      hostname: 'https://correatools.com.co/',
+      dynamicRoutes: [
+        '/', 
+        '/contactenos', 
+        '/productos',
+        ...rutasProductos // Inyecta todos los slugs del JSON automáticamente
+      ],
+      outDir: 'dist',
+    })
+  ],
+  base: '/',
 })
