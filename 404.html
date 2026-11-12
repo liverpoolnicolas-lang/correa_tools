@@ -5,8 +5,8 @@
     <title>Correa Tools</title>
     <script>
       // Truco para GitHub Pages: redirige /producto/slug a /?/producto/slug
-      // React Router lo interpreta correctamente al cargar
-      var segmentCount = 1; // número de segmentos del repo en la URL (1 para /correa_tools/)
+      // React Router lo interpreta correctamente al cargar (main.jsx decodifica el ?/)
+      var segmentCount = 0; // 0 = el sitio está en la raíz del dominio (correatools.com.co)
       var l = window.location;
       l.replace(
         l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
