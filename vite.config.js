@@ -14,9 +14,11 @@ export default defineConfig({
     react(),
     Sitemap({
       hostname: 'https://correatools.com.co/',
+      // '/' lo agrega el plugin solo (desde index.html); '/404' se excluye
+      exclude: ['/404'],
       dynamicRoutes: [
-        '/', 
-        '/contactenos', 
+        '/contactenos',
+        '/clientes',
         '/productos',
         ...rutasProductos // Inyecta todos los slugs del JSON automáticamente
       ],

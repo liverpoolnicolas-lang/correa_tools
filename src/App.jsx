@@ -3,6 +3,7 @@ import Home from './pages/Home.jsx'
 import Productos from './pages/Productos.jsx'
 import Contactenos from './pages/Contactenos.jsx'
 import ProductoPage from './pages/ProductoPage.jsx'
+import Clientes from './pages/Clientes.jsx'
 import NotFound from './pages/NotFound.jsx'
 
 export default function App() {
@@ -12,6 +13,7 @@ export default function App() {
       <Route path="/productos" element={<Productos />} />
       <Route path="/contactenos" element={<Contactenos />} />
       <Route path="/producto/:slug" element={<ProductoPage />} />
+      <Route path="/clientes" element={<Clientes />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   )

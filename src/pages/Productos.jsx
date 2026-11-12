@@ -13,6 +13,8 @@ const MARCAS = [
   { id: 'KND',        desc: 'Herramientas de diagnóstico y kits de distribución', logo: 'knd.png' },
   { id: 'TK',         desc: 'Todo lo que tu taller necesita desmontadoras, compresores y equipos de alto desempeño', logo: 'tk.png' },
   { id: 'Snap-on',    desc: 'Ver catálogo completo en PDF', logo: 'snapon.png', pdfDirecto: BASE + 'catalogo-snapon.pdf' },
+  { id: 'Autel',      desc: 'Escáneres y equipos de diagnóstico automotriz', logo: 'autel.png' },
+  { id: 'Autool',     desc: 'Lavadores de inyectores y equipos de servicio', logo: 'autool.png' },
 ]
 
 // ── ICONOS POR SUBCATEGORÍA ──
@@ -24,6 +26,9 @@ const ICONS = {
   'Kits de distribución':        '⚙️',
   'Desmontadoras':               '🔧',
   'Compresores y Extractores':   '🔨',
+  'Escáneres de diagnóstico':      '📟',
+  'Lavadores y probadores de inyectores': '💧',
+  'Equipos de servicio':           '🛠️',
 }
 
 // Subcategorías de KND que muestran la tarjeta "Ver más productos" (catálogo PDF)
@@ -151,7 +156,7 @@ export default function Productos() {
       (p.subcategoria || 'General') === subcatActiva &&
       (!busqueda.trim() ||
         p.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
-        p.descripcion.toLowerCase().includes(busqueda.toLowerCase()))
+        (p.descripcion || '').toLowerCase().includes(busqueda.toLowerCase()))
     )
   }, [productos, marcaActiva, subcatActiva, busqueda])
 

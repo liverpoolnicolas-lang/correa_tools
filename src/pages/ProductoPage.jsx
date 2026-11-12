@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
-import { useParams, useNavigate, Link } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar.jsx'
 import WaFloat from '../components/WaFloat.jsx'
+import Footer from '../components/Footer.jsx'
 import NotFound from './NotFound.jsx'
 import { useProductos } from '../hooks/useProductos.js'
 import { Helmet } from 'react-helmet-async';
@@ -32,7 +33,7 @@ function SkeletonProducto() {
     <div className="producto-page">
       <div className="producto-hero">
         <div className="skeleton" style={{ minHeight: 480 }} />
-        <div style={{ padding: '64px 48px', background: 'var(--dark)', display: 'flex', flexDirection: 'column', gap: 20 }}>
+        <div style={{ padding: '64px 48px', background: 'var(--bg)', display: 'flex', flexDirection: 'column', gap: 20 }}>
           <div className="skeleton skeleton-line" style={{ width: '30%', height: 12 }} />
           <div className="skeleton skeleton-line" style={{ width: '80%', height: 56 }} />
           <div className="skeleton skeleton-line" style={{ width: '40%', height: 12 }} />
@@ -159,25 +160,8 @@ export default function ProductoPage() {
           </div>
         )}
 
-        {/* ── FOOTER MINI ── */}
-        <footer>
-          <div className="footer-inner">
-            <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
-              <img src={`${BASE}logo.png`} alt="Correa Tools" style={{ height: '48px', width: '48px', objectFit: 'contain', borderRadius: '50%' }} />
-            </Link>
-            <ul className="footer-nav">
-              <li><Link to="/" style={{ color: 'var(--gray)', textDecoration: 'none' }}>Principal</Link></li>
-              <li><Link to="/#productos" style={{ color: 'var(--gray)', textDecoration: 'none' }}>Productos</Link></li>
-              <li><Link to="/#contactenos" style={{ color: 'var(--gray)', textDecoration: 'none' }}>Contáctenos</Link></li>
-            </ul>
-            <a className="btn-primary" href={`https://wa.me/${waNumero}/?text=${waMsg}`} target="_blank" rel="noreferrer">
-              Escríbenos
-            </a>
-          </div>
-          <div className="footer-bottom">
-            <p className="footer-copy">© 2025 <span>Correa Tools</span>. Bogotá, Colombia.</p>
-          </div>
-        </footer>
+        {/* ── FOOTER ── */}
+        <Footer waNumero={waNumero} waMensaje={waMsg} />
       </div>
       <WaFloat mensaje={waMsg} />
     </>

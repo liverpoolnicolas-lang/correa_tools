@@ -379,6 +379,7 @@
   "id": "CT024",
   "nombre": "Desmontadora 3 Pedales",
   "slug": "Desmontadora-3-Pedales",
+  "descripcion": "Desmontadora de neumáticos semiautomática TK536 de 3 pedales, con calibrador de aire incorporado y capacidad para rines de hasta 24. Funciona a 220 V y tiene garantía de 12 meses.",
   "puntos":[
     "Desmontadora semiautomática TK536",
     "3 pedales",
@@ -397,6 +398,7 @@
     "id":"CT025",
     "nombre":"Compresor 5 HP",
     "slug":"Compresor-5-HP",
+    "descripcion": "Compresor de 5 HP con tanque de 140 galones, motor Marathon y cabezote italiano. Incluye presostato de 250 PSI, válvula de alivio, guarda poleas y pintura electrostática, con garantía de 12 meses.",
     "puntos":[
 "Compresor de 5 HP",
 "Tanque de 140 galones",
@@ -419,6 +421,7 @@
     "id":"CT026",
     "nombre":"Desmontadora TK897 de 4 pedales",
     "slug":"Desmontadora-TK897-de-4-pedales",
+    "descripcion": "Desmontadora TK897 semiautomática de 4 pedales para rines de hasta 26 pulgadas, con despegador y botellas neumáticas de alta presión, tanque de reserva y pedales metálicos. Opera a 110 V y tiene garantía de 12 meses.",
     "puntos":[
 "Desmontadora TK897",
 "4 pedales",
@@ -439,6 +442,7 @@
     "id":"CT027",
     "nombre":"Extractor de Aceite",
     "slug":"Extractor-de-Aceite",
+    "descripcion": "Extractor de aceite con taza de conteo y bandeja de 10 L, que trabaja con una fuente de aire de 7.9 bar y drena a 0.6 - 0.8 bar. Garantía de 12 meses por defecto de fabricación.",
     "puntos":[
 "Presión de fuente de aire: 7.9 bar",
 "Presión de drenaje de aceite: 0.6 - 0.8 bar",
@@ -453,5 +457,170 @@
     "categoria":"TK",
     "imagen":"CT027.jpeg",
     "subcategoria":"Compresores y Extractores"
+  },
+  {
+    "id": "CT028",
+    "nombre": "Escáner Autel MaxiCOM MK808K-BT",
+    "slug": "autel-maxicom-mk808k-bt",
+    "descripcion": "Escáner bidireccional para diagnosticar todos los sistemas del vehículo, con tableta Android de 7 pulgadas y comunicación inalámbrica por Bluetooth. Lee y borra códigos, muestra datos en vivo, hace pruebas activas y servicios como reseteo de aceite, freno de estacionamiento electrónico, ángulo de dirección, batería y filtro de partículas diésel.",
+    "puntos": [
+      "Tableta Android 11 con pantalla táctil de 7 pulgadas (1024 x 600)",
+      "Procesador de 4 núcleos Cortex-A55 a 1,8 GHz, 4 GB de RAM y 64 GB de memoria",
+      "Comunicación inalámbrica por Bluetooth con el vehículo",
+      "Diagnóstico de todos los sistemas, pruebas activas y funciones de servicio",
+      "Servicios: aceite, freno de estacionamiento (EPB), ángulo de dirección (SAS), baterías (BMS) y filtro de partículas (DPF)",
+      "AutoVIN: identifica marca, modelo y año del vehículo automáticamente",
+      "Compatible con análisis de batería y videoscopio (accesorios opcionales)",
+      "Cobertura de vehículos de EE. UU., Asia y Europa, modelos 1996 en adelante",
+      "Batería de 5000 mAh y actualizaciones por Wi-Fi"
+    ],
+    "categoria": "Autel",
+    "imagen": "CT028.png",
+    "subcategoria": "Escáneres de diagnóstico"
+  },
+  {
+    "id": "CT029",
+    "nombre": "Escáner Autel MaxiDAS DS900",
+    "slug": "autel-maxidas-ds900",
+    "descripcion": "Tableta de diagnóstico de todos los sistemas con pantalla de 8 pulgadas, para vehículos de EE. UU., Asia y Europa desde 1996. Incluye codificación de ECU, más de 40 servicios, pruebas activas bidireccionales y reportes de pre y post escaneo, con soporte para los protocolos DoIP y CAN FD.",
+    "puntos": [
+      "Android 11 con pantalla táctil de 8 pulgadas (1280 x 800)",
+      "Procesador de 4 núcleos a 1,8 GHz, 4 GB de RAM y 64 GB de memoria",
+      "Cámara trasera de 8 MP y batería de 7700 mAh",
+      "Codificación de ECU en línea y fuera de línea",
+      "Más de 40 servicios: purga de ABS, reseteo de aceite, SAS, SRS, BMS, EPB, codificación de inyectores y más",
+      "Pruebas activas bidireccionales",
+      "Reportes de pre y post escaneo, con impresión por Wi-Fi",
+      "Protocolos DoIP y CAN FD",
+      "AutoVIN para identificar el vehículo fácilmente",
+      "Se conecta al vehículo con cable principal",
+      "Incluye cable principal, adaptador de corriente, cable USB tipo C y maletín"
+    ],
+    "categoria": "Autel",
+    "imagen": "CT029.png",
+    "subcategoria": "Escáneres de diagnóstico"
+  },
+  {
+    "id": "CT030",
+    "nombre": "Escáner Autel MaxiSYS MS908",
+    "slug": "autel-maxisys-ms908",
+    "descripcion": "Plataforma de diagnóstico MaxiSYS con tableta Android y comunicación inalámbrica por Bluetooth con la interfaz del vehículo, para diagnóstico profesional de todos los sistemas con pruebas bidireccionales y funciones de servicio. Incluye kit completo de conectores y puede ampliarse a MaxiSYS Pro con un dispositivo J2534 para programación de ECU.",
+    "puntos": [
+      "Tableta Android con pantalla táctil de 9,7 pulgadas (1024 x 768)",
+      "Procesador de 4 núcleos a 1,4 GHz y 32 GB de memoria interna",
+      "Interfaz del vehículo inalámbrica por Bluetooth",
+      "Incluye kit completo de conectores",
+      "Diagnóstico de todos los sistemas y funciones de servicio",
+      "Ampliable a MaxiSYS Pro con un dispositivo J2534 (programación de ECU)",
+      "Accesorios opcionales: cámara de inspección MaxiVideo MV108 y equipo TPMS TS401"
+    ],
+    "categoria": "Autel",
+    "imagen": "CT030.png",
+    "subcategoria": "Escáneres de diagnóstico"
+  },
+  {
+    "id": "CT031",
+    "nombre": "Escáner Autel MaxiSYS MS906 MAX",
+    "slug": "autel-maxisys-ms906-max",
+    "descripcion": "Tableta de diagnóstico y servicio de 10,1 pulgadas con la interfaz Bluetooth MaxiVCI V200 incluida. Diagnostica todos los sistemas, hace pruebas activas, funciones especiales, codificación y adaptaciones, y ejecuta más de 40 servicios como reseteo de aceite, regeneración del DPF, ángulo de dirección, airbag y purga de frenos.",
+    "puntos": [
+      "Android 10 con pantalla táctil de 10,1 pulgadas (1920 x 1200)",
+      "Procesador de 8 núcleos, 4 GB de RAM y 128 GB de memoria",
+      "Cámara trasera de 13 MP y batería de 11600 mAh",
+      "Interfaz MaxiVCI V200 con Bluetooth incluida",
+      "Pre y post escaneo, e identificación del vehículo con AutoVIN o ScanVIN",
+      "Más de 40 servicios: aceite, DPF, SAS, airbag, asiento de ocupación y purga de frenos",
+      "Codificación y adaptaciones",
+      "Protocolos avanzados como CAN FD y DoIP (ISO 13400)",
+      "Prueba de batería, arranque y carga, y videoscopio con productos adicionales",
+      "Cobertura de vehículos de EE. UU., Asia y Europa, modelos 1996 en adelante"
+    ],
+    "categoria": "Autel",
+    "imagen": "CT031.png",
+    "subcategoria": "Escáneres de diagnóstico"
+  },
+  {
+    "id": "CT032",
+    "nombre": "Lavador y probador de inyectores Autool CT400",
+    "slug": "autool-ct400",
+    "descripcion": "Lavador y probador de inyectores de 6 cilindros con limpieza por ultrasonido, para inyectores de gasolina estándar (EFI, FSI) y de inyección directa GDI. Maneja inyectores de 12 V, 70 V y 120 V y realiza pruebas de uniformidad, pulverización, fugas y caudal, además de lavado inverso y limpieza sin desmontaje.",
+    "puntos": [
+      "6 cilindros",
+      "Limpieza por ultrasonido a 28 kHz",
+      "Compatible con inyectores EFI, FSI y GDI (12 V, 70 V y 120 V)",
+      "12 funciones: ultrasonido, pruebas de ralentí, media y alta velocidad, aceleración, cambio de velocidades, fugas, caudal, lavado inverso y limpieza sin desmontaje",
+      "Pantalla digital de control y luz LED para observar el chorro",
+      "Regulación electrónica de presión: 0 - 0,55 MPa",
+      "Tanque de 1500 ml y probeta de 140 ml",
+      "Rango de revoluciones: 0 - 7500 r/min",
+      "Alimentación: 110/220 V",
+      "Peso: 16,6 kg"
+    ],
+    "categoria": "Autool",
+    "imagen": "CT032.png",
+    "subcategoria": "Lavadores y probadores de inyectores"
+  },
+  {
+    "id": "CT033",
+    "nombre": "Lavador y probador de inyectores Autool CT500",
+    "slug": "autool-ct500",
+    "descripcion": "Lavador y probador de inyectores de 6 cilindros con limpieza ultrasónica y pantalla a color, para inyectores GDI, EFI y FSI. Soporta 12 V, 70 V y 120 V y ofrece 15 funciones de prueba y limpieza, con tanque de 2000 ml y presión de sistema de hasta 0,8 MPa.",
+    "puntos": [
+      "6 cilindros",
+      "Limpieza por ultrasonido",
+      "Compatible con inyectores GDI, EFI y FSI",
+      "Inyectores de 12 V, 70 V y 120 V",
+      "Pantalla a color de alta definición",
+      "15 funciones de prueba y limpieza",
+      "Tanque de 2000 ml y probeta de 140 ml",
+      "Presión del sistema: 0 - 0,8 MPa",
+      "Rango de revoluciones: 0 - 7500 r/min",
+      "Ancho de pulso: 0 - 40 ms",
+      "Número de inyecciones: 0 - 9900"
+    ],
+    "categoria": "Autool",
+    "imagen": "CT033.png",
+    "subcategoria": "Lavadores y probadores de inyectores"
+  },
+  {
+    "id": "CT034",
+    "nombre": "Detector de fugas por humo Autool SDT103",
+    "slug": "autool-sdt103",
+    "descripcion": "Detector de fugas por humo para el sistema EVAP y otros circuitos del vehículo. Genera humo en unos 10 segundos y, con el medidor de flujo visual y el adaptador para airbag, ayuda a encontrar fugas en admisión, escape, tanque de combustible, mangueras y sellos. Funciona con 12 V y aire de taller.",
+    "puntos": [
+      "Alimentación: 12 V DC, aprox. 3 A",
+      "Presión de salida: 3,2 kPa (0,46 psi)",
+      "Caudal de humo: hasta 10 L/min",
+      "Produce humo en unos 10 segundos",
+      "Medidor de flujo visual",
+      "Protección contra sobrecalentamiento y congelamiento",
+      "Se conecta a la batería de 12 V y a una fuente de aire comprimido",
+      "Detecta fugas en admisión, escape, tanque, tuberías y sellos",
+      "Incluye manguera y adaptadores (el aceite para humo no está incluido)",
+      "Para autos, motos, camionetas livianas, ATV y lanchas"
+    ],
+    "categoria": "Autool",
+    "imagen": "CT034.png",
+    "subcategoria": "Equipos de servicio"
+  },
+  {
+    "id": "CT035",
+    "nombre": "Cambiador de líquido de frenos Autool AST605",
+    "slug": "autool-ast605",
+    "descripcion": "Cambiador de líquido de frenos de tipo pulsante, para trabajar con una sola persona. El sistema pulsante evita burbujas de aire al llenar y reduce o elimina el purgado manual, con función de recuperación del líquido usado y manómetro de presión integrado. Compatible con líquidos DOT3, DOT4 y DOT5.1.",
+    "puntos": [
+      "Tecnología pulsante: evita burbujas de aire al llenar el sistema",
+      "Función de recuperación del líquido usado",
+      "Manómetro de presión integrado",
+      "Presión ajustable",
+      "Compatible con líquidos DOT3, DOT4 y DOT5.1",
+      "Para vehículos europeos, americanos y asiáticos",
+      "Operación con una sola persona",
+      "Versiones de 110 V y 220 V (confirmar al cotizar)",
+      "Incluye depósito para líquido usado, mangueras, 3 conectores y manual"
+    ],
+    "categoria": "Autool",
+    "imagen": "CT035.png",
+    "subcategoria": "Equipos de servicio"
   }
 ]

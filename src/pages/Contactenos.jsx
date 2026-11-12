@@ -29,7 +29,7 @@ export default function Contactenos() {
               <div className="contacto-info">
                 {[
                   { icon: '📍', label: 'Dirección', value: 'Locales 22-23, Cra 22 #17-60\nBogotá, Colombia' },
-                  { icon: '📱', label: 'Celular / WhatsApp', value: '+57 320 494 6978', href: 'tel:+573204946978' },
+                  { icon: '📱', label: 'Celular / WhatsApp', value: '+57 320 494 6978', href: 'tel:+573204946978', extra: { value: '+57 310 333 5225', href: 'tel:+573103335225' } },
                   { icon: '💬', label: 'WhatsApp directo', value: 'Enviar mensaje →', href: 'https://wa.me/+573204946978/?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20%F0%9F%94%A7', external: true, highlight: true },
                 ].map(item => (
                   <div className="info-item" key={item.label}>
@@ -41,6 +41,9 @@ export default function Contactenos() {
                           ? <a href={item.href} target={item.external ? '_blank' : undefined} rel={item.external ? 'noreferrer' : undefined} style={item.highlight ? { color: 'var(--orange)', fontWeight: 700 } : {}}>{item.value}</a>
                           : item.value.split('\n').map((line, i) => <span key={i}>{line}{i === 0 ? <br /> : ''}</span>)
                         }
+                        {item.extra && (
+                          <><br /><a href={item.extra.href}>{item.extra.value}</a></>
+                        )}
                       </div>
                     </div>
                   </div>
