@@ -15,7 +15,7 @@ export default defineConfig({
     Sitemap({
       hostname: 'https://correatools.com.co/',
       // '/' lo agrega el plugin solo (desde index.html); '/404' se excluye
-      exclude: ['/404'],
+//      exclude: ['/404'],
       dynamicRoutes: [
         '/contactenos',
         '/clientes',
@@ -25,5 +25,5 @@ export default defineConfig({
       outDir: 'dist',
     })
   ],
-  base: '/',
+//  base: '/',
 })

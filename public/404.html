@@ -6,7 +6,7 @@
     <script>
       // Truco para GitHub Pages: redirige /producto/slug a /?/producto/slug
       // React Router lo interpreta correctamente al cargar (main.jsx decodifica el ?/)
-      var segmentCount = 0; // 0 = el sitio está en la raíz del dominio (correatools.com.co)
+      var segmentCount = 1; // 0 = el sitio está en la raíz del dominio (correatools.com.co)
       var l = window.location;
       l.replace(
         l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
