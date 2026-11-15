@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar.jsx'
 import WaFloat from '../components/WaFloat.jsx'
@@ -6,6 +6,7 @@ import Footer from '../components/Footer.jsx'
 import NotFound from './NotFound.jsx'
 import { useProductos } from '../hooks/useProductos.js'
 import { Helmet } from 'react-helmet-async';
+import '../promo.css'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -51,8 +52,9 @@ export default function ProductoPage() {
   const { slug } = useParams()
   const navigate = useNavigate()
   const { productos, loading } = useProductos()
+  const [imgIdx, setImgIdx] = useState(0)
 
-  useEffect(() => { window.scrollTo(0, 0) }, [slug])
+  useEffect(() => { window.scrollTo(0, 0); setImgIdx(0) }, [slug])
 
   if (loading) return <><Navbar /><SkeletonProducto /></>
 
@@ -61,7 +63,10 @@ export default function ProductoPage() {
   if (!producto) return <NotFound mensaje={`El producto "${slug}" no fue encontrado`} />
 
   const youtubeId = getYoutubeId(producto.video)
-  const imgSrc = `${BASE}img/${producto.imagen}`
+  // Galería: "imagenes" (opcional) trae varias fotos; si no existe se usa "imagen"
+  const imagenes = producto.imagenes && producto.imagenes.length ? producto.imagenes : [producto.imagen]
+  const imgSrc = `${BASE}img/${imagenes[0]}`
+  const imgActual = `${BASE}img/${imagenes[imgIdx] || imagenes[0]}`
   const waMsg = encodeURIComponent(`Hola, quiero consultar el precio del ${producto.nombre}`)
   const waNumero = getWaNumero(producto.categoria)
 
@@ -94,16 +99,35 @@ export default function ProductoPage() {
         <div className="producto-hero">
           {/* Imagen */}
           <div className="producto-img-side">
-            <img
-              src={imgSrc}
-              alt={producto.nombre}
-              className="producto-img-principal"
-              onError={e => {
-                e.target.style.display = 'none'
-                e.target.nextSibling && (e.target.nextSibling.style.display = 'flex')
-              }}
-            />
-            <div className="producto-img-placeholder-lg" style={{ display: 'none' }}>🔧</div>
+            <div className="producto-gallery">
+              <img
+                key={imgActual}
+                src={imgActual}
+                alt={producto.nombre}
+                className="producto-img-principal"
+                onError={e => {
+                  e.target.style.display = 'none'
+                  e.target.nextSibling && (e.target.nextSibling.style.display = 'flex')
+                }}
+              />
+              <div className="producto-img-placeholder-lg" style={{ display: 'none' }}>🔧</div>
+
+              {imagenes.length > 1 && (
+                <div className="producto-thumbs">
+                  {imagenes.map((f, i) => (
+                    <button
+                      key={f}
+                      type="button"
+                      className={'producto-thumb' + (i === imgIdx ? ' active' : '')}
+                      onClick={() => setImgIdx(i)}
+                      aria-label={`Ver imagen ${i + 1} de ${imagenes.length}`}
+                    >
+                      <img src={`${BASE}img/${f}`} alt="" />
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Info */}
@@ -121,6 +145,7 @@ export default function ProductoPage() {
 
             <h1 className="producto-title">{producto.nombre}</h1>
             <span className="producto-cat-badge">{producto.categoria}</span>
+            {producto.nuevo && <span className="promo-badge promo-badge--inline">🔥 Nuevo producto</span>}
             <p className="producto-desc-full">{producto.descripcion}</p>
 
             {producto.puntos && producto.puntos.length > 0 && (

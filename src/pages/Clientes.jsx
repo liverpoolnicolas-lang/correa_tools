@@ -33,6 +33,7 @@ const ENTREGAS = [
     texto:
       "Entregamos a nuestro cliente un lavador y probador de inyectores marca Autool, para limpiar y comprobar el estado de los inyectores en su taller. Gracias por confiar en Correa Tools.",
     mensaje: "Hola, vi el lavador y probador de inyectores Autool que entregaron a un cliente y quiero consultar el precio 🔧",
+    producto: "autool-ct400",
   },
 ]
 

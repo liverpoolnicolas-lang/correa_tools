@@ -1,0 +1,83 @@
+/* ───────────────────────────────────────────
+   PROMOCIÓN "NUEVO PRODUCTO"
+   (carrusel, tarjeta destacada y página de producto)
+─────────────────────────────────────────── */
+@keyframes promoPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(200, 90, 16, 0.55); }
+  50%      { box-shadow: 0 0 0 10px rgba(200, 90, 16, 0); }
+}
+@keyframes promoShine {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.promo-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: linear-gradient(90deg, var(--orange) 0%, var(--orange-light) 50%, var(--orange) 100%);
+  background-size: 200% 100%;
+  color: #fff; font-weight: 800; font-size: 12px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 7px 14px; border-radius: 40px;
+  animation: promoPulse 1.8s infinite, promoShine 3s linear infinite;
+}
+
+/* ── CARRUSEL (página principal) ── */
+.carrusel-slide--nuevo::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 42%,
+    rgba(232, 118, 42, 0.30) 0%, rgba(232, 118, 42, 0.10) 45%, transparent 72%);
+}
+.carrusel-slide .promo-badge { position: absolute; top: 20px; left: 20px; z-index: 3; font-size: 13px; }
+.carrusel-slide--nuevo .carrusel-nombre { font-size: clamp(24px, 3vw, 38px); }
+.carrusel-lema { font-size: 14px; font-weight: 700; color: var(--text-2); }
+
+/* ── TARJETA DESTACADA (junto a las categorías de la marca) ── */
+.promo-card {
+  position: relative; grid-column: span 2; overflow: hidden;
+  display: flex; flex-direction: row; align-items: center; gap: 18px;
+  padding: 22px; text-decoration: none;
+  border: 2px solid var(--orange); border-radius: 12px;
+  background: linear-gradient(135deg, #fff 0%, var(--orange-pale) 100%);
+  box-shadow: 0 8px 28px rgba(200, 90, 16, 0.22);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.promo-card:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(200, 90, 16, 0.32); }
+.promo-badge--card { position: absolute; top: 12px; left: 12px; z-index: 2; font-size: 11px; padding: 5px 11px; }
+.promo-card-img { flex: 0 0 46%; display: flex; align-items: center; justify-content: center; padding-top: 28px; }
+.promo-card-img img { width: 100%; max-height: 160px; object-fit: contain; mix-blend-mode: multiply; display: block; }
+.promo-card-body { display: flex; flex-direction: column; gap: 6px; min-width: 0; padding-top: 28px; }
+.promo-card-title {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 900;
+  line-height: 1.05; text-transform: uppercase; color: var(--text); margin: 0;
+}
+.promo-card-lema { font-size: 13px; font-weight: 700; color: var(--orange); margin: 0; }
+.promo-card-cta {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: 4px;
+  font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--orange); transition: gap 0.2s;
+}
+.promo-card:hover .promo-card-cta { gap: 10px; }
+
+/* ── PÁGINA DE PRODUCTO: etiqueta y galería ── */
+.promo-badge--inline { margin: 0 0 24px 10px; vertical-align: top; }
+.producto-gallery { display: flex; flex-direction: column; align-items: center; gap: 18px; max-width: 100%; }
+.producto-gallery .producto-img-principal { max-height: 58vh; }
+.producto-thumbs { display: flex; gap: 12px; }
+.producto-thumb {
+  width: 88px; height: 66px; padding: 4px; cursor: pointer;
+  background: #fff; border: 2px solid var(--border-c); border-radius: 8px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.producto-thumb:hover { transform: translateY(-2px); }
+.producto-thumb.active, .producto-thumb:hover { border-color: var(--orange); }
+.producto-thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: 4px; display: block; }
+
+@media (max-width: 700px) {
+  .carrusel-slide .promo-badge { top: 12px; left: 12px; font-size: 11px; padding: 5px 10px; }
+  .carrusel-lema { font-size: 12px; }
+}
+@media (max-width: 420px) {
+  .promo-card { grid-column: auto; flex-direction: column; text-align: center; }
+  .promo-card-img { flex-basis: auto; width: 100%; }
+  .promo-card-body { align-items: center; padding-top: 0; }
+}

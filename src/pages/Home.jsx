@@ -3,6 +3,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import Navbar from '../components/Navbar.jsx'
 import WaFloat from '../components/WaFloat.jsx'
 import Footer from '../components/Footer.jsx'
+import '../promo.css'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -92,7 +93,7 @@ function Carrusel({ items }) {
         {items.map((p, i) => (
           <div
             key={p.tipo === 'banner' ? 'banner' : p.id}
-            className={'carrusel-slide' + (i === current ? ' active' : '')}
+            className={'carrusel-slide' + (i === current ? ' active' : '') + (p.nuevo ? ' carrusel-slide--nuevo' : '')}
             aria-hidden={i !== current}
           >
             <img
@@ -105,9 +106,11 @@ function Carrusel({ items }) {
             {p.tipo === 'producto' && (
               <>
                 <div className="carrusel-overlay" />
+                {p.nuevo && <span className="promo-badge">🔥 Nuevo producto</span>}
                 <Link to={'/producto/' + p.slug} className="carrusel-info">
                   <span className="carrusel-cat">{p.categoria}</span>
                   <span className="carrusel-nombre">{p.nombre}</span>
+                  {p.nuevo && p.lema && <span className="carrusel-lema">{p.lema}</span>}
                   <span className="carrusel-cta">
                     Ver producto
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
